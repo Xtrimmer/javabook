@@ -10,7 +10,7 @@ public class PE_05_36_Business_application_checking_ISBN {
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
         String input = null;
-        String output = null;
+        String output;
         int calculation = 0;
         int isbn = 0;
         boolean valid = false;
@@ -23,7 +23,7 @@ public class PE_05_36_Business_application_checking_ISBN {
             } catch (Exception e){
                 System.out.println("Unable to process input. Try again.");
             }
-            if (input.length() != 9){
+            if (input != null && input.length() != 9) {
                 System.out.println("The input does not contain 9 numbers");
                 valid = false;
             }
