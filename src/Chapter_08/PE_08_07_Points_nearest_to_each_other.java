@@ -36,10 +36,9 @@ public class PE_08_07_Points_nearest_to_each_other {
         System.out.println("The closest two points are (" + points[point1][0] + ", " + points[point1][1] + ", " +
                 points[point1][2] + ") and (" + points[point2][0] + ", " + points[point2][1] + ", " +
                 points[point2][2] + ")");
-
     }
 
-    public static double computeDistance(double[] p1, double[] p2){
+    public static double computeDistance(double[] p1, double[] p2) {
         return Math.sqrt(Math.pow(p2[0] - p1[0], 2) + Math.pow(p2[1] - p1[1], 2) + Math.pow(p2[2] - p1[2], 2));
     }
 }
