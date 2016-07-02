@@ -31,7 +31,7 @@ public class PE_08_24_Check_Sudoku_solution {
     /**
      * Read a Sudoku solution from the console
      */
-    public static int[][] readASolution() {
+    private static int[][] readASolution() {
         // Create a Scanner
         Scanner input = new Scanner(System.in);
 
@@ -47,7 +47,7 @@ public class PE_08_24_Check_Sudoku_solution {
     /**
      * Check whether a solution is valid
      */
-    public static boolean isValid(int[][] grid) {
+    private static boolean isValid(int[][] grid) {
         return isRowsValid(grid) && isColumnsValid(grid) && isSubRegionsValid(grid);
     }
 
