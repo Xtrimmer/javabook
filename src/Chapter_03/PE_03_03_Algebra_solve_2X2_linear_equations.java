@@ -11,6 +11,12 @@ import java.util.Scanner;
  *
  * Write a program that prompts the user to enter a, b, c, d, e, and f and displays the
  * result. If ad - bc is 0, report that “The equation has no solution”.
+ *
+ *      Enter a, b, c, d, e, f: 9.0 4.0 3.0 -5.0 -6.0 -21.0 (enter)
+ *      x is -2.0 and y is 3.0
+ *
+ *      Enter a, b, c, d, e, f: 1.0 2.0 2.0 4.0 4.0 5.0 (enter)
+ *      The equation has no solution
  */
 public class PE_03_03_Algebra_solve_2X2_linear_equations {
     public static void main(String[] args) {
