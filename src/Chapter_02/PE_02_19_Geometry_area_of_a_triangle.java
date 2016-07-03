@@ -8,6 +8,11 @@ import java.util.Scanner;
  *      s = (side1 + side2 + side3)/2;
  *               __________________________________
  *      area = √2s(s - side1)(s - side2)(s - side3)
+ *
+ * Here is a sample run:
+ *
+ *      Enter three points for a triangle: 1.5 -3.4 4.6 5 9.5 -3.4 (enter)
+ *      The area of the triangle is 33.6
  */
 public class PE_02_19_Geometry_area_of_a_triangle {
     public static void main(String[] args) {
