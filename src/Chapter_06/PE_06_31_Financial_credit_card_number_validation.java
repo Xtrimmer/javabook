@@ -6,10 +6,10 @@ import java.util.Scanner;
  * (Financial: credit card number validation) Credit card numbers follow certain patterns.
  * A credit card number must have between 13 and 16 digits. It must start with:
  *
- * ■ 4 for Visa cards
- * ■ 5 for Master cards
- * ■ 37 for American Express cards
- * ■ 6 for Discover cards
+ * - 4 for Visa cards
+ * - 5 for Master cards
+ * - 37 for American Express cards
+ * - 6 for Discover cards
  *
  * In 1954, Hans Luhn of IBM proposed an algorithm for validating credit card
  * numbers. The algorithm is useful to determine whether a card number is entered
