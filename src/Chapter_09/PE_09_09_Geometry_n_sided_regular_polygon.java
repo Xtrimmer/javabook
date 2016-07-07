@@ -22,7 +22,7 @@ package Chapter_09;
  * - The accessor and mutator methods for all data fields.
  * - The method getPerimeter() that returns the perimeter of the polygon.
  * - The method getArea() that returns the area of the polygon. The formula for
- * computing the area of a regular polygon is Area = (n * s^2) / 4 * tan(Pi / n)
+ * computing the area of a regular polygon is Area = (n * s^2) / (4 * tan(Pi / n))
  *
  * Draw the UML diagram for the class and then implement the class. Write a test
  * program that creates three RegularPolygon objects, created using the no-arg
