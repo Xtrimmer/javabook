@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 10 Exercise 01
+ */
 public class Time {
     private int hour;
     private int minute;
