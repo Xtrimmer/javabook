@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 13.
+ */
 public class Location {
     public int row;
     public int column;

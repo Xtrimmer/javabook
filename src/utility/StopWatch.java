@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 06.
+ */
 public class StopWatch{
     private long startTime;
     private long endTime;

@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 11.
+ */
 public class LinearEquation {
     private final double a;
     private final double b;

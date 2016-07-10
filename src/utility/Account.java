@@ -2,6 +2,9 @@ package utility;
 
 import java.util.Date;
 
+/**
+ * Added in Chapter 09 Exercise 07.
+ */
 public class Account {
     private int id = 0;
     private double balance = 0;

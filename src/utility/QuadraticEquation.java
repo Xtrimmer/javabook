@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 10.
+ */
 public class QuadraticEquation {
     private final double a;
     private final double b;

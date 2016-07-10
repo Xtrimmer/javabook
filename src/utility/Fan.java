@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 08.
+ */
 public class Fan {
     public static final int SLOW = 1;
     public static final int MEDIUM = 2;

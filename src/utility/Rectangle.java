@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 01.
+ */
 public class Rectangle {
     private double width;
     private double height;

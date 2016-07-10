@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 09.
+ */
 public class RegularPolygon {
     private int n = 3;
     private double side = 1;

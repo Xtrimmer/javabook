@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added in Chapter 09 Exercise 02.
+ */
 public class Stock {
     private String symbol;
     private String name;
