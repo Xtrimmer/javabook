@@ -55,12 +55,12 @@ public class Account {
         return balance * (getMonthlyInterestRate() / 100.0);
     }
 
-    public double withdraw(double amount) {
+    public int withdraw(double amount) {
         if (balance >= amount) {
             balance -= amount;
-            return amount;
+            return 1;
         } else {
-            return 0;
+            return -1;
         }
     }
 
