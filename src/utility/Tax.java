@@ -96,6 +96,6 @@ public class Tax {
                     + (taxableIncome - brackets[filingStatus][4]) * rates[5];
         return tax;
     }
-    
+
     
 }
