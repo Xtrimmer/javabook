@@ -43,14 +43,14 @@ public class PE_10_08_Financial_the_Tax_class {
         printTaxTable(tax1, "2009");
         System.out.println();
         int[][] brackets = {
-                {27050, 65550, 136750, 297350},   // Single filer
-                {45200, 109250, 166500, 297350},  // Married jointly
+                {27050, 65550, 136750, 297350, 297350},   // Single filer
+                {45200, 109250, 166500, 297350, 297350},  // Married jointly
                 // -or qualifying widow(er)
-                {22600, 54625, 83250, 148675},   // Married separately
-                {36250, 93650, 151650, 297350}  // Head of household
+                {22600, 54625, 83250, 148675, 148675},   // Married separately
+                {36250, 93650, 151650, 297350, 297350}  // Head of household
         };
         double[] rates =
-                {0.15, 0.275, 0.305, 0.355, 0.391};
+                {0.15, 0.275, 0.305, 0.355, 0.391, 0.391};
         Tax tax2 = new Tax(0, brackets, rates, 0);
         printTaxTable(tax2, "2001");
     }

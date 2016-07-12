@@ -10,7 +10,7 @@ public class Tax {
     private static final int[][] DEFAULT_BRACKETS = {
             {8350, 33950, 82250, 171550, 372950},   // Single filer
             {16700, 67900, 137050, 20885, 372950},  // Married jointly
-            // -or qualifying widow(er)
+                                                    // -or qualifying widow(er)
             {8350, 33950, 68525, 104425, 186475},   // Married separately
             {11950, 45500, 117450, 190200, 372950}  // Head of household
     };
