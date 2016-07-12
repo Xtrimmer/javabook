@@ -3,7 +3,8 @@ package utility;
 import java.util.Date;
 
 /**
- * Added in Chapter 09 Exercise 07.
+ * Added for Chapter 09 Exercise 07.
+ * Used in Chapter 10 Exercise 07.
  */
 public class Account {
     private int id = 0;

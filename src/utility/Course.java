@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added for Chapter 10 Exercise 09.
+ */
 public class Course {
     private String courseName;
     private String[] students = new String[100];

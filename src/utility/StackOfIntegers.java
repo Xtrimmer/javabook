@@ -1,7 +1,8 @@
 package utility;
 
 /**
- * Added for Chapter 10 Exercise 05 & 06.
+ * Added for Chapter 10 Exercise 05
+ * Used in Chapter 10 Exercise 06.
  */
 public class StackOfIntegers {
     private int[] elements;

@@ -1,5 +1,8 @@
 package utility;
 
+/**
+ * Added for Chapter 10 Exercise 08.
+ */
 public class Tax {
     public static final int SINGLE_FILER = 0;
     public static final int MARRIED_JOINTLY_OR_QUALIFYING_WIDOWER = 1;
