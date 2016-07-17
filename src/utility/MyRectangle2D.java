@@ -2,6 +2,7 @@ package utility;
 
 /**
  * Added for Chapter 10 Exercise 13.
+ * Used for  Chapter 10 Exercise 15.
  */
 public class MyRectangle2D {
     private double x;
