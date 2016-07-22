@@ -16,7 +16,7 @@ public class MyStringBuilder1 {
         while (values.length < this.size + s.size) expand();
         System.arraycopy(s.values, 0, values, size, s.size);
         size += s.size;
-        return new MyStringBuilder1(this.toString());
+        return this;
     }
 
     public MyStringBuilder1 append(int i) {
@@ -24,7 +24,7 @@ public class MyStringBuilder1 {
         while (values.length < this.size + intLength) expand();
         System.arraycopy(Integer.toString(i).toCharArray(), 0, values, size, intLength);
         size += intLength;
-        return new MyStringBuilder1(this.toString());
+        return this;
     }
 
     public int length() {
@@ -39,7 +39,7 @@ public class MyStringBuilder1 {
         for (int i = 0; i < size; i++) {
             values[i] = Character.toLowerCase(values[i]);
         }
-        return new MyStringBuilder1(this.toString());
+        return this;
     }
 
     public MyStringBuilder1 substring(int begin, int end) {

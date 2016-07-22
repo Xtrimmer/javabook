@@ -39,7 +39,7 @@ public class PE_10_25_New_string_split_method {
                     minIndex = 0;
                     break;
                 }
-                else if (index >= 0 && index < minIndex) {
+                else if (index > 0 && index < minIndex) {
                     minIndex = index;
                     delimiterLength = delimiter.length();
                 }
