@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  * Added for Chapter 09 Exercise 07.
  * Used in Chapter 10 Exercise 07.
+ * Used in Chapter 11 Exercise 03.
  */
 public class Account {
     private int id = 0;
@@ -67,5 +68,15 @@ public class Account {
 
     public void deposit(double amount) {
         balance += amount;
+    }
+
+    //Added for Chapter 11 Exercise 03.
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", balance=" + balance +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
 }
