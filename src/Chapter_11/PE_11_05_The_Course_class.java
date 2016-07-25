@@ -1,7 +1,6 @@
 package Chapter_11;
 
-import utility.Course_11_05;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -10,12 +9,10 @@ import java.util.Arrays;
  * You should not change the original contract of the Course class (i.e., the definition
  * of the constructors and methods should not be changed, but the private
  * members may be changed.)
- *
- * (New class named Course_11_05)
  */
 public class PE_11_05_The_Course_class {
     public static void main(String[] args) {
-        Course_11_05 course = new Course_11_05("Class");
+        Course course = new Course("Class");
         course.addStudent("Allen");
         course.addStudent("Bob");
         course.addStudent("Charlie");
@@ -28,5 +25,34 @@ public class PE_11_05_The_Course_class {
         System.out.println("Course: " + course.getCourseName());
         System.out.println("Students: " + Arrays.toString(course.getStudents()));
         System.out.println("Student count: " + course.getNumberOfStudents());
+    }
+}
+
+class Course {
+    private String courseName;
+    private ArrayList<String> students = new ArrayList<>();
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public void addStudent(String student) {
+        students.add(student);
+    }
+
+    public String[] getStudents() {
+        return students.toArray(new String[students.size()]);
+    }
+
+    public int getNumberOfStudents() {
+        return students.size();
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void dropStudent(String student) {
+        students.remove(student);
     }
 }
