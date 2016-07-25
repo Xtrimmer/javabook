@@ -27,7 +27,7 @@ public class PE_11_04_Maximum_element_in_ArrayList {
         System.out.println("Enter a sequence of numbers ending with 0: ");
         int next = scanner.nextInt();
         while (next != 0) {
-            list.add(new Integer(next));
+            list.add(next);
             next = scanner.nextInt();
         }
         return list;
