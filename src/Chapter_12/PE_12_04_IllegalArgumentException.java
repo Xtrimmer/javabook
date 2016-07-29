@@ -45,7 +45,7 @@ public class PE_12_04_IllegalArgumentException {
         if (annualInterestRate >= 0) {
             this.annualInterestRate = annualInterestRate;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(annualInterestRate + "");
         }
     }
 
@@ -64,7 +64,7 @@ public class PE_12_04_IllegalArgumentException {
         if (numberOfYears >= 0) {
             this.numberOfYears = numberOfYears;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(numberOfYears + "");
         }
     }
 
@@ -83,7 +83,7 @@ public class PE_12_04_IllegalArgumentException {
         if (loanAmount >= 0) {
             this.loanAmount = loanAmount;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(loanAmount + "");
         }
     }
 
