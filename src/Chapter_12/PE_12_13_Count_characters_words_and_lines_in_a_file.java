@@ -56,14 +56,6 @@ public class PE_12_13_Count_characters_words_and_lines_in_a_file {
         validateFileExists(file);
         validateFileIsFile(file);
         validateFileIsReadable(file);
-        validateFileIsWritable(file);
-    }
-
-    private static void validateFileIsWritable(File file) {
-        if (!file.canWrite()) {
-            System.out.println("The application cannot modify the file denoted by this pathname.");
-            System.exit(0);
-        }
     }
 
     private static void validateFileIsReadable(File file) {
