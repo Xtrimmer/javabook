@@ -21,27 +21,27 @@ public class PE_12_18_Add_package_statement {
     public static void main(String[] args) {
         validateArgsCount(args, 1);
         File srcRootDirectory = getDirectory(args[0]);
-        addPackageStatements(srcRootDirectory);
+        addPackageStatementsToRootDirectory(srcRootDirectory);
     }
 
-    private static void addPackageStatements(File srcRootDirectory) {
+    private static void addPackageStatementsToRootDirectory(File srcRootDirectory) {
         File[] fileListing = srcRootDirectory.listFiles();
         ArrayList<File> packageDirectories = getPackageDirectories(fileListing);
         for (File packageDirectory : packageDirectories) {
-            insertPackageStatements(packageDirectory);
+            addPackageStatementsToPackageDirectory(packageDirectory);
         }
     }
 
-    private static void insertPackageStatements(File packageDirectory) {
+    private static void addPackageStatementsToPackageDirectory(File packageDirectory) {
         File[] fileListing = packageDirectory.listFiles();
         ArrayList<File> javaFiles = getJavaFiles(fileListing);
         String packageName = packageDirectory.getName();
         for (File javaFile : javaFiles) {
-            insertPackageStatement(javaFile, packageName);
+            addPackageStatementsToFile(javaFile, packageName);
         }
     }
 
-    private static void insertPackageStatement(File javaFile, String packageName) {
+    private static void addPackageStatementsToFile(File javaFile, String packageName) {
         StringBuilder code = readFile(javaFile);
         String packageStatement = "package " + packageName + ";";
         if (code.indexOf(packageStatement) < 0) {
