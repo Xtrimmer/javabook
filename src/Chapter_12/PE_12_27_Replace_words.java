@@ -10,7 +10,7 @@ import java.util.Scanner;
  * (Replace words) Suppose you have a lot of files in a directory that contain
  * words Exercisei_j, where i and j are digits. Write a program that pads a 0
  * before i if i is a single digit and 0 before j if j is a single digit. For example,
- * the word Exercise2_1 in a file will be replaced by Exercise02_01. In Java,
+ * the word Exercise02_01 in a file will be replaced by Exercise02_01. In Java,
  * when you pass the symbol * from the command line, it refers to all files in
  * the directory (see Supplement III.V). Use the following command to run your
  * program.
@@ -42,15 +42,22 @@ public class PE_12_27_Replace_words {
 
     private static void replaceWordsInText(StringBuilder text) {
         for (int i = 1; i <= 9; i++) {
+            String oldText = "Exercise" + i + "_";
+            String newText = "Exercise0" + i + "_";
+            replaceText(oldText, newText, text);
             for (int j = 1; j <= 9; j++) {
-                String oldText = "Exercise" + i + "_" + j;
-                String newText = "Exercise0" + i + "_0" + j;
-                while (text.indexOf(oldText) > 0) {
-                    int start = text.indexOf(oldText);
-                    int end = start + oldText.length();
-                    text.replace(start, end, newText);
-                }
+                oldText = "Exercise0" + i + "_" + j;
+                newText = "Exercise0" + i + "_0" + j;
+                replaceText(oldText, newText, text);
             }
+        }
+    }
+
+    private static void replaceText(String oldText, String newText, StringBuilder text) {
+        while (text.indexOf(oldText) >= 0) {
+            int start = text.indexOf(oldText);
+            int end = start + oldText.length();
+            text.replace(start, end, newText);
         }
     }
 
