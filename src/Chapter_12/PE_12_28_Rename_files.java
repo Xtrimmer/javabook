@@ -1,7 +1,6 @@
 package Chapter_12;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * (Rename files) Suppose you have a lot of files in a directory named Exercisei_j,
@@ -15,31 +14,17 @@ import java.util.ArrayList;
  */
 public class PE_12_28_Rename_files {
     public static void main(String[] args) {
-        ArrayList<File> files = getFilesFromArguments(args);
-        renameFiles(files);
+        renameFiles(args);
     }
 
-    private static void renameFiles(ArrayList<File> files) {
-        for (File file : files) {
-            String fileName = file.getName();
-            if (fileName.indexOf('_') >= 0) {
-                if (fileName.matches("Exercise\\d_\\d+\\.\\w+")) {
-                    String prefix = "Exercise";
-                    String suffix = fileName.substring(8);
-                    file.renameTo(new File(prefix + '0' + suffix));
-                }
+    private static void renameFiles(String[] fileNames) {
+        for (String fileName : fileNames) {
+            if (fileName.matches("Exercise\\d_\\d+\\.\\w+")) {
+                StringBuilder stringBuilder = new StringBuilder(fileName);
+                stringBuilder.insert(fileName.indexOf('_') - 1, "0");
+                new File(fileName).renameTo(new File(stringBuilder.toString()));
             }
         }
-    }
-
-    private static ArrayList<File> getFilesFromArguments(String[] args) {
-        ArrayList<File> files = new ArrayList<>();
-        for (String arg : args) {
-            File file = new File(arg);
-            if (file.isFile() && file.canRead() && file.canWrite()) {
-                files.add(file);
-            }
-        }
-        return files;
     }
 }
+
