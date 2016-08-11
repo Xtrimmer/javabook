@@ -14,15 +14,15 @@ import java.util.Scanner;
  */
 public class PE_13_01_Triangle_class {
     public static void main(String[] args) {
-        Triangle triangle = createUserTriangle();
+        PE_13_01_Triangle triangle = createUserTriangle();
         System.out.println(triangle);
     }
 
-    private static Triangle createUserTriangle() {
+    private static PE_13_01_Triangle createUserTriangle() {
         double[] sides = promptDoubleValues(3);
         String color = promptStringValue("Enter the color: ");
         boolean isFilled = promptBooleanValue();
-        Triangle triangle = new Triangle(sides[0], sides[1], sides[2]);
+        PE_13_01_Triangle triangle = new PE_13_01_Triangle(sides[0], sides[1], sides[2]);
         triangle.setColor(color);
         triangle.setFilled(isFilled);
         return triangle;
@@ -61,16 +61,16 @@ public class PE_13_01_Triangle_class {
     }
 }
 
-class Triangle extends GeometricObject{
+class PE_13_01_Triangle extends PE_13_01_GeometricObject {
     private double side1;
     private double side2;
     private double side3;
 
-    public Triangle() {
+    public PE_13_01_Triangle() {
         this(1.0, 1.0, 1.0);
     }
 
-    public Triangle(double side1, double side2, double side3) {
+    public PE_13_01_Triangle(double side1, double side2, double side3) {
         this.side1 = side1;
         this.side2 = side2;
         this.side3 = side3;
@@ -107,7 +107,7 @@ class Triangle extends GeometricObject{
     }
 }
 
-abstract class GeometricObject {
+abstract class PE_13_01_GeometricObject {
     private String color = "white";
     private boolean filled;
     private java.util.Date dateCreated;
@@ -115,14 +115,14 @@ abstract class GeometricObject {
     /**
      * Construct a default geometric object
      */
-    protected GeometricObject() {
+    protected PE_13_01_GeometricObject() {
         dateCreated = new java.util.Date();
     }
 
     /**
      * Construct a geometric object with color and filled value
      */
-    protected GeometricObject(String color, boolean filled) {
+    protected PE_13_01_GeometricObject(String color, boolean filled) {
         dateCreated = new java.util.Date();
         this.color = color;
         this.filled = filled;
