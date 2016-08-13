@@ -131,6 +131,6 @@ class PE_13_09_Circle extends PE_13_09_GeometricObject implements Comparable<PE_
 
     @Override
     public boolean equals(Object o){
-        return this.radius == ((PE_13_09_Circle) o).radius;
+        return o instanceof PE_13_09_Circle && this.radius == ((PE_13_09_Circle) o).radius;
     }
 }
