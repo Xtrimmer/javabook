@@ -20,7 +20,7 @@ public class PE_13_14_Demonstrate_the_benefits_of_encapsulation {
         PE_13_14_Rational r4 = new PE_13_14_Rational(1, 5);
         PE_13_14_Rational r5 = new PE_13_14_Rational(1, 6);
 
-        System.out.println(r1.add(r2.add(r3.add(r4.add(r5)))));
+        System.out.println(r1.add(r2.subtract(r3.multiply(r4.divide(r5)))));
     }
 }
 
