@@ -54,12 +54,21 @@ public class PE_13_17_Math_The_Complex_class {
     public static void main(String[] args) {
         PE_13_17_Complex complex1 = new PE_13_17_Complex(3.5, 5.5);
         PE_13_17_Complex complex2 = new PE_13_17_Complex(-3.5, 1);
+        PE_13_17_Complex result;
 
-        System.out.println("(" + complex1 + ") + (" + complex2 + ") = " + complex1.add(complex2));
-        System.out.println("(" + complex1 + ") - (" + complex2 + ") = " + complex1.subtract(complex2));
-        System.out.println("(" + complex1 + ") * (" + complex2 + ") = " + complex1.multiply(complex2));
-        System.out.println("(" + complex1 + ") / (" + complex2 + ") = " + complex1.divide(complex2));
-        System.out.println("|(" + complex1 + " + " + complex2 + ")| = " + complex1.abs());
+        result = complex1.add(complex2);
+        System.out.println(complex1 + " + " + complex2 + " = "
+                + result.getRealPart() + " + " + result.getImaginaryPart());
+        result = complex1.subtract(complex2);
+        System.out.println(complex1 + " - " + complex2 + " = " +
+                +result.getRealPart() + " + " + result.getImaginaryPart());
+        result = complex1.multiply(complex2);
+        System.out.println(complex1 + " * " + complex2 + " = " +
+                +result.getRealPart() + " + " + result.getImaginaryPart());
+        result = complex1.divide(complex2);
+        System.out.println(complex1 + " / " + complex2 + " = " +
+                +result.getRealPart() + " + " + result.getImaginaryPart());
+        System.out.println("|" + complex1 + "| = " + complex1.abs());
     }
 }
 
@@ -83,8 +92,8 @@ class PE_13_17_Complex implements Cloneable{
         return a;
     }
 
-    public double getImaginaryPart() {
-        return b;
+    public String getImaginaryPart() {
+        return b + "i";
     }
 
     public PE_13_17_Complex add(PE_13_17_Complex that){
@@ -119,7 +128,11 @@ class PE_13_17_Complex implements Cloneable{
 
     @Override
     public String toString() {
-        return a + " + " + b + 'i';
+        if (b == 0) {
+            return a + "";
+        } else {
+            return "(" + a + " + " + b + "i)";
+        }
     }
 
     @Override
