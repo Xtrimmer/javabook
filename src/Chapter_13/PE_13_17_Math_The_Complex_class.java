@@ -1,5 +1,7 @@
 package Chapter_13;
 
+import java.util.Scanner;
+
 /**
  * (Math: The Complex class) A complex number is a number in the form a + bi,
  * where a and b are real numbers and i is √-1. The numbers a and b are known
@@ -52,8 +54,9 @@ package Chapter_13;
  */
 public class PE_13_17_Math_The_Complex_class {
     public static void main(String[] args) {
-        PE_13_17_Complex complex1 = new PE_13_17_Complex(3.5, 5.5);
-        PE_13_17_Complex complex2 = new PE_13_17_Complex(-3.5, 1);
+
+        PE_13_17_Complex complex1 = promptComplexNumber("first");
+        PE_13_17_Complex complex2 = promptComplexNumber("second");
         PE_13_17_Complex result;
 
         result = complex1.add(complex2);
@@ -69,6 +72,32 @@ public class PE_13_17_Math_The_Complex_class {
         System.out.println(complex1 + " / " + complex2 + " = " +
                 +result.getRealPart() + " + " + result.getImaginaryPart());
         System.out.println("|" + complex1 + "| = " + complex1.abs());
+    }
+
+    private static PE_13_17_Complex promptComplexNumber(String s) {
+        Scanner scanner = new Scanner(System.in);
+        boolean valid;
+        double a = 0;
+        double b = 0;
+        do {
+            valid = true;
+            System.out.print("Enter the " + s + " complex number: ");
+            if (scanner.hasNextDouble()) {
+                a = scanner.nextDouble();
+                if (scanner.hasNextDouble()) {
+                    b = scanner.nextDouble();
+                } else {
+                    System.out.println("The second value is invalid\nTry again\n");
+                    valid = false;
+                    scanner.nextLine();
+                }
+            } else {
+                System.out.println("The first value is invalid\nTry again\n");
+                valid = false;
+                scanner.nextLine();
+            }
+        } while (!valid);
+        return new PE_13_17_Complex(a, b);
     }
 }
 
