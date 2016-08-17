@@ -118,10 +118,12 @@ class PE_13_17_Complex implements Cloneable{
     }
 
     public double getRealPart(){
+        double a = Math.round(this.a * 10000) / 10000.0;
         return a;
     }
 
     public String getImaginaryPart() {
+        double b = Math.round(this.b * 10000) / 10000.0;
         return b + "i";
     }
 
@@ -144,10 +146,10 @@ class PE_13_17_Complex implements Cloneable{
     }
 
     public PE_13_17_Complex divide(PE_13_17_Complex that){
-        double a = Math.round(((this.a * that.a) + (this.b * that.b))
-                / (Math.pow(that.a, 2) + Math.pow(that.b, 2)) * 10000) / 10000.0;
-        double b = Math.round(((this.b * that.a) - (this.a * that.b))
-                / (Math.pow(that.a, 2) + Math.pow(that.b, 2)) * 10) / 10.0;
+        double a = ((this.a * that.a) + (this.b * that.b))
+                / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
+        double b = ((this.b * that.a) - (this.a * that.b))
+                / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
         return new PE_13_17_Complex(a, b);
     }
 
@@ -157,6 +159,8 @@ class PE_13_17_Complex implements Cloneable{
 
     @Override
     public String toString() {
+        double a = Math.round(this.a * 10000) / 10000.0;
+        double b = Math.round(this.b * 10000) / 10000.0;
         if (b == 0) {
             return a + "";
         } else {
