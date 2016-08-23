@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * (Tic-tac-toe board) Write a program that displays a tic-tac-toe board, as shown
- in Figure 14.43b(p.578). A cell may be X, O, or empty. What to display at each cell is
- randomly decided. The X and O are images in the files x.gif and o.gif.
+ * in Figure 14.43b(p.578). A cell may be X, O, or empty. What to display at each cell is
+ * randomly decided. The X and O are images in the files x.gif and o.gif.
  */
 public class PE_14_02_Tic_tac_toe_board extends Application {
 
