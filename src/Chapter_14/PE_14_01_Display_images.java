@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * (Display images) Write a program that displays four images in a grid pane, as
- * shown in Figure 14.43a.
+ * shown in Figure 14.43a(p.578).
  */
 public class PE_14_01_Display_images extends Application{
     public static void main(String[] args) {
