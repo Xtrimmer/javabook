@@ -2,6 +2,7 @@ package Chapter_14;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,6 @@ public class PE_14_02_Tic_tac_toe_board extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Pane pane = generateBoard();
-        pane.setPadding(new Insets(10, 50, 10, 50));
         Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Exercise14_02");
@@ -35,6 +35,8 @@ public class PE_14_02_Tic_tac_toe_board extends Application {
 
     private GridPane generateBoard() {
         GridPane pane = new GridPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setPadding(new Insets(10, 50, 10, 50));
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 3; column++) {
                 ImageView imageView = new ImageView(getRandomImage());

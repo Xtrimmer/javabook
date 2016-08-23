@@ -28,9 +28,9 @@ public class PE_14_03_Display_three_cards extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         List numberList = generateRandomNumberList();
-        ImageView card1 = new ImageView("image/card/" + numberList.get(1) + ".png");
-        ImageView card2 = new ImageView("image/card/" + numberList.get(2) + ".png");
-        ImageView card3 = new ImageView("image/card/" + numberList.get(3) + ".png");
+        ImageView card1 = new ImageView("image/card/" + numberList.get(0) + ".png");
+        ImageView card2 = new ImageView("image/card/" + numberList.get(1) + ".png");
+        ImageView card3 = new ImageView("image/card/" + numberList.get(2) + ".png");
 
         HBox hbox = new HBox(card1, card2, card3);
         hbox.setPadding(new Insets(5));
