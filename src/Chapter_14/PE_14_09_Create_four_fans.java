@@ -2,8 +2,10 @@ package Chapter_14;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -23,7 +25,16 @@ public class PE_14_09_Create_four_fans extends Application {
     public void start(Stage primaryStage) {
 
         GridPane pane = new GridPane();
-        pane.setStyle("-fx-background-color: gold");
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(50);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(50);
+        pane.getColumnConstraints().addAll(col1, col2);
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(50);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(50);
+        pane.getRowConstraints().addAll(row1, row2);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 Pane fanPane = new FanPane();
@@ -38,11 +49,6 @@ public class PE_14_09_Create_four_fans extends Application {
 }
 
 class FanPane extends Pane {
-
-    public FanPane() {
-        setHeight(1000);
-        setWidth(1000);
-    }
 
     public void paint() {
         double centerX = getWidth() / 2;

@@ -17,22 +17,38 @@ public class PE_14_11_Paint_a_smiley_face extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-        double paneSize = 400;
 
+
+        Pane pane = new FacePane();
+        Scene scene = new Scene(pane, 400, 400);
+
+        primaryStage.setTitle("Exercise14_11");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+class FacePane extends Pane {
+
+    public void paint() {
+        String style = "-fx-stroke: black; -fx-fill: white";
+        double paneSize = Math.min(getWidth(), getHeight());
+        //Create Head
         Circle head = new Circle(
                 paneSize * (1 / 2.0),
                 paneSize * (1 / 2.0),
                 paneSize * (1 / 3.0)
         );
-        head.setStyle("-fx-stroke: black; -fx-fill: white");
+        head.setStyle(style);
 
+        //Create eyes
         Ellipse eyeL = new Ellipse(
                 paneSize * (13 / 36.0),
                 paneSize * (7 / 18.0),
                 paneSize * (1 / 12.0),
                 paneSize * (1 / 18.0)
         );
-        eyeL.setStyle("-fx-stroke: black; -fx-fill: white");
+        eyeL.setStyle(style);
 
         Ellipse eyeR = new Ellipse(
                 paneSize * (23 / 36.0),
@@ -40,7 +56,8 @@ public class PE_14_11_Paint_a_smiley_face extends Application{
                 paneSize * (1 / 12.0),
                 paneSize * (1 / 18.0)
         );
-        eyeR.setStyle("-fx-stroke: black; -fx-fill: white");
+        eyeR.setStyle(style);
+
         Circle pupilL = new Circle(
                 paneSize * (13 / 36.0),
                 paneSize * (7 / 18.0),
@@ -53,6 +70,7 @@ public class PE_14_11_Paint_a_smiley_face extends Application{
                 paneSize * (1 / 25.0)
         );
 
+        //Create nose
         Line noseL = new Line(
                 paneSize * (1 / 2.0),
                 paneSize * (7 / 18.0),
@@ -72,22 +90,30 @@ public class PE_14_11_Paint_a_smiley_face extends Application{
                 paneSize * (11 / 18.0)
         );
 
+        //Create mouth
         Arc mouth = new Arc(
                 paneSize * (1 / 2.0),
                 paneSize * (23 / 36.0),
                 paneSize * (1 / 6.0),
                 paneSize * (1 / 12.0),
-                180, 180
+                180,
+                180
         );
         mouth.setType(ArcType.OPEN);
-        mouth.setStyle("-fx-stroke: black; -fx-fill: white");
+        mouth.setStyle(style);
+        getChildren().clear();
+        getChildren().addAll(head, eyeL, eyeR, pupilL, pupilR, noseL, noseR, noseB, mouth);
+    }
 
-        Pane pane = new Pane();
-        pane.getChildren().addAll(head, eyeL, eyeR, pupilL, pupilR, noseL, noseR, noseB, mouth);
-        Scene scene = new Scene(pane, paneSize, paneSize);
+    @Override
+    public void setHeight(double height) {
+        super.setHeight(height);
+        paint();
+    }
 
-        primaryStage.setTitle("Welcome to Java");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    @Override
+    public void setWidth(double width) {
+        super.setWidth(width);
+        paint();
     }
 }
