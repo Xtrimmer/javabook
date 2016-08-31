@@ -37,6 +37,18 @@ public class MyRectangle2D {
         this.y = y;
     }
 
+    public double getTop() {
+        return this.y + height / 2.0;
+    }
+
+    public double getLeft() {
+        return this.x - width / 2.0;
+    }
+
+    public double getBottom() {
+        return this.y - height / 2.0;
+    }
+
     public double getWidth() {
         return width;
     }
@@ -63,9 +75,9 @@ public class MyRectangle2D {
 
     public boolean contains(double x, double y) {
         double right = this.x + width / 2.0;
-        double left = this.x - width / 2.0;
-        double top = this.y + height / 2.0;
-        double bottom = this.y - height / 2.0;
+        double left = getLeft();
+        double top = getTop();
+        double bottom = getBottom();
         return x <= right && x >= left && y <= top && y >= bottom;
     }
 

@@ -55,8 +55,8 @@ public class PE_14_23_Geometry_two_rectangles extends Application {
         pane.setPadding(new Insets(10));
         Scene scene = new Scene(pane, 400, 400);
 
-        RectangleViewPane rectangleViewPane = new RectangleViewPane(rectangle2D1, rectangle2D2);
-        MessagePane messagePane = new MessagePane(rectangleRelativePositionMessage);
+        PE_14_23_RectangleViewPane rectangleViewPane = new PE_14_23_RectangleViewPane(rectangle2D1, rectangle2D2);
+        PE_14_24_MessagePane messagePane = new PE_14_24_MessagePane(rectangleRelativePositionMessage);
 
         pane.setTop(rectangleViewPane);
         pane.setBottom(messagePane);
@@ -96,11 +96,11 @@ public class PE_14_23_Geometry_two_rectangles extends Application {
     }
 }
 
-class RectangleViewPane extends Pane {
+class PE_14_23_RectangleViewPane extends Pane {
     private MyRectangle2D r1 = null;
     private MyRectangle2D r2 = null;
 
-    public RectangleViewPane(MyRectangle2D r1, MyRectangle2D r2) {
+    public PE_14_23_RectangleViewPane(MyRectangle2D r1, MyRectangle2D r2) {
         this.r1 = r1;
         this.r2 = r2;
         paint();
@@ -116,9 +116,8 @@ class RectangleViewPane extends Pane {
     }
 }
 
-class MessagePane extends StackPane {
-
-    public MessagePane(String message) {
+class PE_14_23_MessagePane extends StackPane {
+    public PE_14_23_MessagePane(String message) {
         Text text = new Text(message);
         setPadding(new Insets(10, 0, 0, 0));
         getChildren().add(text);
