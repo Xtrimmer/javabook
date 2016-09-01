@@ -58,7 +58,7 @@ public class ClockPane extends Pane {
     paintClock();
   }
   
-  /* Set the current time for the clock */
+  /** Set the current time for the clock */
   public void setCurrentTime() {
     // Construct a calendar for the current date and time
     Calendar calendar = new GregorianCalendar();
