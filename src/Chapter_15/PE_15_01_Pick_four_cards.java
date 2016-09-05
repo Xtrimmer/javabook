@@ -35,7 +35,6 @@ public class PE_15_01_Pick_four_cards extends Application {
         button.setOnAction(event -> cardPane.refreshCards());
         pane.setTop(cardPane);
         pane.setBottom(button);
-        pane.setPadding(new Insets(10));
         BorderPane.setAlignment(button, Pos.CENTER);
         Scene scene = new Scene(pane);
 
@@ -54,7 +53,7 @@ public class PE_15_01_Pick_four_cards extends Application {
 
         public FourCardPane() {
             setSpacing(10);
-            setPadding(new Insets(0, 0, 10, 0));
+            setPadding(new Insets(10));
             getChildren().addAll(card1, card2, card3, card4);
             refreshCards();
         }
