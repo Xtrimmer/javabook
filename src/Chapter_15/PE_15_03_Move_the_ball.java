@@ -31,10 +31,10 @@ public class PE_15_03_Move_the_ball extends Application {
         Button buttonUp = new Button("Up");
         Button buttonDown = new Button("Down");
 
-        buttonLeft.setOnAction(event -> circlePane.moveLeft(10));
-        buttonRight.setOnAction(event -> circlePane.moveRight(10));
-        buttonUp.setOnAction(event -> circlePane.moveUp(10));
-        buttonDown.setOnAction(event -> circlePane.moveDown(10));
+        buttonLeft.setOnAction(event -> circlePane.moveLeft(circlePane.getWidth() * 0.05));
+        buttonRight.setOnAction(event -> circlePane.moveRight(circlePane.getWidth() * 0.05));
+        buttonUp.setOnAction(event -> circlePane.moveUp(circlePane.getHeight() * 0.05));
+        buttonDown.setOnAction(event -> circlePane.moveDown(circlePane.getHeight() * 0.05));
 
         HBox hBox = new HBox(5, buttonLeft, buttonRight, buttonUp, buttonDown);
         BorderPane pane = new BorderPane(circlePane, null, null, hBox, null);
