@@ -34,7 +34,7 @@ public class PE_15_08_B_Display_the_mouse_position extends Application {
         pane.setOnMouseReleased(event -> pane.getChildren().remove(text));
         Scene scene = new Scene(pane, 400, 200);
 
-        primaryStage.setTitle("Exercise15_08A");
+        primaryStage.setTitle("Exercise15_08B");
         primaryStage.setScene(scene);
         primaryStage.show();
 
