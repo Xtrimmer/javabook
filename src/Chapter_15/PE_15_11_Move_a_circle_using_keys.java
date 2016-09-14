@@ -2,6 +2,7 @@ package Chapter_15;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
  * or right using the arrow keys.
  */
 public class PE_15_11_Move_a_circle_using_keys extends Application {
+    private CirclePane pane = new CirclePane();
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -19,27 +21,7 @@ public class PE_15_11_Move_a_circle_using_keys extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
-        CirclePane pane = new CirclePane();
-        pane.setOnKeyPressed(event -> {
-            double percentage = 0.05;
-            double verticalDistance = pane.getHeight() * percentage;
-            double horizontalDistance = pane.getWidth() * percentage;
-            switch (event.getCode()) {
-                case DOWN:
-                    pane.moveDown(verticalDistance);
-                    break;
-                case UP:
-                    pane.moveUp(verticalDistance);
-                    break;
-                case LEFT:
-                    pane.moveLeft(horizontalDistance);
-                    break;
-                case RIGHT:
-                    pane.moveRight(horizontalDistance);
-                    break;
-            }
-        });
+        pane.setOnKeyPressed(event -> moveCircle(event.getCode()));
         Scene scene = new Scene(pane, 400, 300);
 
         primaryStage.setTitle("Exercise15_11");
@@ -47,6 +29,26 @@ public class PE_15_11_Move_a_circle_using_keys extends Application {
         primaryStage.show();
 
         pane.requestFocus();
+    }
+
+    private void moveCircle(KeyCode code) {
+        double percentage = 0.05;
+        double verticalDistance = pane.getHeight() * percentage;
+        double horizontalDistance = pane.getWidth() * percentage;
+        switch (code) {
+            case DOWN:
+                pane.moveDown(verticalDistance);
+                break;
+            case UP:
+                pane.moveUp(verticalDistance);
+                break;
+            case LEFT:
+                pane.moveLeft(horizontalDistance);
+                break;
+            case RIGHT:
+                pane.moveRight(horizontalDistance);
+                break;
+        }
     }
 
     private class CirclePane extends Pane {
