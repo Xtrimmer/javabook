@@ -31,11 +31,11 @@ public class PE_15_11_Move_a_circle_using_keys extends Application {
         pane.requestFocus();
     }
 
-    private void moveCircle(KeyCode code) {
+    private void moveCircle(KeyCode keyCode) {
         double percentage = 0.05;
         double verticalDistance = pane.getHeight() * percentage;
         double horizontalDistance = pane.getWidth() * percentage;
-        switch (code) {
+        switch (keyCode) {
             case DOWN:
                 pane.moveDown(verticalDistance);
                 break;
