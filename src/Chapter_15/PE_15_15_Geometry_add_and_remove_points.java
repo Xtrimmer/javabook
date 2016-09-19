@@ -53,7 +53,6 @@ public class PE_15_15_Geometry_add_and_remove_points extends Application {
         private void removePoint(double x, double y) {
             ObservableList<Node> nodes = getChildren();
             List<Node> nodesToRemove = new ArrayList<>();
-            //noinspection Convert2streamapi
             for (Node node : nodes) {
                 if (node.contains(x, y)) {
                     nodesToRemove.add(node);
