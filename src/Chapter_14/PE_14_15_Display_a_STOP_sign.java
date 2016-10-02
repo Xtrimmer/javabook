@@ -23,26 +23,15 @@ public class PE_14_15_Display_a_STOP_sign extends Application{
 
     @Override
     public void start(Stage primaryStage) {
-
-        StopSignPane pane = new StopSignPane();
-        Scene scene = new Scene(pane, 400, 400);
-
-        primaryStage.setTitle("Exercise14_15");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-}
-
-class StopSignPane extends StackPane {
-    private void paint() {
         // Create a polygon and place polygon to pane
         Polygon polygon = new Polygon();
         polygon.setFill(Color.RED);
         polygon.setRotate(22.5);
         ObservableList<Double> list = polygon.getPoints();
 
-        double centerX = getWidth() / 2, centerY = getHeight() / 2;
-        double radius = Math.min(getWidth(), getHeight()) * 0.4;
+        double centerX = 200;
+        double centerY = 200;
+        double radius = 160;
 
         // Add points to the polygon list
         for (int i = 0; i < 8; i++) {
@@ -52,20 +41,15 @@ class StopSignPane extends StackPane {
 
         Text text = new Text("STOP");
         text.setFill(Color.WHITE);
-        text.setFont(new Font("Times New Roman", Math.min(getWidth(), getHeight()) / 4));
-        getChildren().clear();
-        getChildren().addAll(polygon, text);
-    }
+        text.setFont(new Font("Times New Roman", 100));
 
-    @Override
-    public void setWidth(double width) {
-        super.setWidth(width);
-        paint();
-    }
+        StackPane pane = new StackPane();
+        pane.getChildren().clear();
+        pane.getChildren().addAll(polygon, text);
 
-    @Override
-    public void setHeight(double height) {
-        super.setHeight(height);
-        paint();
+        Scene scene = new Scene(pane, 400, 400);
+        primaryStage.setTitle("Exercise14_15");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }

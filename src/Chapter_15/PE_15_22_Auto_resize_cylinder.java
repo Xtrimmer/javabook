@@ -60,7 +60,7 @@ public class PE_15_22_Auto_resize_cylinder extends Application{
         pane.getChildren().addAll(ellipse, rightLine, leftLine, arcSolid, arcDashed);
         Scene scene = new Scene(pane, 500, 600);
 
-        primaryStage.setTitle("Exercise14_10");
+        primaryStage.setTitle("Exercise15_22");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
