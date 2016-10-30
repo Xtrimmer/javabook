@@ -35,6 +35,8 @@ public class PE_15_28_Display_a_running_fan extends Application {
         FanPane fanPane = new FanPane(400, 400);
 
         buttonResume.setOnAction(event -> fanPane.resume());
+        buttonPause.setOnAction(event -> fanPane.pause());
+        buttonReverse.setOnAction(event -> fanPane.reverse());
 
         BorderPane pane = new BorderPane(fanPane, null, null, buttonPane, null);
         Scene scene = new Scene(pane);
@@ -47,23 +49,20 @@ public class PE_15_28_Display_a_running_fan extends Application {
     class FanPane extends Pane {
         private Arc[] arcs = new Arc[4];
         private Timeline timeline;
-        private KeyFrame spinForward;
-        private KeyFrame spinReverse;
+        private KeyFrame animation;
+        private int increment = 1;
+        private double startAngle = 90;
 
         public FanPane(double width, double height) {
             setWidth(width);
             setHeight(height);
-            spinForward = new KeyFrame(Duration.millis(3), event -> {
-                for (Arc arc : arcs) {
-                    arc.setStartAngle(arc.getStartAngle() + 1);
+            animation = new KeyFrame(Duration.millis(10), event -> {
+                startAngle += increment;
+                for (int i = 0; i < 4; i++) {
+                    arcs[i].setStartAngle(startAngle + i * 90);
                 }
             });
-            spinReverse = new KeyFrame(Duration.millis(3), event -> {
-                for (Arc arc : arcs) {
-                    arc.setStartAngle(arc.getStartAngle() - 1);
-                }
-            });
-            timeline = new Timeline(spinForward);
+            timeline = new Timeline(animation);
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.play();
         }
@@ -78,9 +77,9 @@ public class PE_15_28_Display_a_running_fan extends Application {
             getChildren().clear();
             getChildren().add(circle);
             for (int i = 0; i < 4; i++) {
-                arcs[i] = new Arc(centerX, centerY, radius2, radius2, 90 * i + 30, 30);
+                arcs[i] = new Arc(centerX, centerY, radius2, radius2, startAngle + i * 90, 30);
                 arcs[i].setType(ArcType.ROUND);
-                arcs[i].setFill(Color.GRAY);
+                arcs[i].setFill(Color.DARKRED);
             }
             getChildren().addAll(arcs);
         }
@@ -98,19 +97,15 @@ public class PE_15_28_Display_a_running_fan extends Application {
         }
 
         public void pause() {
-
+            timeline.pause();
         }
 
         public void resume() {
-            timeline.setOnFinished(event -> {
-                for (Arc arc : arcs) {
-                    arc.setStartAngle(arc.getStartAngle() + 1);
-                }
-            });
+            timeline.play();
         }
 
         public void reverse() {
-
+            increment = -increment;
         }
     }
 }
