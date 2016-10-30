@@ -43,7 +43,7 @@ public class PE_15_28_Display_a_running_fan extends Application {
         BorderPane pane = new BorderPane(fanPane, null, null, buttonPane, null);
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise15_");
+        primaryStage.setTitle("Exercise15_28");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -77,7 +77,7 @@ public class PE_15_25_Animation_ball_on_curve extends Application {
             }
         });
 
-        primaryStage.setTitle("Exercise14_19");
+        primaryStage.setTitle("Exercise15_25");
         primaryStage.setScene(scene);
         primaryStage.show();
 

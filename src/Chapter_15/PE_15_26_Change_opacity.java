@@ -52,7 +52,7 @@ public class PE_15_26_Change_opacity extends Application {
         pane.setOnMousePressed(event -> pauseAnimations(animations));
         pane.setOnMouseReleased(event -> playAnimations(animations));
 
-        primaryStage.setTitle("Exercise15_24");
+        primaryStage.setTitle("Exercise15_26");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
