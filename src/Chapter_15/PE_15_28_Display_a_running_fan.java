@@ -17,12 +17,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
- * Created by jtrimmer on 10/3/2016.
+ * (Display a running fan) Write a program that displays a running fan, as shown
+ * in Figure 15.33c. Use the Pause, Resume, Reverse buttons to pause, resume,
+ * and reverse fan running.
  */
 public class PE_15_28_Display_a_running_fan extends Application {
     public static void main(String[] args) {
-    Application.launch(args);
-}
+        Application.launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -47,9 +49,9 @@ public class PE_15_28_Display_a_running_fan extends Application {
     }
 
     class FanPane extends Pane {
-        private Arc[] arcs = new Arc[4];
-        private Timeline timeline;
-        private KeyFrame animation;
+        private final Arc[] arcs = new Arc[4];
+        private final Timeline timeline;
+        private final KeyFrame animation;
         private int increment = 1;
         private double startAngle = 90;
 
@@ -67,6 +69,18 @@ public class PE_15_28_Display_a_running_fan extends Application {
             timeline.play();
         }
 
+        @Override
+        public void setWidth(double width) {
+            super.setWidth(width);
+            paint();
+        }
+
+        @Override
+        public void setHeight(double height) {
+            super.setHeight(height);
+            paint();
+        }
+
         public void paint() {
             double centerX = getWidth() / 2;
             double centerY = getHeight() / 2;
@@ -82,18 +96,6 @@ public class PE_15_28_Display_a_running_fan extends Application {
                 arcs[i].setFill(Color.DARKRED);
             }
             getChildren().addAll(arcs);
-        }
-
-        @Override
-        public void setWidth(double width) {
-            super.setWidth(width);
-            paint();
-        }
-
-        @Override
-        public void setHeight(double height) {
-            super.setHeight(height);
-            paint();
         }
 
         public void pause() {
