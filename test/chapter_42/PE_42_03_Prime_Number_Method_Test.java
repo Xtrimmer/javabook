@@ -1,9 +1,10 @@
 package chapter_42;
 
 import Textbook_Examples.PrimeNumberMethod;
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Write a test class to test the method isPrime in Listing 5.7
@@ -11,25 +12,18 @@ import static org.junit.Assert.*;
  */
 public class PE_42_03_Prime_Number_Method_Test {
 
-    PrimeNumberMethod primeNumberMethod;
-
-    @Before
-    public void before(){
-        primeNumberMethod = new PrimeNumberMethod();
-    }
-
     @Test
-    public void isPrimeTest(){
-        assertTrue(primeNumberMethod.isPrime(2));
-        assertTrue(primeNumberMethod.isPrime(3));
-        assertFalse(primeNumberMethod.isPrime(4));
-        assertTrue(primeNumberMethod.isPrime(5));
-        assertFalse(primeNumberMethod.isPrime(6));
-        assertTrue(primeNumberMethod.isPrime(7));
-        assertFalse(primeNumberMethod.isPrime(8));
-        assertFalse(primeNumberMethod.isPrime(9));
-        assertFalse(primeNumberMethod.isPrime(10));
-        assertTrue(primeNumberMethod.isPrime(11));
-        assertTrue(primeNumberMethod.isPrime(Integer.MAX_VALUE));
+    public void isPrimeTest() {
+        assertTrue(PrimeNumberMethod.isPrime(2));
+        assertTrue(PrimeNumberMethod.isPrime(3));
+        assertFalse(PrimeNumberMethod.isPrime(4));
+        assertTrue(PrimeNumberMethod.isPrime(5));
+        assertFalse(PrimeNumberMethod.isPrime(6));
+        assertTrue(PrimeNumberMethod.isPrime(7));
+        assertFalse(PrimeNumberMethod.isPrime(8));
+        assertFalse(PrimeNumberMethod.isPrime(9));
+        assertFalse(PrimeNumberMethod.isPrime(10));
+        assertTrue(PrimeNumberMethod.isPrime(11));
+        assertTrue(PrimeNumberMethod.isPrime(Integer.MAX_VALUE));
     }
 }
