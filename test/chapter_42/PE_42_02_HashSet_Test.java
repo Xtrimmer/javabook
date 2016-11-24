@@ -13,7 +13,7 @@ import java.util.List;
  * removeAll, size, isEmpty, and contains in the java.util.HashSet
  * class.
  */
-public class PE_42_02_HashSetTest {
+public class PE_42_02_HashSet_Test {
 
     private HashSet<Object> hashSet;
 

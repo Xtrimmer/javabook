@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
  * Write a test class to test the methods length, charAt, substring,
  * and indexOf in the java.lang.String class.
  */
-public class PE_42_01_StringTest {
+public class PE_42_01_String_Test {
 
     private String stringOne;
     private String stringTwo;
