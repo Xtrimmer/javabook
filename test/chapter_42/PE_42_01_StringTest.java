@@ -2,7 +2,9 @@ package chapter_42;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Write a test class to test the methods length, charAt, substring,
@@ -10,12 +12,12 @@ import static org.junit.Assert.*;
  */
 public class PE_42_01_StringTest {
 
-    String stringOne;
-    String stringTwo;
-    String stringThree;
+    private String stringOne;
+    private String stringTwo;
+    private String stringThree;
 
     @Before
-    public void before(){
+    public void before() {
         stringOne = "";
         stringTwo = "2";
         stringThree = "Three";
@@ -29,14 +31,14 @@ public class PE_42_01_StringTest {
     }
 
     @Test
-    public void chatAtTest(){
+    public void chatAtTest() {
         assertEquals(stringTwo.charAt(0), '2');
         assertEquals(stringThree.charAt(0), 'T');
         assertEquals(stringThree.charAt(3), 'e');
     }
 
     @Test
-    public void substringTest(){
+    public void substringTest() {
         assertEquals("unhappy".substring(2), "happy");
         assertEquals("Harbison".substring(3), "bison");
         assertEquals("emptiness".substring(9), "");
@@ -46,7 +48,7 @@ public class PE_42_01_StringTest {
     }
 
     @Test
-    public void indexOfTest(){
+    public void indexOfTest() {
         assertTrue(stringTwo.indexOf('2') == 0);
         assertTrue(stringThree.indexOf('T') == 0);
         assertTrue(stringThree.indexOf('e') == 3);
