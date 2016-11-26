@@ -1,5 +1,7 @@
 package chapter_02;
+
 import java.util.Scanner;
+
 /**
  * (Financial application: calculate future investment value) Write a program that
  * reads in investment amount, annual interest rate, and number of years, and displays

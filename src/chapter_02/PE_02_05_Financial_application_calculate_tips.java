@@ -1,6 +1,7 @@
 package chapter_02;
 
 import java.util.Scanner;
+
 /**
  * (Financial application: calculate tips) Write a program that reads the subtotal and
  * the gratuity rate, then computes the gratuity and total. For example, if the user
@@ -10,18 +11,14 @@ import java.util.Scanner;
 public class PE_02_05_Financial_application_calculate_tips {
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
-        float subtotal;
-        float gratuityRate;
-        float gratuity;
-        float total;
 
         System.out.print("Enter the subtotal and gratuity rate: ");
-        subtotal = SCANNER.nextFloat();
-        gratuityRate = SCANNER.nextFloat();
+        float subtotal = SCANNER.nextFloat();
+        float gratuityRate = SCANNER.nextFloat();
 
         gratuityRate /= 100f;
-        gratuity = subtotal * gratuityRate;
-        total = subtotal + gratuity;
+        float gratuity = subtotal * gratuityRate;
+        float total = subtotal + gratuity;
 
         System.out.println("The gratuity is $" + gratuity + " and total is $" + total);
     }

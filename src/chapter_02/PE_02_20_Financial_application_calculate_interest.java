@@ -1,5 +1,7 @@
 package chapter_02;
+
 import java.util.Scanner;
+
 /**
  * (Financial application: calculate interest) If you know the balance and the annual
  * percentage interest rate, you can compute the interest on the next monthly payment

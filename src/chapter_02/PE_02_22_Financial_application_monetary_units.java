@@ -1,5 +1,7 @@
 package chapter_02;
+
 import java.util.Scanner;
+
 /**
  * (Financial application: monetary units) Rewrite Listing 2.10,
  * ComputeChange.java, to fix the possible loss of accuracy when converting a

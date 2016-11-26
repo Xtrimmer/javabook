@@ -1,6 +1,7 @@
 package chapter_02;
 
 import java.util.Scanner;
+
 /**
  * (Find the number of years) Write a program that prompts the user to enter the
  * minutes (e.g., 1 billion), and displays the number of years and days for the
@@ -9,20 +10,16 @@ import java.util.Scanner;
 public class PE_02_07_Find_the_number_of_years {
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
-        int minutes;
-        int minutesPerDay = 24 * 60;
-        int minutesPerYear = minutesPerDay * 365;
-        int years;
-        int days;
+        final int MINUTES_PER_DAY = 24 * 60;
+        final int MINUTES_PER_YEAR = MINUTES_PER_DAY * 365;
 
         System.out.print("Enter the number of minutes: ");
-        minutes = SCANNER.nextInt();
+        int minutes = SCANNER.nextInt();
 
-        years = minutes / minutesPerYear;
-        days = minutes % minutesPerYear;
-        days /= minutesPerDay;
+        int years = minutes / MINUTES_PER_YEAR;
+        int days = minutes % MINUTES_PER_YEAR;
+        days /= MINUTES_PER_DAY;
 
-        System.out.println(minutes + " minutes is aproximately " + years + " years and " + days + " days.");
-
+        System.out.println(minutes + " minutes is approximately " + years + " years and " + days + " days");
     }
 }

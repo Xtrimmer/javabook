@@ -10,24 +10,16 @@ import java.util.Scanner;
  */
 public class PE_02_02_Compute_the_volume_of_a_cylinder {
     public static void main(String[] args) {
-
         final Scanner SCANNER = new Scanner(System.in);
-        double radius;
-        double length;
-        double area;
-        double volume;
 
         System.out.print("Enter the radius and length of a cylinder: ");
-        radius = SCANNER.nextDouble();
-        length = SCANNER.nextDouble();
+        double radius = SCANNER.nextDouble();
+        double length = SCANNER.nextDouble();
 
-        area = radius * radius * Math.PI;
-        volume = area * length;
+        double area = radius * radius * Math.PI;
+        double volume = area * length;
 
         System.out.println("The area is: " + area);
         System.out.println("The volume is: " + volume);
-
-
     }
-
 }

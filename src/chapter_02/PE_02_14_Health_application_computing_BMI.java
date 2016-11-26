@@ -1,6 +1,7 @@
 package chapter_02;
 
 import java.util.Scanner;
+
 /**
  * (Health application: computing BMI) Body Mass Index (BMI) is a measure of
  * health on weight. It can be calculated by taking your weight in kilograms and
@@ -19,7 +20,6 @@ public class PE_02_14_Health_application_computing_BMI {
 
         double weightKg = weightLbs * 0.45359237d;
         double heightM = heightIn * 0.0254d;
-
         double bmi = weightKg / Math.pow(heightM, 2);
 
         System.out.println("BMI is " + bmi);

@@ -1,6 +1,7 @@
 package chapter_02;
 
 import java.util.Scanner;
+
 /**
  * (Current time) Listing 2.6, ShowCurrentTime.java, gives a program that displays
  * the current time in GMT. Revise the program so that it prompts the user to enter
@@ -19,13 +20,13 @@ public class PE_02_08_Current_time {
         long totalSeconds = totalMilliseconds / 1000;
 
         // Compute the current second in the minute in the hour
-        long currentSecond = (int)(totalSeconds % 60);
+        long currentSecond = (int) (totalSeconds % 60);
 
         // Obtain the total minutes
         long totalMinutes = totalSeconds / 60;
 
         // Compute the current minute in the hour
-        long currentMinute = (int)(totalMinutes % 60);
+        long currentMinute = (int) (totalMinutes % 60);
 
         // Obtain the total hours
         long totalHours = totalMinutes / 60;
@@ -33,7 +34,7 @@ public class PE_02_08_Current_time {
         totalHours += offset;
 
         // Compute the current hour
-        long currentHour = (int)(totalHours % 24);
+        long currentHour = (int) (totalHours % 24);
 
         // Display results
         System.out.println("Current time is " + currentHour + ":"
