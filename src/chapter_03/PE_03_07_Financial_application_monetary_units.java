@@ -1,6 +1,6 @@
 package chapter_03;
 
-import javax.swing.*;
+import java.util.Scanner;
 
 /**
  * (Financial application: monetary units) Modify Listing 2.10, ComputeChange.java,
@@ -11,15 +11,14 @@ import javax.swing.*;
 public class PE_03_07_Financial_application_monetary_units {
     public static void main(String[] args) {
         // Create a Scanner
+        Scanner input = new Scanner(System.in);
 
         // Receive the amount
-        String input = JOptionPane.showInputDialog(null,
-                "Enter an integer amount, for example $11.56 would be 1156",
-                "Input Amount",
-                JOptionPane.QUESTION_MESSAGE);
-        int remainingAmount = Integer.parseInt(input);
+        System.out.print(
+                "Enter an amount in double, for example 11.56: ");
+        double amount = input.nextDouble();
 
-        double amount = remainingAmount / 100d;
+        int remainingAmount = (int) (amount * 100);
 
         // Find the number of one dollars
         int numberOfOneDollars = remainingAmount / 100;
@@ -40,47 +39,46 @@ public class PE_03_07_Financial_application_monetary_units {
         // Find the number of pennies in the remaining amount
         int numberOfPennies = remainingAmount;
 
-
         String dollars = "dollar";
         String quarters = "quarter";
         String dimes = "dime";
         String nickels = "nickel";
         String pennies = "penny";
 
-        if (numberOfOneDollars > 1){
+        if (numberOfOneDollars > 1) {
             dollars = "dollars";
         }
-        if (numberOfQuarters > 1){
+        if (numberOfQuarters > 1) {
             quarters = "quarters";
         }
-        if (numberOfDimes > 1){
+        if (numberOfDimes > 1) {
             dimes = "dimes";
         }
-        if (numberOfNickels > 1){
+        if (numberOfNickels > 1) {
             nickels = "nickels";
         }
-        if (numberOfPennies > 1){
+        if (numberOfPennies > 1) {
             pennies = "pennies";
         }
 
         // Display results
         String output;
         output = "Your amount " + amount + " consists of \n";
-        if (numberOfOneDollars > 0){
+        if (numberOfOneDollars > 0) {
             output += "\t" + numberOfOneDollars + " " + dollars + "\n";
         }
-        if (numberOfQuarters > 0){
+        if (numberOfQuarters > 0) {
             output += "\t" + numberOfQuarters + " " + quarters + "\n";
         }
-        if (numberOfDimes > 0){
+        if (numberOfDimes > 0) {
             output += "\t" + numberOfDimes + " " + dimes + "\n";
         }
-        if (numberOfNickels > 0){
+        if (numberOfNickels > 0) {
             output += "\t" + numberOfNickels + " " + nickels + "\n";
         }
-        if (numberOfPennies > 0){
+        if (numberOfPennies > 0) {
             output += "\t" + numberOfPennies + " " + pennies;
         }
-        JOptionPane.showMessageDialog(null, output);
+        System.out.println(output);
     }
 }

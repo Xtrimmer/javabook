@@ -1,5 +1,7 @@
 package chapter_03;
+
 import java.util.Scanner;
+
 /**
  * (Health application: BMI) Revise Listing 3.5, ComputeAndInterpretBMI.java,
  * to let the user enter weight, feet, and inches. For example, if a person is 5 feet and

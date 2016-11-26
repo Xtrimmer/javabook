@@ -6,12 +6,12 @@ package chapter_03;
  */
 public class PE_03_16_Random_point {
     public static void main(String[] args) {
-        int sign = (int)(Math.random() * 2);
+        int sign = (int) (Math.random() * 2);
         if (sign == 0) sign = -1;
-        int width = (int)(Math.random() * 51) * sign;
-        sign = (int)(Math.random() * 2);
+        int width = (int) (Math.random() * 51) * sign;
+        sign = (int) (Math.random() * 2);
         if (sign == 0) sign = -1;
-        int height = (int)(Math.random() * 101) * sign;
+        int height = (int) (Math.random() * 101) * sign;
         System.out.println("Random point: (" + width + ", " + height + ")");
     }
 }

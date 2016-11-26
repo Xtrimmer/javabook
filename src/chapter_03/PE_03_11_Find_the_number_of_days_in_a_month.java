@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Find the number of days in a month) Write a program that prompts the user
  * to enter the month and year and displays the number of days in the month. For
@@ -17,12 +18,12 @@ public class PE_03_11_Find_the_number_of_days_in_a_month {
         System.out.print("Enter a year [e.g. 2016]: ");
         int year = SCANNER.nextInt();
         int days = 0;
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12){
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
             days = 31;
         } else if (month == 4 || month == 6 || month == 9 || month == 11) {
             days = 30;
-        } else if (month == 2){
-            if (year % 4 == 0 && (year % 100 != 0  || year % 400 == 0)){
+        } else if (month == 2) {
+            if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
                 days = 29;
             } else {
                 days = 28;

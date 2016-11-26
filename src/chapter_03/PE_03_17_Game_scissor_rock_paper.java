@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Game: scissor, rock, paper) Write a program that plays the popular scissor-rock-paper
  * game. (A scissor can cut a paper, a rock can knock a scissor, and a paper can
@@ -12,13 +13,13 @@ import java.util.Scanner;
 public class PE_03_17_Game_scissor_rock_paper {
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
-        int computer = (int)(Math.random() * 3);
+        int computer = (int) (Math.random() * 3);
         System.out.print("scissor (0), rock (1), paper (2): ");
         int player = SCANNER.nextInt();
         String msg1 = "The computer is ";
         String msg2 = "You are ";
-        String msg3 = "";
-        switch (computer){
+        String msg3;
+        switch (computer) {
             case 0:
                 msg1 += "scissor. ";
                 break;
@@ -29,7 +30,7 @@ public class PE_03_17_Game_scissor_rock_paper {
                 msg1 += "paper. ";
                 break;
         }
-        switch (player){
+        switch (player) {
             case 0:
                 msg2 += "scissor";
                 break;
@@ -40,10 +41,10 @@ public class PE_03_17_Game_scissor_rock_paper {
                 msg2 += "paper";
                 break;
         }
-        if (computer == player){
+        if (computer == player) {
             msg2 += " too. ";
             msg3 = "It is a draw";
-        } else if (player == computer + 1 || player == computer - 2){
+        } else if (player == computer + 1 || player == computer - 2) {
             msg2 += ". ";
             msg3 = "You won";
         } else {

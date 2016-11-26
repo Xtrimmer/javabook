@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Game: addition quiz) Listing 3.3, SubtractionQuiz.java, randomly generates a
  * subtraction question. Revise the program to randomly generate an addition question
@@ -18,7 +19,7 @@ public class PE_03_05_Find_future_dates {
 
         String weekday = "";
         String futureWeekday = "";
-        switch (today){
+        switch (today) {
             case 0:
                 weekday = "Sunday";
                 break;
@@ -40,7 +41,8 @@ public class PE_03_05_Find_future_dates {
             case 6:
                 weekday = "Saturday";
                 break;
-            default: System.out.println("Error: invalid status");
+            default:
+                System.out.println("Error: invalid status");
                 System.exit(1);
         }
         switch (futureDay) {
@@ -70,7 +72,5 @@ public class PE_03_05_Find_future_dates {
                 System.exit(1);
         }
         System.out.println("Today is " + weekday + " and the future day is " + futureWeekday);
-
     }
-
 }

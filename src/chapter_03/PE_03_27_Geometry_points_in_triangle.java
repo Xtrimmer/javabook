@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Geometry: points in triangle?) Suppose a right triangle is placed in a plane as
  * shown below. The right-angle point is placed at (0, 0), and the other two points

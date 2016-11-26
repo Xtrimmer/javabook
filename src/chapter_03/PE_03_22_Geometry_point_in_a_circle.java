@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Geometry: point in a circle?) Write a program that prompts the user to enter a
  * point (x, y) and checks whether the point is within the circle centered at (0, 0)
@@ -10,6 +11,7 @@ import java.util.Scanner;
  * The formula for computing the distance is
  *        _________________________
  *      √(x2 - x1)^2 + (y2 - y1)^2.
+ *
  * Test your program to cover all cases.)
  */
 public class PE_03_22_Geometry_point_in_a_circle {

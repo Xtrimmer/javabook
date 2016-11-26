@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class PE_03_34_Geometry_point_on_line_segment {
     public static void main(String[] args) {
         final Scanner SCANNER = new Scanner(System.in);
+
         System.out.print("Enter three points for p0, p1, and p2: ");
         double p0x = SCANNER.nextDouble();
         double p0y = SCANNER.nextDouble();
@@ -19,8 +20,9 @@ public class PE_03_34_Geometry_point_on_line_segment {
         double p1y = SCANNER.nextDouble();
         double p2x = SCANNER.nextDouble();
         double p2y = SCANNER.nextDouble();
-        double maxX = 0;
-        double minX = 0;
+
+        double maxX;
+        double minX;
         if (p0x <= p1x) {
             maxX = p1x;
             minX = p0x;

@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Current time) Revise Programming Exercise 2.8 to display the hour using a
  * 12-hour clock.
@@ -18,13 +19,13 @@ public class PE_03_30_Current_time {
         long totalSeconds = totalMilliseconds / 1000;
 
         // Compute the current second in the minute in the hour
-        long currentSecond = (int)(totalSeconds % 60);
+        long currentSecond = (int) (totalSeconds % 60);
 
         // Obtain the total minutes
         long totalMinutes = totalSeconds / 60;
 
         // Compute the current minute in the hour
-        long currentMinute = (int)(totalMinutes % 60);
+        long currentMinute = (int) (totalMinutes % 60);
 
         // Obtain the total hours
         long totalHours = totalMinutes / 60;
@@ -32,9 +33,9 @@ public class PE_03_30_Current_time {
         totalHours += offset;
 
         // Compute the current hour
-        long currentHour = (int)(totalHours % 24);
+        long currentHour = (int) (totalHours % 24);
         String period = currentHour >= 12 ? "PM" : "AM";
-        currentHour = (int)(totalHours % 12);
+        currentHour = (int) (totalHours % 12);
 
         // Display results
         System.out.println("Current time is " + currentHour + ":"

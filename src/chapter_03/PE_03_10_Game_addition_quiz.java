@@ -1,20 +1,22 @@
 package chapter_03;
-import javax.swing.JOptionPane;
+
+import java.util.Scanner;
+
 /**
- * (Game: learn addition) Write a program that generates two integers under 100
- * and prompts the user to enter the sum of these two integers. The program then
- * reports true if the answer is correct, false otherwise. The program is similar to
- * Listing 3.1.
+ * (Game: addition quiz) Listing 3.3, SubtractionQuiz.java, randomly generates a
+ * subtraction question. Revise the program to randomly generate an addition question
+ * with two integers less than 100.
  */
 public class PE_03_10_Game_addition_quiz {
     public static void main(String[] args) {
-        int number1 = (int)(Math.random() * 100) + 1;
-        int number2 = (int)(Math.random() * 100) + 1;
+        int number1 = (int) (Math.random() * 100);
+        int number2 = (int) (Math.random() * 100);
 
-        String input = JOptionPane.showInputDialog("What is " + number1 + " + " + number2 + "?");
-        int answer = Integer.parseInt(input);
+        System.out.print("What is " + number1 + " + " + number2 + "? ");
+        Scanner input = new Scanner(System.in);
+        int answer = input.nextInt();
 
-        JOptionPane.showMessageDialog(null, number1 + " + " + number2 + " = " + answer + " is " +
-                                    (number1 + number2 == answer));
+        System.out.println(number1 + " + " + number2 + " = " + answer + " is "
+                + (number1 + number2 == answer));
     }
 }

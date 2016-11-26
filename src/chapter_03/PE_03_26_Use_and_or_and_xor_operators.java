@@ -1,6 +1,7 @@
 package chapter_03;
 
 import java.util.Scanner;
+
 /**
  * (Use the &&, || and ^ operators) Write a program that prompts the user to enter
  * an integer and determines whether it is divisible by 5 and 6, whether it is divisible

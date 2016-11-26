@@ -11,7 +11,7 @@ public class PE_03_24_Game_pick_a_card {
         String rankText = "";
         int suit = (int) (Math.random() * 4);
         int rank = (int) (Math.random() * 13) + 2;
-        switch (suit){
+        switch (suit) {
             case 0:
                 suitText = "Clubs";
                 break;
@@ -25,7 +25,7 @@ public class PE_03_24_Game_pick_a_card {
                 suitText = "Spades";
                 break;
         }
-        switch (rank){
+        switch (rank) {
             case 2:
             case 3:
             case 4:
