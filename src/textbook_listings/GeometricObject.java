@@ -1,4 +1,4 @@
-package Textbook_Examples;
+package textbook_listings;
 
 public abstract class GeometricObject {
   private String color = "white";

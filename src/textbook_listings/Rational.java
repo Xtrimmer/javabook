@@ -1,4 +1,4 @@
-package Textbook_Examples;
+package textbook_listings;
 
 public class Rational extends Number implements Comparable<Rational> {
   // Data fields for numerator and denominator

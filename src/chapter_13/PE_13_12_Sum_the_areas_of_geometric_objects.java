@@ -1,8 +1,8 @@
 package chapter_13;
 
-import Textbook_Examples.Circle;
-import Textbook_Examples.GeometricObject;
-import Textbook_Examples.Rectangle;
+import textbook_listings.Circle;
+import textbook_listings.GeometricObject;
+import textbook_listings.Rectangle;
 
 /**
  * (Sum the areas of geometric objects) Write a method that sums the areas of all the

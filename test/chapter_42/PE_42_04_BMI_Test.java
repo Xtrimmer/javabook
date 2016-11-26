@@ -1,6 +1,6 @@
 package chapter_42;
 
-import Textbook_Examples.BMI;
+import textbook_listings.BMI;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

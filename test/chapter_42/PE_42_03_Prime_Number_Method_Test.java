@@ -1,6 +1,6 @@
 package chapter_42;
 
-import Textbook_Examples.PrimeNumberMethod;
+import textbook_listings.PrimeNumberMethod;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

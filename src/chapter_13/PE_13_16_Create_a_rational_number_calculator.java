@@ -1,6 +1,6 @@
 package chapter_13;
 
-import Textbook_Examples.Rational;
+import textbook_listings.Rational;
 
 /**
  * (Create a rational-number calculator) Write a program similar to Listing 7.9,

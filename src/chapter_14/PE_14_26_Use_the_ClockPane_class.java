@@ -1,6 +1,6 @@
 package chapter_14;
 
-import Textbook_Examples.ClockPane;
+import textbook_listings.ClockPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;

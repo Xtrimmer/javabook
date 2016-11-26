@@ -1,4 +1,4 @@
-package Textbook_Examples;
+package textbook_listings;
 
 public class BMI {
   private String name;
