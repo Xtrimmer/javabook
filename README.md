@@ -1,29 +1,8 @@
-# README #
+####My solutions to the Introduction to Java Programming (Tenth Edition) book by Y. Daniel Liang
 
-This README would normally document whatever steps are necessary to get your application up and running.
+I solved these programming exercises for practice and simply for the fun of it. Yes, I am a huge nerd ;)
 
-### What is this repository for? ###
+I hope they can be of use to other learning experience.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+The Book can be found here:
+http://www.amazon.com/Intro-Programming-Comprehensive-Version-Edition/dp/0133761312
