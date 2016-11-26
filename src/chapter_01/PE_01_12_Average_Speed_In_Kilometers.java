@@ -12,7 +12,5 @@ public class PE_01_12_Average_Speed_In_Kilometers {
 
         System.out.println("Mph = " + mph);
         System.out.println("Kph = " + kph);
-
-        //System.out.println(24 / (1 + (40 + 35.0 / 60) / 60) * 1.6);
     }
 }
