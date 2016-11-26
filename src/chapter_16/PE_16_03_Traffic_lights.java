@@ -57,6 +57,7 @@ public class PE_16_03_Traffic_lights extends Application {
             Rectangle rectangle = new Rectangle();
             rectangle.setFill(Color.GRAY);
             rectangle.setStroke(Color.BLACK);
+            rectangle.strokeWidthProperty().bind(heightProperty().multiply(1 / 180.0));
             rectangle.heightProperty().bind(heightProperty().multiply(10 / 12.0));
             rectangle.widthProperty().bind(heightProperty().multiply(4 / 12.0));
             rectangle.yProperty().bind(heightProperty().multiply(1 / 12.0));
@@ -68,6 +69,7 @@ public class PE_16_03_Traffic_lights extends Application {
                 lights[i] = new Circle();
                 lights[i].setFill(Color.BLACK);
                 lights[i].setStroke(Color.BLACK);
+                lights[i].strokeWidthProperty().bind(heightProperty().multiply(1 / 180.0));
                 lights[i].radiusProperty().bind(heightProperty().multiply(1 / 12.0));
                 lights[i].centerYProperty().bind(heightProperty().multiply((3 + 3 * i) / 12.0));
                 lights[i].centerXProperty().bind(widthProperty().multiply(6 / 12.0));
