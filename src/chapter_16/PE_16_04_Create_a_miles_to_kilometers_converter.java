@@ -37,21 +37,21 @@ public class PE_16_04_Create_a_miles_to_kilometers_converter extends Application
     private class DistanceConversionPane extends GridPane {
 
         static final double KILOMETERS_PER_MILE = 1.609344;
+
         final TextField textFieldMile;
         final TextField textFieldKilometer;
 
         DistanceConversionPane() {
-            Label labelMile = new Label("Mile");
-            Label labelKilometer = new Label("Kilometer");
             textFieldMile = new TextField("1");
             textFieldMile.setAlignment(Pos.BASELINE_RIGHT);
             textFieldKilometer = new TextField(KILOMETERS_PER_MILE + "");
             textFieldKilometer.setAlignment(Pos.BASELINE_RIGHT);
 
-            add(labelMile, 0, 0);
-            add(labelKilometer, 0, 1);
+            add(new Label("Mile"), 0, 0);
+            add(new Label("Kilometer"), 0, 1);
             add(textFieldMile, 1, 0);
             add(textFieldKilometer, 1, 1);
+
             setPadding(new Insets(10));
             setHgap(5);
             setVgap(5);
