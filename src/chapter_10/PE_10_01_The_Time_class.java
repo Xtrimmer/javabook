@@ -1,7 +1,5 @@
 package chapter_10;
 
-import utility.Time;
-
 /**
  * (The Time class) Design a class named Time. The class contains:
  *
@@ -40,5 +38,43 @@ public class PE_10_01_The_Time_class {
         System.out.println();
         System.out.print("Time2 = ");
         System.out.printf("%02d:%02d:%02d", time2.getHour(), time2.getMinute(), time2.getSecond());
+    }
+
+    private static class Time {
+        private int hour;
+        private int minute;
+        private int second;
+
+        Time() {
+            this(System.currentTimeMillis());
+        }
+
+        Time(long timeInMilliseconds) {
+            setTime(timeInMilliseconds);
+        }
+
+        Time(int hour, int minute, int second) {
+            this.hour = hour;
+            this.minute = minute;
+            this.second = second;
+        }
+
+        void setTime(long timeInMilliseconds) {
+            hour = (int) ((timeInMilliseconds / (1000 * 60 * 60)) % 24);
+            minute = (int) ((timeInMilliseconds / (1000 * 60)) % 60);
+            second = (int) ((timeInMilliseconds / 1000) % 60);
+        }
+
+        int getHour() {
+            return hour;
+        }
+
+        int getMinute() {
+            return minute;
+        }
+
+        int getSecond() {
+            return second;
+        }
     }
 }
