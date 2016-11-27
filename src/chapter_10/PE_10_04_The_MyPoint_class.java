@@ -1,7 +1,5 @@
 package chapter_10;
 
-import utility.MyPoint;
-
 /**
  * (The MyPoint class) Design a class named MyPoint to represent a point with
  * x- and y-coordinates. The class contains:
@@ -26,5 +24,35 @@ public class PE_10_04_The_MyPoint_class {
 
         System.out.println("The distance between the two points is:");
         System.out.println(myPoint1.distance(myPoint2));
+    }
+
+    private static class MyPoint {
+        private final double x;
+        private final double y;
+
+        MyPoint() {
+            this(0, 0);
+        }
+
+        MyPoint(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        double getX() {
+            return x;
+        }
+
+        double getY() {
+            return y;
+        }
+
+        double distance(double x, double y) {
+            return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));
+        }
+
+        double distance(MyPoint point) {
+            return this.distance(point.x, point.y);
+        }
     }
 }
