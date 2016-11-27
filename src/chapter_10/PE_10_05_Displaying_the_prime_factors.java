@@ -1,6 +1,6 @@
 package chapter_10;
 
-import utility.StackOfIntegers;
+import textbook_listings.StackOfIntegers;
 
 import java.util.Scanner;
 
@@ -10,7 +10,6 @@ import java.util.Scanner;
  * example, if the integer is 120, the smallest factors are displayed as 5, 3, 2, 2,
  * 2. Use the StackOfIntegers class to store the factors (e.g., 2, 2, 2, 3, 5) and
  * retrieve and display them in reverse order.
- * 10.6 (Displaying the prime numbers) Write a program
  */
 public class PE_10_05_Displaying_the_prime_factors {
     public static void main(String[] args) {

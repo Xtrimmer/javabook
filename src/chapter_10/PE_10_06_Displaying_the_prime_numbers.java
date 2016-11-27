@@ -1,6 +1,6 @@
 package chapter_10;
 
-import utility.StackOfIntegers;
+import textbook_listings.StackOfIntegers;
 
 /**
  * (Displaying the prime numbers) Write a program that displays all the prime
