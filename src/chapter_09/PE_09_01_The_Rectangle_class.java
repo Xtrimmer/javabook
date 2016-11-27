@@ -1,7 +1,5 @@
 package chapter_09;
 
-import utility.Rectangle;
-
 /**
  * (The Rectangle class) Following the example of the Circle class in Section 9.2,
  * design a class named Rectangle to represent a rectangle. The class contains:
@@ -39,6 +37,45 @@ public class PE_09_01_The_Rectangle_class {
         System.out.println("Area:     " + rectangle.getArea());
         System.out.println("Perimeter " + rectangle.getPerimeter());
         System.out.println();
+    }
+
+    private static class Rectangle {
+        private double width;
+        private double height;
+
+        public Rectangle() {
+            width = 1;
+            height = 1;
+        }
+
+        public Rectangle(double height, double width) {
+            this.height = height;
+            this.width = width;
+        }
+
+        public double getWidth() {
+            return width;
+        }
+
+        public void setWidth(double width) {
+            this.width = width;
+        }
+
+        public double getHeight() {
+            return height;
+        }
+
+        public void setHeight(double height) {
+            this.height = height;
+        }
+
+        public double getArea() {
+            return width * height;
+        }
+
+        public double getPerimeter() {
+            return width + width + height + height;
+        }
     }
 }
 
