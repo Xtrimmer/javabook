@@ -1,7 +1,5 @@
 package chapter_09;
 
-import utility.QuadraticEquation;
-
 import java.util.Scanner;
 
 /**
@@ -52,6 +50,46 @@ public class PE_09_10_Algebra_quadratic_equations {
         else if (quadraticEquation.getDiscriminant() == 0)
             System.out.printf("The root is %.2f.", quadraticEquation.getRoot1());
         else System.out.print("The equation has no roots.");
+    }
+
+    private static class QuadraticEquation {
+        private final double a;
+        private final double b;
+        private final double c;
+
+        QuadraticEquation(double a, double b, double c) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+
+        double getA() {
+            return a;
+        }
+
+        double getB() {
+            return b;
+        }
+
+        double getC() {
+            return c;
+        }
+
+        double getRoot1() {
+            double discriminant = getDiscriminant();
+            if (discriminant < 0) return 0;
+            else return (-b + Math.sqrt(discriminant)) / (2 * a);
+        }
+
+        double getDiscriminant() {
+            return Math.pow(b, 2) - (4 * a * c);
+        }
+
+        double getRoot2() {
+            double discriminant = getDiscriminant();
+            if (discriminant < 0) return 0;
+            else return (-b - Math.sqrt(discriminant)) / (2 * a);
+        }
     }
 }
 
