@@ -69,8 +69,8 @@ public class PE_16_05_Convert_numbers extends Application {
                 } catch (NumberFormatException ignored) {
                 }
                 textFields[DECIMAL].setText(number + "");
-                textFields[HEX].setText(Integer.toHexString(number));
-                textFields[BINARY].setText(Integer.toBinaryString(number).toUpperCase());
+                textFields[HEX].setText(Integer.toHexString(number).toUpperCase());
+                textFields[BINARY].setText(Integer.toBinaryString(number));
             }
         }
 
