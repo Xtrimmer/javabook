@@ -1,7 +1,6 @@
 package chapter_10;
 
-import utility.Account;
-
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -65,7 +64,7 @@ import java.util.Scanner;
  *      Enter an id:
  */
 public class PE_10_07_Game_ATM_machine {
-    private static Account[] accounts = initializeAccounts(10);
+    private static final Account[] accounts = initializeAccounts(10);
 
     public static void main(String[] args) {
         startATM();
@@ -107,8 +106,7 @@ public class PE_10_07_Game_ATM_machine {
 
     private static void withdraw(int accountNumber) {
         double withdrawAmount = promptAmount("withdraw");
-        int status = accounts[accountNumber].withdraw(withdrawAmount);
-        if (status < 0) System.out.println("Insufficient funds.");
+        accounts[accountNumber].withdraw(withdrawAmount);
     }
 
     private static double promptAmount(String s) {
@@ -168,5 +166,66 @@ public class PE_10_07_Game_ATM_machine {
             accounts[i] = new Account(i, 100);
         }
         return accounts;
+    }
+
+    private static class Account {
+        private static double annualInterestRate = 0;
+        private final Date dateCreated = new Date();
+        private int id = 0;
+        private double balance = 0;
+
+        Account() {
+        }
+
+        Account(int id, double balance) {
+            this.id = id;
+            this.balance = balance;
+        }
+
+        static double getAnnualInterestRate() {
+            return annualInterestRate;
+        }
+
+        static void setAnnualInterestRate(double annualInterestRate) {
+            Account.annualInterestRate = annualInterestRate;
+        }
+
+        int getId() {
+            return id;
+        }
+
+        void setId(int id) {
+            this.id = id;
+        }
+
+        double getBalance() {
+            return balance;
+        }
+
+        void setBalance(double balance) {
+            this.balance = balance;
+        }
+
+        Date getDateCreated() {
+            return dateCreated;
+        }
+
+        double getMonthlyInterest() {
+            return balance * (getMonthlyInterestRate() / 100.0);
+        }
+
+        double getMonthlyInterestRate() {
+            return annualInterestRate / 12;
+        }
+
+        void withdraw(double amount) {
+            if (balance >= amount) {
+                balance -= amount;
+            }
+        }
+
+        void deposit(double amount) {
+            balance += amount;
+        }
     }
 }
