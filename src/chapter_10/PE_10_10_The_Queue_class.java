@@ -1,7 +1,5 @@
 package chapter_10;
 
-import utility.Queue;
-
 /**
  * (The Queue class) Section 10.6 gives a class for Stack. Design a class named
  * Queue for storing integers. Like a stack, a queue holds elements. In a stack, the
@@ -39,6 +37,43 @@ public class PE_10_10_The_Queue_class {
         //removes these numbers and displays them.
         while (queue.getSize() > 0) {
             System.out.println(queue.dequeue());
+        }
+    }
+
+    private static class Queue {
+        private int[] elements;
+        private int size;
+
+        Queue() {
+            this(8);
+        }
+
+        Queue(int initialCapacity) {
+            elements = new int[initialCapacity];
+        }
+
+        void enqueue(int v) {
+            if (size >= elements.length) {
+                int[] temp = new int[elements.length * 2];
+                System.arraycopy(elements, 0, temp, 0, elements.length);
+                elements = temp;
+            }
+            elements[size++] = v;
+        }
+
+        int dequeue() {
+            int element = elements[0];
+            size--;
+            System.arraycopy(elements, 1, elements, 0, size);
+            return element;
+        }
+
+        boolean empty() {
+            return size == 0;
+        }
+
+        int getSize() {
+            return size;
         }
     }
 }
