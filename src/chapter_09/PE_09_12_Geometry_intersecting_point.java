@@ -1,7 +1,7 @@
 package chapter_09;
 
-import utility.LinearEquation;
 import javafx.geometry.Point2D;
+
 import java.util.Scanner;
 
 /**
@@ -32,15 +32,6 @@ public class PE_09_12_Geometry_intersecting_point {
         printResults(linearEquation);
     }
 
-    private static void printResults(LinearEquation linearEquation) {
-        if (linearEquation.isSolvable()) {
-            System.out.printf("The intersecting point is at (%f, %f)",
-                    linearEquation.getX(), linearEquation.getY());
-        } else {
-            System.out.println("The lines are parallel.");
-        }
-    }
-
     private static Point2D[] promptPoint2Ds(int numberOfPoints) {
         Point2D[] point2Ds = new Point2D[numberOfPoints];
         Scanner scanner = new Scanner(System.in);
@@ -51,5 +42,44 @@ public class PE_09_12_Geometry_intersecting_point {
             point2Ds[i] = new Point2D(x, y);
         }
         return point2Ds;
+    }
+
+    private static void printResults(LinearEquation linearEquation) {
+        if (linearEquation.isSolvable()) {
+            System.out.printf("The intersecting point is at (%f, %f)",
+                    linearEquation.getX(), linearEquation.getY());
+        } else {
+            System.out.println("The lines are parallel.");
+        }
+    }
+
+    private static class LinearEquation {
+        private final double a;
+        private final double b;
+        private final double c;
+        private final double d;
+        private final double e;
+        private final double f;
+
+        LinearEquation(double a, double b, double c, double d, double e, double f) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+            this.d = d;
+            this.e = e;
+            this.f = f;
+        }
+
+        boolean isSolvable() {
+            return a * d - b * c != 0;
+        }
+
+        double getX() {
+            return (e * d - b * f) / (a * d - b * c);
+        }
+
+        double getY() {
+            return (a * f - e * c) / (a * d - b * c);
+        }
     }
 }
