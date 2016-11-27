@@ -13,11 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * (Demonstrate TextField properties) Write a program that sets the horizontalalignment
- and column-size properties of a text field dynamically, as shown in
- Figure 16.38a.
+ * (Demonstrate TextField properties) Write a program that sets the horizontal
+ * alignment and column-size properties of a text field dynamically, as shown in
+ * Figure 16.38a.
  */
-public class PE_16_06_Demonstrate_TextField_proper extends Application {
+public class PE_16_06_Demonstrate_TextField_properties extends Application {
 
     public static void main(String[] args) {
         Application.launch(args);
