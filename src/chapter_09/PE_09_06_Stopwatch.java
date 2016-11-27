@@ -1,7 +1,5 @@
 package chapter_09;
 
-import utility.StopWatch;
-
 import java.util.Random;
 
 /**
@@ -54,6 +52,35 @@ public class PE_09_06_Stopwatch {
                 array[currentMaxIndex] = array[i];
                 array[i] = currentMax;
             }
+        }
+    }
+
+    private static class StopWatch {
+        private long startTime;
+        private long endTime;
+
+        StopWatch() {
+            startTime = System.currentTimeMillis();
+        }
+
+        long getStartTime() {
+            return startTime;
+        }
+
+        long getEndTime() {
+            return endTime;
+        }
+
+        void start() {
+            startTime = System.currentTimeMillis();
+        }
+
+        void stop() {
+            endTime = System.currentTimeMillis();
+        }
+
+        long getElapsedTime() {
+            return endTime - startTime;
         }
     }
 }
