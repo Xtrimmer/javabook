@@ -1,7 +1,5 @@
 package chapter_10;
 
-import utility.MyRectangle2D;
-
 import java.util.Scanner;
 
 /**
@@ -43,7 +41,7 @@ public class PE_10_15_Geometry_the_bounding_rectangle {
         return points;
     }
 
-    public static MyRectangle2D getRectangle(double[][] points) {
+    private static MyRectangle2D getRectangle(double[][] points) {
         final int X = 0, Y = 1;
         double xMin = points[0][X];
         double yMin = points[0][Y];
@@ -62,4 +60,100 @@ public class PE_10_15_Geometry_the_bounding_rectangle {
         return new MyRectangle2D(centerX, centerY, width, height);
     }
 
+    private static class MyRectangle2D {
+        private double x;
+        private double y;
+        private double width;
+        private double height;
+
+        MyRectangle2D() {
+            this(0, 0, 1, 1);
+        }
+
+        MyRectangle2D(double x, double y, double width, double height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+
+        double getX() {
+            return x;
+        }
+
+        void setX(double x) {
+            this.x = x;
+        }
+
+        double getY() {
+            return y;
+        }
+
+        void setY(double y) {
+            this.y = y;
+        }
+
+        double getTop() {
+            return this.y + height / 2.0;
+        }
+
+        double getLeft() {
+            return this.x - width / 2.0;
+        }
+
+        double getBottom() {
+            return this.y - height / 2.0;
+        }
+
+        double getWidth() {
+            return width;
+        }
+
+        void setWidth(double width) {
+            this.width = width;
+        }
+
+        double getHeight() {
+            return height;
+        }
+
+        void setHeight(double height) {
+            this.height = height;
+        }
+
+        double getArea() {
+            return width * height;
+        }
+
+        double getPerimeter() {
+            return 2 * (width + height);
+        }
+
+        boolean contains(double x, double y) {
+            double right = this.x + width / 2.0;
+            double left = getLeft();
+            double top = getTop();
+            double bottom = getBottom();
+            return x <= right && x >= left && y <= top && y >= bottom;
+        }
+
+        boolean contains(MyRectangle2D r) {
+            double right = r.x + r.width / 2.0;
+            double left = r.x - r.width / 2.0;
+            double top = r.y + r.height / 2.0;
+            double bottom = r.y - r.height / 2.0;
+            return contains(left, top) && contains(left, bottom)
+                    && contains(right, top) && contains(right, bottom);
+        }
+
+        boolean overlaps(MyRectangle2D r) {
+            double right = r.x + r.width / 2.0;
+            double left = r.x - r.width / 2.0;
+            double top = r.y + r.height / 2.0;
+            double bottom = r.y - r.height / 2.0;
+            return contains(r) || r.contains(this)
+                    || contains(left, top) || contains(left, bottom)
+                    || contains(right, top) || contains(right, bottom);
+        }
+    }
 }
