@@ -1,6 +1,6 @@
 package chapter_10;
 
-import utility.MyDate;
+import java.util.GregorianCalendar;
 
 /**
  * (The MyDate class) Design a class named MyDate. The class contains:
@@ -40,5 +40,63 @@ public class PE_10_14_The_MyDate_class {
         System.out.println("Month: " + date2.getMonth());
         System.out.println("Day:   " + date2.getDay());
         System.out.println("Year:  " + date2.getYear());
+    }
+
+    private static class MyDate {
+        private int year;
+        private int month;
+        private int day;
+
+        MyDate() {
+            this(System.currentTimeMillis());
+        }
+
+        MyDate(long timeInMilliseconds) {
+            setYear(timeInMilliseconds);
+            setMonth(timeInMilliseconds);
+            setDay(timeInMilliseconds);
+        }
+
+        MyDate(int year, int month, int day) {
+            this.year = year;
+            this.month = month;
+            this.day = day;
+        }
+
+        int getYear() {
+            return year;
+        }
+
+        void setYear(long timeInMilliseconds) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTimeInMillis(timeInMilliseconds);
+            this.year = gregorianCalendar.get(GregorianCalendar.YEAR);
+        }
+
+        int getMonth() {
+            return month;
+        }
+
+        void setMonth(long timeInMilliseconds) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTimeInMillis(timeInMilliseconds);
+            this.month = gregorianCalendar.get(GregorianCalendar.MONTH);
+        }
+
+        int getDay() {
+            return day;
+        }
+
+        void setDay(long timeInMilliseconds) {
+            GregorianCalendar gregorianCalendar = new GregorianCalendar();
+            gregorianCalendar.setTimeInMillis(timeInMilliseconds);
+            this.day = gregorianCalendar.get(GregorianCalendar.DAY_OF_MONTH);
+        }
+
+        void setDate(long elapsedTime) {
+            setYear(elapsedTime);
+            setMonth(elapsedTime);
+            setDay(elapsedTime);
+        }
     }
 }
