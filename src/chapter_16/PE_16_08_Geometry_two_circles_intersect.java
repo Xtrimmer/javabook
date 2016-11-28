@@ -123,13 +123,13 @@ public class PE_16_08_Geometry_two_circles_intersect extends Application {
             pane.setPrefWidth(300);
             pane.setPrefHeight(200);
 
-            circle1.setCenterY(pane.getPrefHeight() / 2);
-            circle1.setCenterX(pane.getPrefWidth() / 3);
-            circle1.setRadius(pane.getPrefWidth() / 5);
+            circle1.setCenterY(100);
+            circle1.setCenterX(100);
+            circle1.setRadius(60);
 
-            circle2.setCenterY(pane.getPrefHeight() / 2);
-            circle2.setCenterX(pane.getPrefWidth() / 3 * 2);
-            circle2.setRadius(pane.getPrefWidth() / 5);
+            circle2.setCenterY(100);
+            circle2.setCenterX(200);
+            circle2.setRadius(60);
 
             controlPane1.setValues(circle1.getCenterX(), circle1.getCenterY(), circle1.getRadius());
             controlPane2.setValues(circle2.getCenterX(), circle2.getCenterY(), circle2.getRadius());
