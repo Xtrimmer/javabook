@@ -125,7 +125,7 @@ public class PE_16_11_Create_a_histogram_for_occurrences_of_letters extends Appl
                             rectangleHeight
                     );
                     rectangle.setStroke(Color.BLACK);
-                    rectangle.setFill(Color.YELLOW);
+                    rectangle.setFill(Color.BLUE);
                     rectangle.setStrokeWidth(strokeWidth);
                     getChildren().add(rectangle);
                 }

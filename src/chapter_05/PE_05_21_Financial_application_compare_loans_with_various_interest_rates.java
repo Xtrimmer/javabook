@@ -31,8 +31,7 @@ public class PE_05_21_Financial_application_compare_loans_with_various_interest_
         double numberOfYears = scanner.nextDouble();
         System.out.println("Interest Rate     Monthly Payment     Total Payment");
         double interestRate = InterestRateStart;
-        while (interestRate <= 8){
-        //for (int i = 1; i <= 25; i++) {
+        while (interestRate <= InterestRateEnd) {
             double monthlyInterestRate = interestRate / 1200.0;
             double monthlyPayment = loanAmount * monthlyInterestRate /
                     (1 - 1 / Math.pow(1 + monthlyInterestRate, numberOfYears * 12));
@@ -41,7 +40,7 @@ public class PE_05_21_Financial_application_compare_loans_with_various_interest_
             System.out.printf("%-20.2f", monthlyPayment);
             System.out.printf("%.2f", totalPayment);
             System.out.println();
-            interestRate += (1/8f);
+            interestRate += (1 / 8.0);
         }
     }
 }
