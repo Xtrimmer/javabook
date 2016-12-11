@@ -20,7 +20,7 @@ public class Template extends Application{
         Pane pane = new Pane();
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise15_");
+        primaryStage.setTitle("Exercise16_");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
