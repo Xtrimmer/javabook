@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class PE_12_21_Data_sorted {
     public static void main(String[] args) {
-        ArrayList<String> strings = loadStringsFromFile("resources\\SortedStrings.txt");
+        ArrayList<String> strings = loadStringsFromFile("resources\\text\\SortedStrings.txt");
         reportStringSortCheckResults(strings);
     }
 

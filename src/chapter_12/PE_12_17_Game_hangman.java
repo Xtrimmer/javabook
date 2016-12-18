@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class PE_12_17_Game_hangman {
     public static void main(String[] args) {
-        ArrayList<String> words = loadWordsFromFile("resources\\hangman.txt");
+        ArrayList<String> words = loadWordsFromFile("resources\\text\\hangman.txt");
         do {
             playHangman(words);
         } while (doReplay());

@@ -26,7 +26,7 @@ public class PE_12_24_Create_large_dataset {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-        File salaryFile = createNewFile("resources\\Salary.txt");
+        File salaryFile = createNewFile("resources\\text\\Salary.txt");
         String salaryInfo = generateSalaryInfo();
         WriteToFile(salaryFile, salaryInfo);
     }

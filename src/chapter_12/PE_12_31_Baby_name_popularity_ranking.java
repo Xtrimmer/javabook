@@ -35,7 +35,7 @@ import java.util.Scanner;
  *      The name ABC is not ranked in year 2010
  */
 public class PE_12_31_Baby_name_popularity_ranking {
-    private static final String FILE_PATH_PREFIX = "resources\\babynamesranking";
+    private static final String FILE_PATH_PREFIX = "resources\\text\\babynamesranking";
     private static final String FILE_EXTENSION = ".txt";
 
     public static void main(String[] args) {

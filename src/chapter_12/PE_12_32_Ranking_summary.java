@@ -18,7 +18,7 @@ import java.util.Scanner;
  * 2001 Emily    Madison Hannah Ashley Alexis Jacob  Michael Matthew Joshua    Christopher
  */
 public class PE_12_32_Ranking_summary {
-    private static final String FILE_PATH_PREFIX = "resources\\babynamesranking";
+    private static final String FILE_PATH_PREFIX = "resources\\text\\babynamesranking";
     private static final String FILE_EXTENSION = ".txt";
     private static final int COLUMN_PADDING_SPACE = 1;
 

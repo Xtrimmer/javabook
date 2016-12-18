@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class PE_12_15_Write_read_data {
     public static void main(String[] args) {
-        File file = createFile("resources\\Exercise12_15.txt");
+        File file = createFile("resources\\text\\Exercise12_15.txt");
         writeRandomIntegersToFile(file, 100);
         ArrayList<Integer> data = readFile(file);
         displayDataIncreasingOrder(data);
