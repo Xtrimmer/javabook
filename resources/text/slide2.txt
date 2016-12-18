@@ -1,0 +1,2 @@
+1.3 Central Processing Unit
+The central processing unit (CPU) is the computer’s brain. It retrieves instructions from memory and executes them. The CPU usually has two components: a control unit and an arithmetic/logic unit. The control unit controls and coordinates the actions of the other components. The arithmetic/logic unit performs numeric operations (addition, subtraction, multiplication, division) and logical operations (comparisons).

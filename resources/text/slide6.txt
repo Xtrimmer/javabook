@@ -1,0 +1,2 @@
+1.7 Input and Output Devices
+Input and output devices let the user communicate with the computer. The most common input devices are keyboards and mice. The most common output devices are monitors and printers.

@@ -1,0 +1,2 @@
+1.6 Storage Devices
+A computer’s memory (RAM) is a volatile form of data storage: any information that has been stored in memory (i.e., saved) is lost when the system’s power is turned off. Programs and data are permanently stored on storage devices and are moved, when the computer actually uses them, to memory, which operates at much faster speeds than permanent storage devices can.

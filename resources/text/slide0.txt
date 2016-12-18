@@ -1,0 +1,3 @@
+1.1 Introduction
+The central theme of this book is to learn how to solve problems by writing a program.
+This book is about programming. So, what is programming? The term programming means to create (or develop) software, which is also called a program. In basic terms, software contains the instructions that tell a computer—or a computerized device—what to do.

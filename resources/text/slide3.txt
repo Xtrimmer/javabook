@@ -1,0 +1,3 @@
+1.4 Bits and Bytes
+Before we discuss memory, let’s look at how information (data and programs) are stored in a computer.
+A computer is really nothing more than a series of switches. Each switch exists in two states: on or off. Storing information in a computer is simply a matter of setting a sequence of switches on or off. If the switch is on, its value is 1. If the switch is off, its value is 0. These 0s and 1s are interpreted as digits in the binary number system and are called bits (binary digits).

@@ -1,0 +1,2 @@
+1.5 Memory
+A computer’s memory consists of an ordered sequence of bytes for storing programs as well as data that the program is working with. You can think of memory as the computer’s work area for executing a program. A program and its data must be moved into the computer’s memory before they can be executed by the CPU.

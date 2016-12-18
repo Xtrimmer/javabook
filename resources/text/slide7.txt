@@ -1,0 +1,2 @@
+1.8 Communication Devices
+Computers can be networked through communication devices, such as a dial-up modem (modulator/demodulator), a DSL or cable modem, a wired network interface card, or a wireless adapter.

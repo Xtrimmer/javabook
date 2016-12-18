@@ -1,0 +1,3 @@
+1.10 Operating Systems
+The operating system (OS) is the most important program that runs on a computer.
+The OS manages and controls a computer’s activities. The popular operating systems for general-purpose computers are Microsoft Windows, Mac OS, and Linux. Application programs, such as a Web browser or a word processor, cannot run unless an operating system is installed and running on the computer. Figure 1.5 shows the interrelationship of hardware, operating system, application software, and the user.
