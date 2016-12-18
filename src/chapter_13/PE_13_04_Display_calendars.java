@@ -30,39 +30,24 @@ public class PE_13_04_Display_calendars {
         printCalendarMonth(calendar);
     }
 
-    private static void printCalendarMonth(Calendar calendar) {
-        printCalendarMonthHeader(calendar);
-        printCalendarMonthBody(calendar);
-    }
-
-    private static void printCalendarMonthBody(Calendar calendar) {
-        padFirstWeekSpace(calendar);
-        printCalendarDays(calendar);
-        System.out.println();
-    }
-
-    private static void printCalendarDays(Calendar calendar) {
-        int numberOfDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
-        for (int day = 1; day <= numberOfDaysInMonth; day++) {
-            System.out.printf("%4d", day);
-            if ((day + firstDayOfMonth - 1) % 7 == 0)
-                System.out.println();
+    private static int getMonth(String[] args) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        int month = -1;
+        try {
+            month = Integer.valueOf(args[0]);
+            if (month >= calendar.getActualMinimum(Calendar.MONTH) + 1
+                    && month <= calendar.getActualMaximum(Calendar.MONTH) + 1) {
+                month -= 1;
+            } else {
+                throw new NumberFormatException();
+            }
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            month = calendar.get(Calendar.MONTH);
+        } catch (NumberFormatException ex) {
+            System.out.println("Invalid Month Value:");
+            System.exit(0);
         }
-    }
-
-    private static void padFirstWeekSpace(Calendar calendar) {
-        int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
-        for (int day = Calendar.SUNDAY; day < firstDayOfMonth; day++) {
-            System.out.print("    ");
-        }
-    }
-
-    public static void printCalendarMonthHeader(Calendar calendar) {
-        System.out.println(" " + MONTH_NAMES[calendar.get(Calendar.MONTH)]
-                + " " + calendar.get(Calendar.YEAR));
-        System.out.println("-----------------------------");
-        System.out.println(" Sun Mon Tue Wed Thu Fri Sat");
+        return month;
     }
 
     private static int getYear(String[] args) {
@@ -77,7 +62,7 @@ public class PE_13_04_Display_calendars {
                 throw new NumberFormatException();
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            year = Calendar.YEAR;
+            year = calendar.get(Calendar.YEAR);
         } catch (NumberFormatException ex) {
             System.out.println("Invalid Year Value:");
             System.exit(0);
@@ -85,23 +70,38 @@ public class PE_13_04_Display_calendars {
         return year;
     }
 
-    private static int getMonth(String[] args) {
-        GregorianCalendar calendar = new GregorianCalendar();
-        int month = -1;
-        try {
-            month = Integer.valueOf(args[0]);
-            if (month >= calendar.getActualMinimum(Calendar.MONTH) + 1
-                    && month <= calendar.getActualMaximum(Calendar.MONTH) + 1) {
-                month -= 1;
-            } else {
-                throw new NumberFormatException();
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            month = Calendar.MONTH;
-        } catch (NumberFormatException ex) {
-            System.out.println("Invalid Month Value:");
-            System.exit(0);
+    private static void padFirstWeekSpace(Calendar calendar) {
+        int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
+        for (int day = Calendar.SUNDAY; day < firstDayOfMonth; day++) {
+            System.out.print("    ");
         }
-        return month;
+    }
+
+    private static void printCalendarDays(Calendar calendar) {
+        int numberOfDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK);
+        for (int day = 1; day <= numberOfDaysInMonth; day++) {
+            System.out.printf("%4d", day);
+            if ((day + firstDayOfMonth - 1) % 7 == 0)
+                System.out.println();
+        }
+    }
+
+    private static void printCalendarMonth(Calendar calendar) {
+        printCalendarMonthHeader(calendar);
+        printCalendarMonthBody(calendar);
+    }
+
+    private static void printCalendarMonthBody(Calendar calendar) {
+        padFirstWeekSpace(calendar);
+        printCalendarDays(calendar);
+        System.out.println();
+    }
+
+    private static void printCalendarMonthHeader(Calendar calendar) {
+        System.out.println(" " + MONTH_NAMES[calendar.get(Calendar.MONTH)]
+                + " " + calendar.get(Calendar.YEAR));
+        System.out.println("-----------------------------");
+        System.out.println(" Sun Mon Tue Wed Thu Fri Sat");
     }
 }
