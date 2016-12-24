@@ -32,7 +32,7 @@ public class PE_16_28_Slide_show extends Application {
         SlideShowPane pane = new SlideShowPane();
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Chapter15_30");
+        primaryStage.setTitle("Chapter16_28");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
