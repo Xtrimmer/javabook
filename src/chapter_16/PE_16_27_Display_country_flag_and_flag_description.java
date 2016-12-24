@@ -90,7 +90,7 @@ public class PE_16_27_Display_country_flag_and_flag_description extends Applicat
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(pane, 450, 170);
-        primaryStage.setTitle("ComboBoxDemo"); // Set the stage title
+        primaryStage.setTitle("Chapter16_28"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
     }
