@@ -105,7 +105,7 @@ public class PE_16_24_Revise_Listing_16_14_MediaDemo_java extends Application {
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(pane, 650, 500);
-        primaryStage.setTitle("MediaDemo"); // Set the stage title
+        primaryStage.setTitle("Chapter16_24"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
     }
