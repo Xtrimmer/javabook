@@ -71,7 +71,8 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
             return stackPane;
         }
 
-        private boolean hasHorizontalPattern(int offset) {
+        private boolean hasHorizontalPattern() {
+            int offset = (PATTERN_LENGTH - 1);
             boolean isConsecutiveFour;
             for (int row = 0; row < numberGrid.length; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
@@ -87,7 +88,8 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
             return false;
         }
 
-        private boolean hasNegativeDiagonals(int offset) {
+        private boolean hasNegativeDiagonalPattern() {
+            int offset = (PATTERN_LENGTH - 1);
             boolean isConsecutiveFour;
             for (int row = 0; row < numberGrid.length - offset; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
@@ -103,7 +105,8 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
             return false;
         }
 
-        private boolean hasPositiveDiagonals(int offset) {
+        private boolean hasPositiveDiagonalPattern() {
+            int offset = (PATTERN_LENGTH - 1);
             boolean isConsecutiveFour;
             for (int row = PATTERN_LENGTH - 1; row < numberGrid.length; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
@@ -119,7 +122,8 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
             return false;
         }
 
-        private boolean hasVerticalPattern(int offset) {
+        private boolean hasVerticalPattern() {
+            int offset = (PATTERN_LENGTH - 1);
             boolean isConsecutiveFour;
             for (int row = 0; row < numberGrid.length - offset; row++) {
                 for (int col = 0; col < numberGrid[row].length; col++) {
@@ -151,11 +155,10 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
         }
 
         private boolean isPatternFound() {
-            int offset = (PATTERN_LENGTH - 1);
-            return hasHorizontalPattern(offset)
-                    || hasVerticalPattern(offset)
-                    || hasNegativeDiagonals(offset)
-                    || hasPositiveDiagonals(offset);
+            return hasHorizontalPattern()
+                    || hasVerticalPattern()
+                    || hasNegativeDiagonalPattern()
+                    || hasPositiveDiagonalPattern();
         }
 
         private int parseInt(TextField textField, int defaultValue) {
