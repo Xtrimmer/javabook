@@ -73,16 +73,16 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
 
         private boolean hasHorizontalPattern() {
             int offset = (PATTERN_LENGTH - 1);
-            boolean isConsecutiveFour;
+            boolean hasPattern;
             for (int row = 0; row < numberGrid.length; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
-                    isConsecutiveFour = true;
+                    hasPattern = true;
                     pattern[0] = textFields[row][col];
                     for (int k = 1; k < PATTERN_LENGTH; k++) {
-                        isConsecutiveFour &= numberGrid[row][col] == numberGrid[row][col + k];
+                        hasPattern &= numberGrid[row][col] == numberGrid[row][col + k];
                         pattern[k] = textFields[row][col + k];
                     }
-                    if (isConsecutiveFour) return true;
+                    if (hasPattern) return true;
                 }
             }
             return false;
@@ -90,16 +90,16 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
 
         private boolean hasNegativeDiagonalPattern() {
             int offset = (PATTERN_LENGTH - 1);
-            boolean isConsecutiveFour;
+            boolean hasPattern;
             for (int row = 0; row < numberGrid.length - offset; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
-                    isConsecutiveFour = true;
+                    hasPattern = true;
                     pattern[0] = textFields[row][col];
                     for (int k = 1; k < PATTERN_LENGTH; k++) {
-                        isConsecutiveFour &= numberGrid[row][col] == numberGrid[row + k][col + k];
+                        hasPattern &= numberGrid[row][col] == numberGrid[row + k][col + k];
                         pattern[k] = textFields[row + k][col + k];
                     }
-                    if (isConsecutiveFour) return true;
+                    if (hasPattern) return true;
                 }
             }
             return false;
@@ -107,16 +107,16 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
 
         private boolean hasPositiveDiagonalPattern() {
             int offset = (PATTERN_LENGTH - 1);
-            boolean isConsecutiveFour;
+            boolean hasPattern;
             for (int row = PATTERN_LENGTH - 1; row < numberGrid.length; row++) {
                 for (int col = 0; col < numberGrid[row].length - offset; col++) {
-                    isConsecutiveFour = true;
+                    hasPattern = true;
                     pattern[0] = textFields[row][col];
                     for (int k = 1; k < PATTERN_LENGTH; k++) {
-                        isConsecutiveFour &= numberGrid[row][col] == numberGrid[row - k][col + k];
+                        hasPattern &= numberGrid[row][col] == numberGrid[row - k][col + k];
                         pattern[k] = textFields[row - k][col + k];
                     }
-                    if (isConsecutiveFour) return true;
+                    if (hasPattern) return true;
                 }
             }
             return false;
@@ -124,16 +124,16 @@ public class PE_16_30_Pattern_recognition_consecutive_four_equal_numbers extends
 
         private boolean hasVerticalPattern() {
             int offset = (PATTERN_LENGTH - 1);
-            boolean isConsecutiveFour;
+            boolean hasPattern;
             for (int row = 0; row < numberGrid.length - offset; row++) {
                 for (int col = 0; col < numberGrid[row].length; col++) {
-                    isConsecutiveFour = true;
+                    hasPattern = true;
                     pattern[0] = textFields[row][col];
                     for (int k = 1; k < PATTERN_LENGTH; k++) {
-                        isConsecutiveFour &= numberGrid[row][col] == numberGrid[row + k][col];
+                        hasPattern &= numberGrid[row][col] == numberGrid[row + k][col];
                         pattern[k] = textFields[row + k][col];
                     }
-                    if (isConsecutiveFour) return true;
+                    if (hasPattern) return true;
                 }
             }
             return false;
