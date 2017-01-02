@@ -216,25 +216,25 @@ public class PE_17_09_Address_book extends Application {
         private void setCurrentIndex(int currentIndex) {
             if (currentIndex < 0) {
                 this.currentIndex = 0;
-            } else if (currentIndex > getAddressCount()) {
-                this.currentIndex = getAddressCount();
+            } else if (currentIndex >= getAddressCount()) {
+                this.currentIndex = getAddressCount() - 1;
             } else {
                 this.currentIndex = currentIndex;
             }
         }
 
-        private void writeAddressEntry(AddressEntry entry, int index) {
-            byte[] name = new byte[NAME_SIZE];
-            byte[] street = new byte[STREET_SIZE];
-            byte[] city = new byte[CITY_SIZE];
-            byte[] state = new byte[STATE_SIZE];
-            byte[] zip = new byte[ZIP_SIZE];
+        private byte[] stringToFixedByteArray(String string, int size) {
+            byte[] array = new byte[size];
+            System.arraycopy(string.getBytes(), 0, array, 0, string.length());
+            return array;
+        }
 
-            System.arraycopy(entry.name.getBytes(), 0, name, 0, entry.name.length());
-            System.arraycopy(entry.street.getBytes(), 0, street, 0, entry.street.length());
-            System.arraycopy(entry.city.getBytes(), 0, city, 0, entry.city.length());
-            System.arraycopy(entry.state.getBytes(), 0, state, 0, entry.state.length());
-            System.arraycopy(entry.zip.getBytes(), 0, zip, 0, entry.zip.length());
+        private void writeAddressEntry(AddressEntry entry, int index) {
+            byte[] name = stringToFixedByteArray(entry.name, NAME_SIZE);
+            byte[] street = stringToFixedByteArray(entry.street, STREET_SIZE);
+            byte[] city = stringToFixedByteArray(entry.city, CITY_SIZE);
+            byte[] state = stringToFixedByteArray(entry.state, STATE_SIZE);
+            byte[] zip = stringToFixedByteArray(entry.zip, ZIP_SIZE);
 
             try {
                 addresses.seek(index * ADDRESS_SIZE);
