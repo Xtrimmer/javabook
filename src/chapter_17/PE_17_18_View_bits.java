@@ -29,7 +29,7 @@ public class PE_17_18_View_bits {
             binaryString = bit + binaryString;
             value = value >> 1;
         }
-        return binaryString + " ";
+        return binaryString;
     }
 
     private static void printBytesInFile() {
