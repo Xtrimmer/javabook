@@ -18,42 +18,7 @@ public class PE_17_19_View_hex {
     }
 
     public static String getHex(int value) {
-        String hexString = "";
-        do {
-            int remainder = value % 16;
-            switch (remainder) {
-                case 0:
-                case 1:
-                case 2:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                    hexString = remainder + hexString;
-                    break;
-                case 10:
-                    hexString = 'A' + hexString;
-                    break;
-                case 11:
-                    hexString = 'B' + hexString;
-                    break;
-                case 12:
-                    hexString = 'C' + hexString;
-                    break;
-                case 13:
-                    hexString = 'D' + hexString;
-                    break;
-                case 14:
-                    hexString = 'E' + hexString;
-                    break;
-                case 15:
-                    hexString = 'F' + hexString;
-                    break;
-            }
-        } while ((value /= 16) > 0);
-        return hexString;
+        return String.format("%02X", value);
     }
 
     private static void printHexInFile() {
