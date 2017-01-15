@@ -19,7 +19,7 @@ import java.io.*;
  * The user can also modify the binary code and save it back to the file, as shown in
  * Figure 17.23a.
  */
-public class PE_17_20_Binary_editor extends Application {
+public class PE_17_21_Hex_editor extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -38,15 +38,15 @@ public class PE_17_20_Binary_editor extends Application {
         final TextField textField = new TextField();
         final TextArea textArea = new TextArea();
         final Button button = new Button("Save the change");
-        final BitEditor bitEditor = new BitEditor();
+        final HexEditor hexEditor = new HexEditor();
 
         public EditorPane() {
             button.setDisable(true);
             setTop(createFileInputPane());
             setCenter(createFileEditPane());
             setBottom(createButtonPane());
-            textField.setOnAction(this::loadBitsFromFile);
-            button.setOnAction(this::saveBits);
+            textField.setOnAction(this::loadHexFromFile);
+            button.setOnAction(this::saveHex);
         }
 
         private StackPane createButtonPane() {
@@ -71,97 +71,95 @@ public class PE_17_20_Binary_editor extends Application {
             return hBox;
         }
 
-        private void loadBitsFromFile(ActionEvent event) {
-            bitEditor.setFile(textField.getText());
-            textArea.setText(bitEditor.getBits());
+        private void loadHexFromFile(ActionEvent event) {
+            hexEditor.setFile(textField.getText());
+            textArea.setText(hexEditor.getHex());
             button.setDisable(false);
         }
 
-        private void saveBits(ActionEvent actionEvent) {
-            bitEditor.setBits(textArea.getText());
+        private void saveHex(ActionEvent actionEvent) {
+            hexEditor.setHex(textArea.getText());
         }
     }
 
-    private class BitEditor {
-        private File file;
-        private String bits = "";
+    private class HexEditor {
+        File file;
+        String hexString = "";
 
-        public String getBits() {
-            return getBitStringFromFile();
+        public String getHex() {
+            return getHexFromFile();
         }
 
-        public void setBits(String bitString) {
-            try (BitOutputStream outputStream = new BitOutputStream(file)) {
-                outputStream.writeBit(bitString);
-            } catch (IOException e) {
+        public void setHex(String hexString) {
+            try (HexOutputStream outputStream = new HexOutputStream(file)) {
+                outputStream.writeHex(hexString);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-
-        public String getBits(int value) {
-            int mask = 0b1;
-            String binaryString = "";
-            for (int i = 0; i < 8; i++) {
-                int bit = value & mask;
-                binaryString = bit + binaryString;
-                value = value >> 1;
-            }
-            return binaryString;
         }
 
         public void setFile(String fileName) {
             file = new File(fileName);
         }
 
-        private String getBitStringFromFile() {
-            StringBuilder bits = new StringBuilder();
+        private String getHex(int value) {
+            return String.format("%02X", value);
+        }
+
+        private String getHexFromFile() {
+            StringBuilder hex = new StringBuilder();
             try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
                 int value;
                 while ((value = inputStream.read()) != -1) {
-                    bits.append(getBits(value));
+                    hex.append(getHex(value));
                 }
+            } catch (FileNotFoundException e) {
+                System.out.println("The file " + file.getName() + " cannot be found");
+                System.exit(1);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("There was a problem reading the file " + file.getName());
+                System.exit(2);
             }
-            return bits.toString();
+            return hex.toString();
         }
     }
 
-    private class BitOutputStream implements AutoCloseable {
-        private int bitCount = 0;
+    private class HexOutputStream implements AutoCloseable {
+        private int hexCount = 0;
         private int byteValue = 0;
         private FileOutputStream outputStream;
 
-        public BitOutputStream(File file) throws FileNotFoundException {
+        public HexOutputStream(File file) throws FileNotFoundException {
             outputStream = new FileOutputStream(file);
         }
 
         @Override
-        public void close() throws IOException {
-            if (bitCount > 0) {
-                byteValue = byteValue << (8 - bitCount);
+        public void close() throws Exception {
+            if (hexCount > 0) {
+                byteValue = byteValue << 4;
                 outputStream.write(byteValue);
             }
             outputStream.close();
         }
 
-        public void writeBit(String bit) throws IOException {
+        public void writeHex(String bit) throws IOException {
             for (int i = 0; i < bit.length(); i++) {
-                writeBit(bit.charAt(i));
+                writeHex(bit.charAt(i));
             }
         }
 
-        public void writeBit(char bit) throws IOException {
-            if (!(bit == '0' || bit == '1')) throw new IllegalArgumentException("only 0 or 1 allowed");
-            addBitToByte(bit - '0');
+        public void writeHex(char hex) throws IOException {
+            if (!((hex >= '0' && hex <= '9') || (hex >= 'A' && hex <= 'F')))
+                throw new IllegalArgumentException("only hex values allowed");
+            addHexToByte(Integer.valueOf("" + hex, 16));
         }
 
-        private void addBitToByte(int i) throws IOException {
-            bitCount++;
-            byteValue = (byteValue << 1);
+        private void addHexToByte(int i) throws IOException {
+            hexCount++;
+            byteValue = (byteValue << 4);
             byteValue += i;
-            if (bitCount == 8) {
-                bitCount = 0;
+            if (hexCount == 2) {
+                hexCount = 0;
                 outputStream.write(byteValue);
                 byteValue = 0;
             }
