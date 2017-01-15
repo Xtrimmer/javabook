@@ -29,7 +29,7 @@ public class PE_17_21_Hex_editor extends Application {
         EditorPane pane = new EditorPane();
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise17_20");
+        primaryStage.setTitle("Exercise17_21");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
