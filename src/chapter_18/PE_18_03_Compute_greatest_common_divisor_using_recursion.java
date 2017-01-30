@@ -18,8 +18,8 @@ public class PE_18_03_Compute_greatest_common_divisor_using_recursion {
         System.out.println("The GCD is: " + gcd(values[0], values[1]));
     }
 
-    private static int gcd(int m, int n){
-        if (m % n == 0){
+    private static int gcd(int m, int n) {
+        if (m % n == 0) {
             return n;
         }
         return gcd(n, m % n);
