@@ -9,7 +9,9 @@ package chapter_18;
  */
 public class PE_18_04_Sum_series {
     public static void main(String[] args) {
-        System.out.println(sumSeries(10));
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("i = " + i + ": " + sumSeries(i));
+        }
     }
 
     private static double sumSeries(int i) {
