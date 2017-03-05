@@ -17,7 +17,7 @@ public class PE_18_17_Occurrences_of_a_specified_character_in_an_array {
     public static void main(String[] args) {
         char[] chars = promptUserForCharArray();
         char ch = promptUserForCharacter();
-        System.out.println("Number of occurrences: " + count(chars, ch));
+        System.out.println("The count is: " + count(chars, ch));
     }
 
     private static int count(char[] chars, char ch) {
@@ -38,7 +38,7 @@ public class PE_18_17_Occurrences_of_a_specified_character_in_an_array {
 
     private static char promptUserForCharacter() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a search character: ");
+        System.out.print("Enter a character: ");
         return scanner.nextLine().charAt(0);
     }
 }
