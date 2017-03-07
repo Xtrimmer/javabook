@@ -3,13 +3,13 @@ package chapter_18;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  *   for example, does not meet this condition. (The condition makes a path easy
  *   to identify on the board.)
  */
-public class PE_18_26_Create_a_maze extends Application{
+public class PE_18_26_Create_a_maze extends Application {
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -41,28 +41,122 @@ public class PE_18_26_Create_a_maze extends Application{
         primaryStage.show();
     }
 
-    private class MazePane extends BorderPane{
+    private class MazePane extends BorderPane {
         private static final int GRID_SIZE = 8;
         private static final double CELL_SIZE = 35;
         private Cell[][] cells;
-        Label label;
+        private Text text;
+        private Button buttonFind;
+        private Button buttonClear;
+        private boolean pathFound;
 
-        public MazePane(){
-            cells = new Cell[GRID_SIZE][GRID_SIZE];
+        public MazePane() {
             this.setTop(createMessagePane());
+            this.setBottom(createButtonPane());
+            this.setCenter(createGridPane());
         }
 
-        private Label createMessagePane() {
-            label = new Label("asfhas; dsajfh asdfafh asfuhas pfasihf puh");
-            label.setPadding(new Insets(10));
-            label.setTextAlignment(TextAlignment.CENTER);
-            return label;
+        private void clearPath() {
+            for (int row = 0; row < GRID_SIZE; row++) {
+                for (int column = 0; column < GRID_SIZE; column++) {
+                    cells[row][column].setPath(false);
+                    cells[row][column].setMarked(false);
+                }
+            }
+        }
+
+        private HBox createButtonPane() {
+            buttonFind = new Button("Find Path");
+            buttonClear = new Button("Clear Path");
+            HBox hBox = new HBox(buttonFind, buttonClear);
+            hBox.setPadding(new Insets(10));
+            hBox.setSpacing(5);
+            hBox.setAlignment(Pos.CENTER);
+            buttonFind.setOnAction(event -> findPath());
+            buttonClear.setOnAction(event -> clearPath());
+            return hBox;
+        }
+
+        private GridPane createGridPane() {
+            cells = new Cell[GRID_SIZE][GRID_SIZE];
+            GridPane gridPane = new GridPane();
+            for (int row = 0; row < GRID_SIZE; row++) {
+                for (int column = 0; column < GRID_SIZE; column++) {
+                    Cell cell = new Cell(CELL_SIZE, CELL_SIZE);
+                    cells[row][column] = cell;
+                    gridPane.add(cell, column, row);
+                }
+            }
+            cells[0][0].disableClickEvent();
+            cells[7][7].disableClickEvent();
+            gridPane.setVgap(1);
+            gridPane.setHgap(1);
+            gridPane.setGridLinesVisible(true);
+            gridPane.setPadding(new Insets(0, 10, 0, 10));
+            return gridPane;
+        }
+
+        private StackPane createMessagePane() {
+            text = new Text();
+            StackPane stackPane = new StackPane(text);
+            stackPane.setPadding(new Insets(10));
+            return stackPane;
+        }
+
+        private void findPath() {
+            boolean pathFound = findPath(0, 0, false);
+            if (pathFound) text.setText("Path Found");
+            else text.setText("Path Not Found");
+        }
+
+        private boolean findPath(int row, int column, boolean isPathFound) {
+            cells[row][column].setPath(true);
+            if (row == GRID_SIZE && column == GRID_SIZE) isPathFound = true;
+            boolean isDeadEnd = true;
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if ((x * x) == (y * y)) continue;
+                    if (isOutOfBounds(row + x, column + y) || cells[row + x][column + y].isMarked || cells[row + x][column + y].isPath || isPathFound) {
+                        isDeadEnd &= true;
+                        continue;
+                    }
+                    System.out.println("Moving to " + (row + x) + " " + (column + y));
+                    isDeadEnd &= !findPath(row + x, column + y, isPathFound);
+                }
+            }
+            cells[row][column].setPath(!isDeadEnd);
+            return !isDeadEnd;
+        }
+
+        private boolean isOutOfBounds(int row, int column) {
+            return row < 0 || row > 7 || column < 0 || column > 7;
         }
     }
 
-    private class Cell extends Pane{
+    private class Cell extends Pane {
         private boolean isMarked;
         private boolean isPath;
+
+        public Cell(double width, double height) {
+            isMarked = false;
+            this.setPrefWidth(width);
+            this.setPrefHeight(height);
+            this.setOnMouseClicked(event -> setMarked(!isMarked));
+        }
+
+        public void disableClickEvent() {
+            this.setOnMouseClicked(null);
+        }
+
+        public boolean isMarked() {
+            return isMarked;
+        }
+
+        public void setMarked(boolean marked) {
+            isMarked = marked;
+            if (marked) drawX();
+            else clearX();
+        }
 
         public boolean isPath() {
             return isPath;
@@ -76,23 +170,11 @@ public class PE_18_26_Create_a_maze extends Application{
             else this.setBackground(Background.EMPTY);
         }
 
-        public Cell(double width, double height){
-            isMarked = false;
-            this.setWidth(width);
-            this.setHeight(height);
+        private void clearX() {
+            this.getChildren().clear();
         }
 
-        public boolean isMarked() {
-            return isMarked;
-        }
-
-        public void setMarked(boolean marked) {
-            isMarked = marked;
-            if (marked) drawX();
-            else clearX();
-        }
-
-        private void drawX(){
+        private void drawX() {
             Line line1 = new Line();
             Line line2 = new Line();
 
@@ -107,10 +189,6 @@ public class PE_18_26_Create_a_maze extends Application{
             line2.endYProperty().bind(this.heightProperty().multiply(0.9));
 
             this.getChildren().addAll(line1, line2);
-        }
-
-        private void clearX(){
-            this.getChildren().clear();
         }
     }
 }
