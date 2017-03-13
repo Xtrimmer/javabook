@@ -1,6 +1,5 @@
 package chapter_18;
 
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -48,9 +47,8 @@ public class PE_18_26_Create_a_maze extends Application {
         private Text text;
         private Button buttonFind;
         private Button buttonClear;
-        private boolean pathFound;
 
-        public MazePane() {
+        MazePane() {
             this.setTop(createMessagePane());
             this.setBottom(createButtonPane());
             this.setCenter(createGridPane());
@@ -103,33 +101,62 @@ public class PE_18_26_Create_a_maze extends Application {
             return stackPane;
         }
 
+        private boolean doesFormSquare(int row, int column) {
+            int count = 0;
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (isOutOfBounds(row + x, column + y)) continue;
+                    if (cells[row + x][column + y].isPath) count++;
+                    if (count > 2) return true;
+                }
+            }
+            return false;
+        }
+
         private void findPath() {
-            boolean pathFound = findPath(0, 0, false);
+            boolean pathFound = findPath(0, 0);
             if (pathFound) text.setText("Path Found");
             else text.setText("Path Not Found");
         }
 
-        private boolean findPath(int row, int column, boolean isPathFound) {
+        private boolean findPath(int row, int column) {
             cells[row][column].setPath(true);
-            if (row == GRID_SIZE && column == GRID_SIZE) isPathFound = true;
-            boolean isDeadEnd = true;
+            if (isEnd(row, column)) {
+                return true;
+            }
             for (int x = -1; x <= 1; x++) {
                 for (int y = -1; y <= 1; y++) {
-                    if ((x * x) == (y * y)) continue;
-                    if (isOutOfBounds(row + x, column + y) || cells[row + x][column + y].isMarked || cells[row + x][column + y].isPath || isPathFound) {
-                        isDeadEnd &= true;
+                    if (!isAdjacent(x, y)) continue;
+                    if (isValidPath(row, column, x, y)) {
                         continue;
                     }
                     System.out.println("Moving to " + (row + x) + " " + (column + y));
-                    isDeadEnd &= !findPath(row + x, column + y, isPathFound);
+                    if (findPath(row + x, column + y)) {
+                        return true;
+                    }
                 }
             }
-            cells[row][column].setPath(!isDeadEnd);
-            return !isDeadEnd;
+            cells[row][column].setPath(false);
+            return false;
+        }
+
+        private boolean isAdjacent(int x, int y) {
+            return !((x * x) == (y * y));
+        }
+
+        private boolean isEnd(int row, int column) {
+            return row == GRID_SIZE - 1 && column == GRID_SIZE - 1;
         }
 
         private boolean isOutOfBounds(int row, int column) {
             return row < 0 || row > 7 || column < 0 || column > 7;
+        }
+
+        private boolean isValidPath(int row, int column, int x, int y) {
+            return (isOutOfBounds(row + x, column + y)
+                    || cells[row + x][column + y].isMarked
+                    || cells[row + x][column + y].isPath)
+                    || doesFormSquare(row + x, column + y);
         }
     }
 
@@ -137,37 +164,11 @@ public class PE_18_26_Create_a_maze extends Application {
         private boolean isMarked;
         private boolean isPath;
 
-        public Cell(double width, double height) {
+        Cell(double width, double height) {
             isMarked = false;
             this.setPrefWidth(width);
             this.setPrefHeight(height);
             this.setOnMouseClicked(event -> setMarked(!isMarked));
-        }
-
-        public void disableClickEvent() {
-            this.setOnMouseClicked(null);
-        }
-
-        public boolean isMarked() {
-            return isMarked;
-        }
-
-        public void setMarked(boolean marked) {
-            isMarked = marked;
-            if (marked) drawX();
-            else clearX();
-        }
-
-        public boolean isPath() {
-            return isPath;
-        }
-
-        public void setPath(boolean path) {
-            BackgroundFill fill = new BackgroundFill(Color.RED, null, null);
-            Background background = new Background(fill);
-            isPath = path;
-            if (path) this.setBackground(background);
-            else this.setBackground(Background.EMPTY);
         }
 
         private void clearX() {
@@ -189,6 +190,24 @@ public class PE_18_26_Create_a_maze extends Application {
             line2.endYProperty().bind(this.heightProperty().multiply(0.9));
 
             this.getChildren().addAll(line1, line2);
+        }
+
+        void disableClickEvent() {
+            this.setOnMouseClicked(null);
+        }
+
+        void setMarked(boolean marked) {
+            isMarked = marked;
+            if (marked) drawX();
+            else clearX();
+        }
+
+        void setPath(boolean path) {
+            BackgroundFill fill = new BackgroundFill(Color.RED, null, null);
+            Background background = new Background(fill);
+            isPath = path;
+            if (path) this.setBackground(background);
+            else this.setBackground(Background.EMPTY);
         }
     }
 }
