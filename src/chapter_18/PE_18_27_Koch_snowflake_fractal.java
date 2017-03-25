@@ -54,15 +54,21 @@ public class PE_18_27_Koch_snowflake_fractal extends Application {
         }
 
         private void displayFractal(ActionEvent actionEvent) {
+            Point2D[] points = new Point2D[3];
+            for (int i = 0; i < 3; i++) {
+                double size = Math.min(canvas.getHeight(), canvas.getWidth());
+                double x = ((canvas.getWidth() / 2) + (size / 2 - 20)
+                        * Math.cos((2 * i * Math.PI - Math.toRadians(90)) / 3));
+                double y = ((canvas.getHeight() / 2) - (size / 2 - 20)
+                        * Math.sin((2 * i * Math.PI - Math.toRadians(90)) / 3));
+                points[i] = new Point2D(x, y);
+            }
             canvas.getChildren().clear();
             TextField textField = (TextField) actionEvent.getSource();
             int order = parseInt(textField, 0);
-            Point2D p1 = new Point2D(canvas.getWidth() / 2, 10);
-            Point2D p2 = new Point2D((canvas.getWidth() / 2) + ((canvas.getHeight() - 20) * (0.375)), (canvas.getHeight() - 20) * (0.75));
-            Point2D p3 = new Point2D((canvas.getWidth() / 2) - ((canvas.getHeight() - 20) * (0.375)), (canvas.getHeight() - 20) * (0.75));
-            drawSide(p1, p2, order);
-            drawSide(p2, p3, order);
-            drawSide(p3, p1, order);
+            drawSide(points[0], points[1], order);
+            drawSide(points[1], points[2], order);
+            drawSide(points[2], points[0], order);
         }
 
         private void drawSide(Point2D p1, Point2D p5, int order) {
@@ -70,14 +76,25 @@ public class PE_18_27_Koch_snowflake_fractal extends Application {
                 Line line = new Line(p1.getX(), p1.getY(), p5.getX(), p5.getY());
                 canvas.getChildren().add(line);
             } else {
-                Point2D p2 = new Point2D(p1.getX() * (2 / 3.0) + p5.getX() * (1 / 3.0), p1.getY() * (2 / 3.0) + p5.getY() * (1 / 3.0));
-                Point2D p4 = new Point2D(p1.getX() * (1 / 3.0) + p5.getX() * (2 / 3.0), p1.getY() * (1 / 3.0) + p5.getY() * (2 / 3.0));
-                //Point2D p3 = new Point2D(x,y);
+                Point2D p2 = new Point2D(p1.getX() * (2 / 3.0) + p5.getX()
+                        * (1 / 3.0), p1.getY() * (2 / 3.0) + p5.getY() * (1 / 3.0));
+                Point2D p4 = new Point2D(p1.getX() * (1 / 3.0) + p5.getX()
+                        * (2 / 3.0), p1.getY() * (1 / 3.0) + p5.getY() * (2 / 3.0));
+                Point2D p3 = findThirdPoint(p2, p4);
                 drawSide(p1, p2, order - 1);
-                //drawSide(p2, p3, order - 1);
-                //drawSide(p3, p4, order - 1);
+                drawSide(p2, p3, order - 1);
+                drawSide(p3, p4, order - 1);
                 drawSide(p4, p5, order - 1);
             }
+        }
+
+        private Point2D findThirdPoint(Point2D p1, Point2D p2) {
+            Point2D p2Prime = new Point2D(p2.getX() - p1.getX(), p2.getY() - p1.getY());
+            double p3PrimeX = (p2Prime.getX() * Math.cos(Math.toRadians(60)))
+                    - (p2Prime.getY() * Math.sin(Math.toRadians(60)));
+            double p3PrimeY = (p2Prime.getX() * Math.sin(Math.toRadians(60)))
+                    + (p2Prime.getY() * Math.cos(Math.toRadians(60)));
+            return new Point2D(p3PrimeX + p1.getX(), p3PrimeY + p1.getY());
         }
 
         private Pane generateCanvasPane() {
