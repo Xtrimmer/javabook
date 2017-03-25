@@ -20,7 +20,7 @@ public class PE_18_28_Nonrecursive_directory_size {
         System.out.println(getSize(new File(directory)) + " bytes");
     }
 
-    public static long getSize(File file) {
+    private static long getSize(File file) {
         long size = 0;
         List<File> directories = new ArrayList<>();
         if (file.isFile()) return file.length();
@@ -32,12 +32,11 @@ public class PE_18_28_Nonrecursive_directory_size {
         while (!directories.isEmpty()) {
             File directory = directories.get(directories.size() - 1);
             File[] subFiles = directory.listFiles();
-            if (subFiles != null) {
-                for (File subfile : subFiles) {
-                    if (subfile.isDirectory()) directories.add(subfile);
-                    else size += subfile.length();
-                }
+            for (File subfile : subFiles) {
+                if (subfile.isDirectory()) directories.add(subfile);
+                else size += subfile.length();
             }
+
             directories.remove(directory);
         }
         return size;
