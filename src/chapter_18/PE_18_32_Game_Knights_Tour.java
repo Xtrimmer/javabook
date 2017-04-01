@@ -40,6 +40,19 @@ import java.util.List;
  * will be a better chance of success at the end of the search.)
  */
 public class PE_18_32_Game_Knights_Tour extends Application {
+    public static final Background CHESS_KNIGHT = new Background(
+            new BackgroundImage(
+                    new Image("image/knight.jpg"),
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.CENTER,
+                    new BackgroundSize(1, 1,
+                            true, true,
+                            false, false
+                    )
+            )
+    );
+
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -53,204 +66,195 @@ public class PE_18_32_Game_Knights_Tour extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-}
 
-class Board extends BorderPane {
-    private static final double SIZE = 35;
-    private final List<Cell> path = new ArrayList<>();
-    private Button button;
-    private Cell[][] cells;
-    private Cell knightCell;
-    private boolean isSolved;
+    class Board extends BorderPane {
+        private static final double SIZE = 35;
+        private final List<Cell> path = new ArrayList<>();
+        private Button button;
+        private Cell[][] cells;
+        private Cell knightCell;
+        private boolean isSolved;
 
-    public Board(int width, int height) {
-        initializeCells(width, height);
-        setCenter(generateBoard());
-        setBottom(createButtonPane());
-    }
-
-    private void buttonAction() {
-        solveKnightsTour(knightCell);
-        showPath();
-        button.setDisable(true);
-    }
-
-    private int calculateCellPriority(int row, int column) {
-        int value = 0;
-        if (row > 0 && row < 7) value++;
-        if (column > 0 && column < 7) value++;
-        if (row > 1 && row < 6) value++;
-        if (column > 1 && column < 6) value++;
-        return value;
-    }
-
-    private Node createButtonPane() {
-        button = new Button("Solve");
-        button.setOnAction(event -> buttonAction());
-        HBox hBox = new HBox(button);
-        hBox.setPadding(new Insets(10));
-        hBox.setAlignment(Pos.CENTER);
-        return hBox;
-    }
-
-    private Node generateBoard() {
-        GridPane gridPane = new GridPane();
-        for (int row = 0; row < cells.length; row++) {
-            for (int column = 0; column < cells[row].length; column++) {
-                gridPane.add(cells[row][column], column, row);
-            }
+        public Board(int width, int height) {
+            initializeCells(width, height);
+            setCenter(generateBoard());
+            setBottom(createButtonPane());
         }
-        gridPane.setVgap(1);
-        gridPane.setHgap(1);
-        gridPane.setGridLinesVisible(true);
-        gridPane.setPadding(new Insets(10, 10, 0, 10));
-        return gridPane;
-    }
 
-    private List<Cell> getValidMoves(Cell cell) {
-        int cellRow = GridPane.getRowIndex(cell);
-        int cellColumn = GridPane.getColumnIndex(cell);
-        List<Cell> validMoves = new ArrayList<>();
-        for (int row = -2; row <= 2; row++) {
-            for (int column = -2; column <= 2; column++) {
-                if (isValidMove(cell, row, column)) {
-                    validMoves.add(cells[cellRow + row][cellColumn + column]);
+        private void buttonAction() {
+            solveKnightsTour(knightCell);
+            showPath();
+            button.setDisable(true);
+        }
+
+        private int calculateCellPriority(int row, int column) {
+            int value = 0;
+            if (row > 0 && row < 7) value++;
+            if (column > 0 && column < 7) value++;
+            if (row > 1 && row < 6) value++;
+            if (column > 1 && column < 6) value++;
+            return value;
+        }
+
+        private Node createButtonPane() {
+            button = new Button("Solve");
+            button.setOnAction(event -> buttonAction());
+            HBox hBox = new HBox(button);
+            hBox.setPadding(new Insets(10));
+            hBox.setAlignment(Pos.CENTER);
+            return hBox;
+        }
+
+        private Node generateBoard() {
+            GridPane gridPane = new GridPane();
+            for (int row = 0; row < cells.length; row++) {
+                for (int column = 0; column < cells[row].length; column++) {
+                    gridPane.add(cells[row][column], column, row);
                 }
             }
+            gridPane.setVgap(1);
+            gridPane.setHgap(1);
+            gridPane.setGridLinesVisible(true);
+            gridPane.setPadding(new Insets(10, 10, 0, 10));
+            return gridPane;
         }
-        return validMoves;
-    }
 
-    private void initializeCells(int width, int height) {
-        cells = new Cell[height][width];
-        for (int row = 0; row < cells.length; row++) {
-            for (int column = 0; column < cells[row].length; column++) {
-                cells[row][column] = new Cell(SIZE, SIZE);
-                cells[row][column].setOnMouseClicked(this::setStart);
-                cells[row][column].setPriority(calculateCellPriority(row, column));
+        private List<Cell> getValidMoves(Cell cell) {
+            int cellRow = GridPane.getRowIndex(cell);
+            int cellColumn = GridPane.getColumnIndex(cell);
+            List<Cell> validMoves = new ArrayList<>();
+            for (int row = -2; row <= 2; row++) {
+                for (int column = -2; column <= 2; column++) {
+                    if (isValidMove(cell, row, column)) {
+                        validMoves.add(cells[cellRow + row][cellColumn + column]);
+                    }
+                }
             }
+            return validMoves;
         }
-        knightCell = cells[0][0];
-    }
 
-    private boolean isOutOfBounds(int row, int column) {
-        return row < 0 || row > 7 || column < 0 || column > 7;
-    }
-
-    private boolean isSolved() {
-        for (Cell[] row : cells) {
-            for (Cell cell : row) {
-                if (!cell.isVisited()) return false;
+        private void initializeCells(int width, int height) {
+            cells = new Cell[height][width];
+            for (int row = 0; row < cells.length; row++) {
+                for (int column = 0; column < cells[row].length; column++) {
+                    cells[row][column] = new Cell(SIZE, SIZE);
+                    cells[row][column].setOnMouseClicked(this::setStart);
+                    cells[row][column].setPriority(calculateCellPriority(row, column));
+                }
             }
+            knightCell = cells[0][0];
         }
-        return true;
-    }
 
-    private boolean isValidMove(Cell cell, int rowOffset, int columnOffset) {
-        int cellRow = GridPane.getRowIndex(cell);
-        int cellColumn = GridPane.getColumnIndex(cell);
-        return Math.abs(rowOffset) + Math.abs(columnOffset) == 3
-                && !isOutOfBounds(cellRow + rowOffset, cellColumn + columnOffset)
-                && !cells[cellRow + rowOffset][cellColumn + columnOffset].isVisited();
-    }
-
-    private void setStart(MouseEvent mouseEvent) {
-        knightCell.setBackground(null);
-        knightCell = (Cell) mouseEvent.getSource();
-        knightCell.setBackground(Cell.CHESS_KNIGHT);
-    }
-
-    private void showPath() {
-        Cell startCell = path.get(0);
-        double centerX = startCell.getLayoutX() + startCell.getWidth() / 2;
-        double centerY = startCell.getLayoutY() + startCell.getHeight() / 2;
-        Circle startCircle = new Circle(centerX, centerY, 5, Color.GREEN);
-        getChildren().add(startCircle);
-        for (int i = 1; i < path.size(); i++) {
-            Cell firstCell = path.get(i - 1);
-            Cell secondCell = path.get(i);
-            double startX = firstCell.getLayoutX() + firstCell.getWidth() / 2;
-            double startY = firstCell.getLayoutY() + firstCell.getHeight() / 2;
-            double endX = secondCell.getLayoutX() + secondCell.getWidth() / 2;
-            double endY = secondCell.getLayoutY() + secondCell.getHeight() / 2;
-            Line line = new Line(startX, startY, endX, endY);
-            line.setStrokeWidth(2);
-            line.setStroke(Color.ORANGE);
-            Circle circle = new Circle(endX, endY, 3, Color.ORANGE);
-            getChildren().addAll(line, circle);
+        private boolean isOutOfBounds(int row, int column) {
+            return row < 0 || row > 7 || column < 0 || column > 7;
         }
-        Cell EndCell = path.get(path.size() - 1);
-        double endX = EndCell.getLayoutX() + EndCell.getWidth() / 2;
-        double endY = EndCell.getLayoutY() + EndCell.getHeight() / 2;
-        Circle endCircle = new Circle(endX, endY, 5, Color.RED);
-        getChildren().add(endCircle);
-        path.get(path.size() - 1).setBackground(Cell.CHESS_KNIGHT);
-    }
 
-    private void solveKnightsTour(Cell location) {
-        location.setVisited(true);
-        path.add(location);
-        isSolved = isSolved();
-        if (isSolved) return;
-        List<Cell> validMoves = getValidMoves(location);
-        if (!validMoves.isEmpty()) {
-            Collections.shuffle(validMoves);
-            Collections.sort(validMoves);
-            for (Cell validMove : validMoves) {
-                solveKnightsTour(validMove);
-                if (isSolved) return;
+        private boolean isSolved() {
+            for (Cell[] row : cells) {
+                for (Cell cell : row) {
+                    if (!cell.isVisited()) return false;
+                }
             }
+            return true;
         }
-        location.setVisited(false);
-        path.remove(location);
+
+        private boolean isValidMove(Cell cell, int rowOffset, int columnOffset) {
+            int cellRow = GridPane.getRowIndex(cell);
+            int cellColumn = GridPane.getColumnIndex(cell);
+            return Math.abs(rowOffset) + Math.abs(columnOffset) == 3
+                    && !isOutOfBounds(cellRow + rowOffset, cellColumn + columnOffset)
+                    && !cells[cellRow + rowOffset][cellColumn + columnOffset].isVisited();
+        }
+
+        private void setStart(MouseEvent mouseEvent) {
+            knightCell.setBackground(null);
+            knightCell = (Cell) mouseEvent.getSource();
+            knightCell.setBackground(CHESS_KNIGHT);
+        }
+
+        private void showPath() {
+            Cell startCell = path.get(0);
+            double centerX = startCell.getLayoutX() + startCell.getWidth() / 2;
+            double centerY = startCell.getLayoutY() + startCell.getHeight() / 2;
+            Circle startCircle = new Circle(centerX, centerY, 5, Color.GREEN);
+            getChildren().add(startCircle);
+            for (int i = 1; i < path.size(); i++) {
+                Cell firstCell = path.get(i - 1);
+                Cell secondCell = path.get(i);
+                double startX = firstCell.getLayoutX() + firstCell.getWidth() / 2;
+                double startY = firstCell.getLayoutY() + firstCell.getHeight() / 2;
+                double endX = secondCell.getLayoutX() + secondCell.getWidth() / 2;
+                double endY = secondCell.getLayoutY() + secondCell.getHeight() / 2;
+                Line line = new Line(startX, startY, endX, endY);
+                line.setStrokeWidth(2);
+                line.setStroke(Color.ORANGE);
+                Circle circle = new Circle(endX, endY, 3, Color.ORANGE);
+                getChildren().addAll(line, circle);
+            }
+            Cell EndCell = path.get(path.size() - 1);
+            double endX = EndCell.getLayoutX() + EndCell.getWidth() / 2;
+            double endY = EndCell.getLayoutY() + EndCell.getHeight() / 2;
+            Circle endCircle = new Circle(endX, endY, 5, Color.RED);
+            getChildren().add(endCircle);
+            path.get(path.size() - 1).setBackground(CHESS_KNIGHT);
+        }
+
+        private void solveKnightsTour(Cell location) {
+            location.setVisited(true);
+            path.add(location);
+            isSolved = isSolved();
+            if (isSolved) return;
+            List<Cell> validMoves = getValidMoves(location);
+            if (!validMoves.isEmpty()) {
+                Collections.shuffle(validMoves);
+                Collections.sort(validMoves);
+                for (Cell validMove : validMoves) {
+                    solveKnightsTour(validMove);
+                    if (isSolved) return;
+                }
+            }
+            location.setVisited(false);
+            path.remove(location);
+        }
+    }
+
+    class Cell extends Pane implements Comparable<Cell> {
+
+        private boolean isVisited;
+        private int priority;
+
+        public Cell(double width, double height) {
+            this.setPrefWidth(width);
+            this.setPrefHeight(height);
+        }
+
+        @Override
+        public int compareTo(Cell that) {
+            Integer thisCellPriority = this.getPriority();
+            Integer thatCellPriority = that.getPriority();
+            return thisCellPriority.compareTo(thatCellPriority);
+        }
+
+        public boolean isVisited() {
+            return isVisited;
+        }
+
+        public void setVisited(boolean visited) {
+            isVisited = visited;
+        }
+
+        @Override
+        public String toString() {
+            return "Cell[" + GridPane.getRowIndex(this) + ", " + GridPane.getColumnIndex(this) + "]";
+        }
+
+        private int getPriority() {
+            return priority;
+        }
+
+        public void setPriority(int priority) {
+            this.priority = priority;
+        }
     }
 }
 
-class Cell extends Pane implements Comparable<Cell> {
-    public static final Background CHESS_KNIGHT = new Background(
-            new BackgroundImage(
-                    new Image("image/knight.jpg"),
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.CENTER,
-                    new BackgroundSize(1, 1,
-                            true, true,
-                            false, false
-                    )
-            )
-    );
-    private boolean isVisited;
-    private int priority;
-
-    public Cell(double width, double height) {
-        this.setPrefWidth(width);
-        this.setPrefHeight(height);
-    }
-
-    @Override
-    public int compareTo(Cell that) {
-        Integer thisCellPriority = this.getPriority();
-        Integer thatCellPriority = that.getPriority();
-        return thisCellPriority.compareTo(thatCellPriority);
-    }
-
-    public boolean isVisited() {
-        return isVisited;
-    }
-
-    public void setVisited(boolean visited) {
-        isVisited = visited;
-    }
-
-    public String toString() {
-        return "Cell[" + GridPane.getRowIndex(this) + ", " + GridPane.getColumnIndex(this) + "]";
-    }
-
-    private int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-}
