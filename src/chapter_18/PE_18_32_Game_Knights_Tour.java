@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -54,15 +57,22 @@ public class PE_18_32_Game_Knights_Tour extends Application {
 
 class Board extends BorderPane {
     private static final double SIZE = 35;
+    private final List<Cell> path = new ArrayList<>();
     private Button button;
     private Cell[][] cells;
     private Cell knightCell;
-    private List<Cell> path = new ArrayList<>();
+    private boolean isSolved;
 
     public Board(int width, int height) {
         initializeCells(width, height);
         setCenter(generateBoard());
         setBottom(createButtonPane());
+    }
+
+    private void buttonAction() {
+        solveKnightsTour(knightCell);
+        showPath();
+        button.setDisable(true);
     }
 
     private int calculateCellPriority(int row, int column) {
@@ -76,7 +86,7 @@ class Board extends BorderPane {
 
     private Node createButtonPane() {
         button = new Button("Solve");
-        button.setOnAction(event -> solveKnightsTour(knightCell));
+        button.setOnAction(event -> buttonAction());
         HBox hBox = new HBox(button);
         hBox.setPadding(new Insets(10));
         hBox.setAlignment(Pos.CENTER);
@@ -103,7 +113,7 @@ class Board extends BorderPane {
         List<Cell> validMoves = new ArrayList<>();
         for (int row = -2; row <= 2; row++) {
             for (int column = -2; column <= 2; column++) {
-                if (isValidMove(cellRow + row, cellColumn + column)) {
+                if (isValidMove(cell, row, column)) {
                     validMoves.add(cells[cellRow + row][cellColumn + column]);
                 }
             }
@@ -128,18 +138,20 @@ class Board extends BorderPane {
     }
 
     private boolean isSolved() {
-        for (int row = 0; row < cells.length; row++) {
-            for (int column = 0; column < cells[row].length; column++) {
-                if (!cells[row][column].isVisited()) return false;
+        for (Cell[] row : cells) {
+            for (Cell cell : row) {
+                if (!cell.isVisited()) return false;
             }
         }
         return true;
     }
 
-    private boolean isValidMove(int row, int column) {
-        return Math.abs(row) + Math.abs(column) == 3
-                && !isOutOfBounds(row, column)
-                && !cells[row][column].isVisited();
+    private boolean isValidMove(Cell cell, int rowOffset, int columnOffset) {
+        int cellRow = GridPane.getRowIndex(cell);
+        int cellColumn = GridPane.getColumnIndex(cell);
+        return Math.abs(rowOffset) + Math.abs(columnOffset) == 3
+                && !isOutOfBounds(cellRow + rowOffset, cellColumn + columnOffset)
+                && !cells[cellRow + rowOffset][cellColumn + columnOffset].isVisited();
     }
 
     private void setStart(MouseEvent mouseEvent) {
@@ -148,20 +160,49 @@ class Board extends BorderPane {
         knightCell.setBackground(Cell.CHESS_KNIGHT);
     }
 
+    private void showPath() {
+        Cell startCell = path.get(0);
+        double centerX = startCell.getLayoutX() + startCell.getWidth() / 2;
+        double centerY = startCell.getLayoutY() + startCell.getHeight() / 2;
+        Circle startCircle = new Circle(centerX, centerY, 5, Color.GREEN);
+        getChildren().add(startCircle);
+        for (int i = 1; i < path.size(); i++) {
+            Cell firstCell = path.get(i - 1);
+            Cell secondCell = path.get(i);
+            double startX = firstCell.getLayoutX() + firstCell.getWidth() / 2;
+            double startY = firstCell.getLayoutY() + firstCell.getHeight() / 2;
+            double endX = secondCell.getLayoutX() + secondCell.getWidth() / 2;
+            double endY = secondCell.getLayoutY() + secondCell.getHeight() / 2;
+            Line line = new Line(startX, startY, endX, endY);
+            line.setStrokeWidth(2);
+            line.setStroke(Color.ORANGE);
+            Circle circle = new Circle(endX, endY, 3, Color.ORANGE);
+            getChildren().addAll(line, circle);
+        }
+        Cell EndCell = path.get(path.size() - 1);
+        double endX = EndCell.getLayoutX() + EndCell.getWidth() / 2;
+        double endY = EndCell.getLayoutY() + EndCell.getHeight() / 2;
+        Circle endCircle = new Circle(endX, endY, 5, Color.RED);
+        getChildren().add(endCircle);
+        path.get(path.size() - 1).setBackground(Cell.CHESS_KNIGHT);
+    }
+
     private void solveKnightsTour(Cell location) {
         location.setVisited(true);
         path.add(location);
-        if (isSolved()) return;
+        isSolved = isSolved();
+        if (isSolved) return;
         List<Cell> validMoves = getValidMoves(location);
-        if (validMoves.isEmpty()) {
-            location.setVisited(false);
-            path.remove(location);
-            return;
+        if (!validMoves.isEmpty()) {
+            Collections.shuffle(validMoves);
+            Collections.sort(validMoves);
+            for (Cell validMove : validMoves) {
+                solveKnightsTour(validMove);
+                if (isSolved) return;
+            }
         }
-        Collections.sort(validMoves);
-        for (Cell validMove : validMoves) {
-            solveKnightsTour(validMove);
-        }
+        location.setVisited(false);
+        path.remove(location);
     }
 }
 
@@ -193,19 +234,23 @@ class Cell extends Pane implements Comparable<Cell> {
         return thisCellPriority.compareTo(thatCellPriority);
     }
 
-    public int getPriority() {
-        return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public boolean isVisited() {
         return isVisited;
     }
 
     public void setVisited(boolean visited) {
         isVisited = visited;
+    }
+
+    public String toString() {
+        return "Cell[" + GridPane.getRowIndex(this) + ", " + GridPane.getColumnIndex(this) + "]";
+    }
+
+    private int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }
