@@ -99,8 +99,8 @@ public class PE_18_33_Game_Knights_Tour_animation extends Application {
         private void doAction(PathTransition pathTransition) {
             Line pathLine = (Line) pathTransition.getPath();
             pathLine.setStroke(Color.ORANGE);
-            pathLine.setStrokeWidth(2);
-            Circle circle = new Circle(pathLine.getEndX(), pathLine.getEndY(), 3, Color.ORANGE);
+            pathLine.setStrokeWidth(SIZE / 15);
+            Circle circle = new Circle(pathLine.getEndX(), pathLine.getEndY(), SIZE / 10, Color.ORANGE);
             getChildren().add(circle);
             pathTransition.play();
         }
@@ -181,7 +181,7 @@ public class PE_18_33_Game_Knights_Tour_animation extends Application {
             double endY = secondCell.getLayoutY() + secondCell.getHeight() / 2;
             Line line = new Line(startX, startY, endX, endY);
             line.setStroke(Color.TRANSPARENT);
-            line.setStrokeWidth(2);
+            line.setStrokeWidth(SIZE / 15);
             getChildren().add(line);
             PathTransition pathTransition = new PathTransition(Duration.millis(600), line, imageView);
             if (index < path.size() - 1) {
@@ -199,7 +199,7 @@ public class PE_18_33_Game_Knights_Tour_animation extends Application {
             pathTransition.play();
             Line line = (Line) pathTransition.getPath();
             line.setStroke(Color.ORANGE);
-            Circle circle = new Circle(line.getEndX(), line.getEndY(), 3, Color.ORANGE);
+            Circle circle = new Circle(line.getEndX(), line.getEndY(), SIZE / 10, Color.ORANGE);
             getChildren().add(circle);
         }
 
