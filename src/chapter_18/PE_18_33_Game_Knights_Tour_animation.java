@@ -52,13 +52,13 @@ public class PE_18_33_Game_Knights_Tour_animation extends Application {
         Board pane = new Board(8, 8);
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise18_32");
+        primaryStage.setTitle("Exercise18_33");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     class Board extends BorderPane {
-        private static final double SIZE = 35;
+        private static final double SIZE = 50;
         final ImageView imageView = new ImageView(KNIGHT);
         private final List<Cell> path = new ArrayList<>();
         private Button button;
