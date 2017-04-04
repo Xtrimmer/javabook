@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * Write a program that draws an H-tree, as shown in Figure 18.1.
  */
 public class PE_18_35_H_tree_fractal extends Application {
-    private static final double SIZE = 600;
+    private static final double SIZE = 450;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -74,10 +74,11 @@ public class PE_18_35_H_tree_fractal extends Application {
         private void drawHTree(int order, double x, double y, double size) {
             if (order > 0) {
                 double halfSize = size / 2;
-                drawHTree(order - 1, x, y, halfSize);
-                drawHTree(order - 1, x + halfSize, y, halfSize);
-                drawHTree(order - 1, x, y + halfSize, halfSize);
-                drawHTree(order - 1, x + halfSize, y + halfSize, halfSize);
+                order = order - 1;
+                drawHTree(order, x, y, halfSize);
+                drawHTree(order, x + halfSize, y, halfSize);
+                drawHTree(order, x, y + halfSize, halfSize);
+                drawHTree(order, x + halfSize, y + halfSize, halfSize);
             }
             Line horizontalLine = new Line(
                     x + size * 0.25, y + size * 0.5, x + size * 0.75, y + size * 0.5
