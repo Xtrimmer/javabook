@@ -48,7 +48,7 @@ public class PE_18_37_Hilbert_curve extends Application {
         private final Polyline polyline;
         private Pane pane;
         private TextField textField;
-        private int direction = 4;
+        private int direction;
 
         public HilbertCurvePane() {
             setCenter(createCanvas());
@@ -76,8 +76,8 @@ public class PE_18_37_Hilbert_curve extends Application {
 
         private void drawHilbertCurve() {
             polyline.getPoints().clear();
-            direction = 0;
             int order = parseInt(0, 8);
+            direction = UP;
             drawHilbertCurve(order, 0, 0, pane.getWidth(), pane.getHeight());
         }
 
