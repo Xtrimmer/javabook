@@ -35,7 +35,7 @@ public class PE_18_37_Hilbert_curve extends Application {
         Pane pane = new HilbertCurvePane();
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise18_35");
+        primaryStage.setTitle("Exercise18_37");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

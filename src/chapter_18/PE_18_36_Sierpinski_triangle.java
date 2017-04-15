@@ -44,7 +44,7 @@ public class PE_18_36_Sierpinski_triangle extends Application {
 
         // Create a scene and place it in the stage
         Scene scene = new Scene(borderPane, 200, 210);
-        primaryStage.setTitle("Exercise18_19"); // Set the stage title
+        primaryStage.setTitle("Exercise18_36"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
 
