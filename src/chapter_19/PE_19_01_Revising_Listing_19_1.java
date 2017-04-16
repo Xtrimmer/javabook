@@ -44,49 +44,49 @@ public class PE_19_01_Revising_Listing_19_1 {
         System.out.println("pop " + list1.pop());
         System.out.println("size = " + list1.getSize());
     }
-}
 
-class GenericStack<E> {
-    private E[] list = (E[]) new Object[1];
-    private int size = 0;
+    static class GenericStack<E> {
+        private E[] list = (E[]) new Object[1];
+        private int size = 0;
 
-    public int getSize() {
-        return size;
-    }
-
-    public E peek() {
-        if (isEmpty()) throw new EmptyStackException();
-        return list[size - 1];
-    }
-
-    public E pop() {
-        if (isEmpty()) throw new EmptyStackException();
-        return list[--size];
-    }
-
-    public void push(E o) {
-        if (size == list.length) {
-            list = Arrays.copyOf(list, list.length * 2);
+        public int getSize() {
+            return size;
         }
-        list[size++] = o;
-    }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("stack: [");
-        if (!isEmpty()) {
-            stringBuilder.append(list[0]);
-            for (int i = 1; i < size; i++) {
-                stringBuilder.append(", ");
-                stringBuilder.append(list[i]);
+        public E peek() {
+            if (isEmpty()) throw new EmptyStackException();
+            return list[size - 1];
+        }
+
+        public E pop() {
+            if (isEmpty()) throw new EmptyStackException();
+            return list[--size];
+        }
+
+        public void push(E o) {
+            if (size == list.length) {
+                list = Arrays.copyOf(list, list.length * 2);
             }
+            list[size++] = o;
         }
-        stringBuilder.append("]");
-        return stringBuilder.toString();
-    }
 
-    private boolean isEmpty() {
-        return size == 0;
+        @Override
+        public String toString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("stack: [");
+            if (!isEmpty()) {
+                stringBuilder.append(list[0]);
+                for (int i = 1; i < size; i++) {
+                    stringBuilder.append(", ");
+                    stringBuilder.append(list[i]);
+                }
+            }
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        private boolean isEmpty() {
+            return size == 0;
+        }
     }
 }
