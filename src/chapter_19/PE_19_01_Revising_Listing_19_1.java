@@ -55,6 +55,7 @@ class GenericStack<E> {
     }
 
     public E peek() {
+        if (isEmpty()) throw new EmptyStackException();
         return list[size - 1];
     }
 
