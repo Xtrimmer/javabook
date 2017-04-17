@@ -35,6 +35,7 @@ public class PE_19_10_Largest_element_in_ArrayList {
             add(7);
             add(8);
         }};
+
         System.out.println(strings);
         System.out.println("Max string:  " + max(strings));
         System.out.println();

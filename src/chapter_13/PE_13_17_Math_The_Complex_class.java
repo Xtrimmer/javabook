@@ -55,9 +55,9 @@ import java.util.Scanner;
 public class PE_13_17_Math_The_Complex_class {
     public static void main(String[] args) {
 
-        PE_13_17_Complex complex1 = promptComplexNumber("first");
-        PE_13_17_Complex complex2 = promptComplexNumber("second");
-        PE_13_17_Complex result;
+        Complex complex1 = promptComplexNumber("first");
+        Complex complex2 = promptComplexNumber("second");
+        Complex result;
 
         result = complex1.add(complex2);
         System.out.println(complex1 + " + " + complex2 + " = "
@@ -74,7 +74,7 @@ public class PE_13_17_Math_The_Complex_class {
         System.out.println("|" + complex1 + "| = " + complex1.abs());
     }
 
-    private static PE_13_17_Complex promptComplexNumber(String s) {
+    private static Complex promptComplexNumber(String s) {
         Scanner scanner = new Scanner(System.in);
         boolean valid;
         double a = 0;
@@ -97,79 +97,81 @@ public class PE_13_17_Math_The_Complex_class {
                 scanner.nextLine();
             }
         } while (!valid);
-        return new PE_13_17_Complex(a, b);
-    }
-}
-
-class PE_13_17_Complex implements Cloneable{
-    double a = 0;
-    double b = 0;
-
-    public PE_13_17_Complex() {
+        return new Complex(a, b);
     }
 
-    public PE_13_17_Complex(double a) {
-        this.a = a;
-    }
+    static class Complex implements Cloneable {
+        double a = 0;
+        double b = 0;
 
-    public PE_13_17_Complex(double a, double b) {
-        this.a = a;
-        this.b = b;
-    }
+        public Complex() {
+        }
 
-    public double getRealPart(){
-        double a = Math.round(this.a * 10000) / 10000.0;
-        return a;
-    }
+        public Complex(double a) {
+            this.a = a;
+        }
 
-    public String getImaginaryPart() {
-        double b = Math.round(this.b * 10000) / 10000.0;
-        return b + "i";
-    }
+        public Complex(double a, double b) {
+            this.a = a;
+            this.b = b;
+        }
 
-    public PE_13_17_Complex add(PE_13_17_Complex that){
-        double a = this.a + that.a;
-        double b = this.b + that.b;
-        return new PE_13_17_Complex(a, b);
-    }
+        public double abs() {
+            return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+        }
 
-    public PE_13_17_Complex subtract(PE_13_17_Complex that){
-        double a = this.a - that.a;
-        double b = this.b - that.b;
-        return new PE_13_17_Complex(a, b);
-    }
+        public Complex add(Complex that) {
+            double a = this.a + that.a;
+            double b = this.b + that.b;
+            return new Complex(a, b);
+        }
 
-    public PE_13_17_Complex multiply(PE_13_17_Complex that){
-        double a = (this.a * that.a) - (this.b * that.b);
-        double b = (this.b * that.a) + (this.a * that.b);
-        return new PE_13_17_Complex(a, b);
-    }
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
 
-    public PE_13_17_Complex divide(PE_13_17_Complex that){
-        double a = ((this.a * that.a) + (this.b * that.b))
-                / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
-        double b = ((this.b * that.a) - (this.a * that.b))
-                / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
-        return new PE_13_17_Complex(a, b);
-    }
+        @Override
+        public String toString() {
+            double a = Math.round(this.a * 10000) / 10000.0;
+            double b = Math.round(this.b * 10000) / 10000.0;
+            if (b == 0) {
+                return a + "";
+            } else {
+                return "(" + a + " + " + b + "i)";
+            }
+        }
 
-    public double abs() {
-        return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-    }
+        public Complex divide(Complex that) {
+            double a = ((this.a * that.a) + (this.b * that.b))
+                    / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
+            double b = ((this.b * that.a) - (this.a * that.b))
+                    / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
+            return new Complex(a, b);
+        }
 
-    @Override
-    public String toString() {
-        double a = Math.round(this.a * 10000) / 10000.0;
-        double b = Math.round(this.b * 10000) / 10000.0;
-        if (b == 0) {
-            return a + "";
-        } else {
-            return "(" + a + " + " + b + "i)";
+        public String getImaginaryPart() {
+            double b = Math.round(this.b * 10000) / 10000.0;
+            return b + "i";
+        }
+
+        public double getRealPart() {
+            double a = Math.round(this.a * 10000) / 10000.0;
+            return a;
+        }
+
+        public Complex multiply(Complex that) {
+            double a = (this.a * that.a) - (this.b * that.b);
+            double b = (this.b * that.a) + (this.a * that.b);
+            return new Complex(a, b);
+        }
+
+        public Complex subtract(Complex that) {
+            double a = this.a - that.a;
+            double b = this.b - that.b;
+            return new Complex(a, b);
         }
     }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException{
-        return super.clone();
-    }
 }
+
+

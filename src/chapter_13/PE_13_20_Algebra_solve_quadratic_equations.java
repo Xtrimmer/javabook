@@ -28,7 +28,7 @@ public class PE_13_20_Algebra_solve_quadratic_equations {
         double discriminant = Math.pow(b, 2) - (4 * a * c);
         double root1;
         double root2;
-        if (discriminant > 0){
+        if (discriminant > 0) {
             root1 = (-b - Math.sqrt(discriminant)) / (2 * a);
             root2 = (-b + Math.sqrt(discriminant)) / (2 * a);
             JOptionPane.showMessageDialog(null, "The roots are:\n[" + root1 + ", " + root2 + "]");
@@ -36,9 +36,82 @@ public class PE_13_20_Algebra_solve_quadratic_equations {
             root1 = -b / (2 * a);
             JOptionPane.showMessageDialog(null, "The root is:\n[" + root1 + "]");
         } else {
-            PE_13_17_Complex complexRoot1 = new PE_13_17_Complex(-b / (2 * a), Math.sqrt(-discriminant) / (2 * a));
-            PE_13_17_Complex complexRoot2 = new PE_13_17_Complex(-b / (2 * a), -Math.sqrt(-discriminant) / (2 * a));
+            Complex complexRoot1 = new Complex(-b / (2 * a), Math.sqrt(-discriminant) / (2 * a));
+            Complex complexRoot2 = new Complex(-b / (2 * a), -Math.sqrt(-discriminant) / (2 * a));
             JOptionPane.showMessageDialog(null, "The roots are:\n[" + complexRoot1 + ", " + complexRoot2 + "]");
+        }
+    }
+
+    static class Complex implements Cloneable {
+        double a = 0;
+        double b = 0;
+
+        public Complex() {
+        }
+
+        public Complex(double a) {
+            this.a = a;
+        }
+
+        public Complex(double a, double b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        public double abs() {
+            return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+        }
+
+        public Complex add(Complex that) {
+            double a = this.a + that.a;
+            double b = this.b + that.b;
+            return new Complex(a, b);
+        }
+
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }
+
+        @Override
+        public String toString() {
+            double a = Math.round(this.a * 10000) / 10000.0;
+            double b = Math.round(this.b * 10000) / 10000.0;
+            if (b == 0) {
+                return a + "";
+            } else {
+                return "(" + a + " + " + b + "i)";
+            }
+        }
+
+        public Complex divide(Complex that) {
+            double a = ((this.a * that.a) + (this.b * that.b))
+                    / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
+            double b = ((this.b * that.a) - (this.a * that.b))
+                    / (Math.pow(that.a, 2) + Math.pow(that.b, 2));
+            return new Complex(a, b);
+        }
+
+        public String getImaginaryPart() {
+            double b = Math.round(this.b * 10000) / 10000.0;
+            return b + "i";
+        }
+
+        public double getRealPart() {
+            double a = Math.round(this.a * 10000) / 10000.0;
+            return a;
+        }
+
+        public Complex multiply(Complex that) {
+            double a = (this.a * that.a) - (this.b * that.b);
+            double b = (this.b * that.a) + (this.a * that.b);
+            return new Complex(a, b);
+        }
+
+        public Complex subtract(Complex that) {
+            double a = this.a - that.a;
+            double b = this.b - that.b;
+            return new Complex(a, b);
         }
     }
 }
