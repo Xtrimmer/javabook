@@ -34,7 +34,7 @@ public class PE_20_04_Sort_points_in_a_plane {
     private static Point[] generateRandomPoints(int size) {
         Point[] points = new Point[size];
         for (int i = 0; i < size; i++) {
-            points[i] = new Point((int) (Math.random() * 100), (int) (Math.random() * 100));
+            points[i] = new Point((int) (Math.random() * size), (int) (Math.random() * size));
         }
         return points;
     }
