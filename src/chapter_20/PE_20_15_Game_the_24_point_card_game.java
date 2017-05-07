@@ -13,12 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * (Game: the 24-point card game) Improve Programming Exercise 20.13
@@ -29,11 +28,9 @@ import java.util.List;
  */
 public class PE_20_15_Game_the_24_point_card_game extends Application {
     public static void main(String[] args) {
-        //Application.launch(args);
+        Application.launch(args);
         ArithmeticExpressionGenerator aeg = new ArithmeticExpressionGenerator();
-        //List<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-        //System.out.println(aeg.generateExpression(0, list, new ArrayList<>()));
-        aeg.printOperatorCombinations();
+        System.out.println(aeg.generateExpression(24, Arrays.asList(7, 8, 2, 12)));
     }
 
     @Override
@@ -47,26 +44,50 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
     }
 
     private static class ArithmeticExpressionGenerator {
-        private ExpressionEvaluator expressionEvaluator;
-        private char[] operators = {'+', '-', '*', '/'};
+        private final ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        private final char[] operators = {'+', '-', '*', '/'};
 
 
-        public String generateExpression(int goal, List<Integer> operands, List<Character> operators) {
-            List<List<Integer>> operatorPermutations = permuteOperands(operands);
-            return operatorPermutations.toString();
+        public String generateExpression(int goal, List<Integer> operands) {
+            List<List<Integer>> operandPermutations = permuteOperands(operands);
+            List<String> finalExpressions = new ArrayList<>();
+            for (List<Integer> operandPermutation : operandPermutations) {
+                for (int i = 0; i < Math.pow(operators.length, operators.length); i++) {
+                    List<String> expression = new ArrayList<>();
+                    String operatorCombo = getOperatorCombinations(operands.size() - 1, i);
+                    expression.add(operandPermutation.get(0).toString());
+                    for (int j = 0; j < operatorCombo.length(); j++) {
+                        expression.add(operatorCombo.charAt(j) + "");
+                        expression.add(operandPermutation.get(j + 1) + "");
+                    }
+                    List<String> expressions = permuteParenthesis(expression);
+                    for (String s : expressions) {
+                        Double answer;
+                        try {
+                            answer = expressionEvaluator.evaluate(s);
+                        } catch (ArithmeticException e) {
+                            continue;
+                        }
+                        if (answer.equals((double) goal)) {
+                            finalExpressions.add(s);
+                        }
+                    }
+                }
+            }
+            if (finalExpressions.isEmpty()) return "No Solution";
+            Collections.shuffle(finalExpressions);
+            String chosenExpression = finalExpressions.get(0);
+            return chosenExpression.substring(1, chosenExpression.length() - 1);
         }
 
-        public void printOperatorCombinations() {
+        public String getOperatorCombinations(int length, int index) {
             int operatorCount = operators.length;
-            int combos = (int) Math.pow(operatorCount, operatorCount);
-            for (int i = 0; i < combos; i++) {
-                int index = i;
-                for (int j = 0; j < operatorCount; j++) {
-                    System.out.print(operators[index % operatorCount] + " ");
-                    index /= operatorCount;
-                }
-                System.out.println();
+            StringBuilder stringBuilder = new StringBuilder(length);
+            for (int j = 0; j < length; j++) {
+                stringBuilder.append(operators[index % operatorCount]);
+                index /= operatorCount;
             }
+            return stringBuilder.toString();
         }
 
         private <E> List<List<E>> permuteOperands(List<E> operands) {
@@ -80,112 +101,46 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
             for (E operand : operands) {
                 List<E> permutation2 = new ArrayList<>(permutation);
                 permutation2.add(operand);
-                List<E> operands2 = new ArrayList<>(operands);
+                List<E> operands2 = new LinkedList<>(operands);
                 operands2.remove(operand);
                 permuteOperands(permutations, permutation2, operands2);
             }
         }
-    }
 
-    private class GamePane extends BorderPane {
-
-        private static final String IMAGE_DIRECTORY = "image/card/";
-        ImageView[] imageViews;
-        List<Integer> cardNumbers;
-        private Label labelMessage;
-        private TextField textFieldExpression;
-
-        public GamePane() {
-            populateCardNumbers();
-            setTop(createShufflePane());
-            setCenter(createCardPane(4));
-            setBottom(createExpressionPane());
+        private List<String> permuteParenthesis(List<String> expression) {
+            List<String> permutations = new LinkedList<>();
+            permuteParenthesis(permutations, new LinkedList<>(), expression, new LinkedList<>());
+            return permutations;
         }
 
-        private Node createCardPane(int count) {
-            imageViews = new ImageView[count];
-            HBox hBox = new HBox(5);
-            hBox.setAlignment(Pos.CENTER);
-            hBox.setPadding(new Insets(0, 10, 0, 10));
-            for (int i = 0; i < count; i++) {
-                imageViews[i] = new ImageView();
-                hBox.getChildren().add(imageViews[i]);
-            }
-            shuffleCards();
-            return hBox;
-        }
-
-        private Node createExpressionPane() {
-            Label label = new Label("Enter an expression:");
-            textFieldExpression = new TextField();
-            Button buttonVerify = new Button("Verify");
-            buttonVerify.setOnAction(event -> verifyExpression());
-            HBox hBox = new HBox(5, label, textFieldExpression, buttonVerify);
-            hBox.setPadding(new Insets(10));
-            hBox.setAlignment(Pos.CENTER);
-            return hBox;
-        }
-
-        private Node createShufflePane() {
-            labelMessage = new Label();
-            Button buttonShuffle = new Button("Shuffle");
-            buttonShuffle.setOnAction(event -> shuffleCards());
-            HBox hBox = new HBox(5, labelMessage, buttonShuffle);
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            hBox.setPadding(new Insets(10));
-            return hBox;
-        }
-
-        private boolean operandsMatchCardValues(String expression, ExpressionEvaluator expressionEvaluator) {
-            List<Integer> cardValues = cardNumbers.subList(0, 4);
-            List<Integer> moddedCardValues = new ArrayList<>();
-            for (Integer cardValue : cardValues) {
-                moddedCardValues.add((cardValue - 1) % 13 + 1);
-            }
-            List<Integer> operands = expressionEvaluator.getOperands(expression);
-            Collections.sort(operands);
-            Collections.sort(moddedCardValues);
-            return moddedCardValues.equals(operands);
-        }
-
-        private void populateCardNumbers() {
-            cardNumbers = new ArrayList<>(52);
-            for (int i = 1; i <= 52; i++) {
-                cardNumbers.add(i);
-            }
-        }
-
-        private void shuffleCards() {
-            Collections.shuffle(cardNumbers);
-            for (int i = 0; i < 4; i++) {
-                imageViews[i].setImage(new Image(IMAGE_DIRECTORY + cardNumbers.get(i) + ".png"));
-            }
-        }
-
-        private void verifyExpression() {
-            String expression = textFieldExpression.getText();
-            ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-            if (operandsMatchCardValues(expression, expressionEvaluator))
-                try {
-                    if (expressionEvaluator.evaluate(expression) == 24) {
-                        labelMessage.setText("Correct");
-                    } else {
-
-                        labelMessage.setText("Incorrect result");
-                    }
-                } catch (Exception e) {
-                    labelMessage.setText("Invalid Expression");
+        private void permuteParenthesis(List<String> permutations, List<String> prefix, List<String> expression, List<String> suffix) {
+            if (expression.size() < 3) return;
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String s : prefix) stringBuilder.append(s);
+            stringBuilder.append("(");
+            for (String s : expression) stringBuilder.append(s);
+            stringBuilder.append(")");
+            for (String s : suffix) stringBuilder.append(s);
+            permutations.add(stringBuilder.toString());
+            for (int i = 2; i < expression.size() - 2; i += 2) {
+                for (int startIndex = 0, endIndex = expression.size() - i;
+                     endIndex <= expression.size(); startIndex += 2, endIndex += 2) {
+                    List<String> prefix2 = new LinkedList<>(prefix);
+                    prefix2.add("(");
+                    prefix2.addAll(expression.subList(0, startIndex));
+                    List<String> suffix2 = new LinkedList<>(expression.subList(endIndex, expression.size()));
+                    suffix2.add(")");
+                    suffix2.addAll(suffix);
+                    permuteParenthesis(permutations, prefix2, expression.subList(startIndex, endIndex), suffix2);
                 }
-            else {
-                labelMessage.setText("The numbers in the expression don't\nmatch the numbers in the set");
             }
         }
     }
 
-    private class ExpressionEvaluator {
+    private static class ExpressionEvaluator {
 
-        public int evaluate(String expression) {
-            LinkedList<Integer> operandStack = new LinkedList<>();
+        public Double evaluate(String expression) {
+            LinkedList<Double> operandStack = new LinkedList<>();
             LinkedList<Character> operatorStack = new LinkedList<>();
             expression = insertBlanks(expression);
             String[] tokens = expression.split(" ");
@@ -216,13 +171,13 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
                     }
                     operatorStack.pop();
                 } else {
-                    operandStack.push(new Integer(token));
+                    operandStack.push(new Double(token));
                 }
             }
             while (!operatorStack.isEmpty()) {
                 processAnOperator(operandStack, operatorStack);
             }
-            int result = operandStack.pop();
+            Double result = operandStack.pop();
             if (!operandStack.isEmpty()) throw new IllegalArgumentException();
             return result;
         }
@@ -261,10 +216,12 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         }
 
         private void processAnOperator(
-                LinkedList<Integer> operandStack, LinkedList<Character> operatorStack) {
+                LinkedList<Double> operandStack, LinkedList<Character> operatorStack) {
             char operator = operatorStack.pop();
-            int operand1 = operandStack.pop();
-            int operand2 = operandStack.pop();
+            Double operand1;
+            Double operand2;
+            operand1 = operandStack.pop();
+            operand2 = operandStack.pop();
             if (operator == '+')
                 operandStack.push(operand2 + operand1);
             else if (operator == '-')
@@ -273,6 +230,115 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
                 operandStack.push(operand2 * operand1);
             else if (operator == '/')
                 operandStack.push(operand2 / operand1);
+        }
+    }
+
+    private class GamePane extends BorderPane {
+
+        private static final String IMAGE_DIRECTORY = "image/card/";
+        ImageView[] imageViews;
+        List<Integer> cardNumbers;
+        private Label labelMessage;
+        private TextField textFieldExpression;
+
+        public GamePane() {
+            populateCardNumbers();
+            setTop(createShufflePane());
+            setCenter(createCardPane(4));
+            setBottom(createExpressionPane());
+        }
+
+        private Node createCardPane(int count) {
+            imageViews = new ImageView[count];
+            HBox hBox = new HBox(5);
+            hBox.setAlignment(Pos.CENTER);
+            hBox.setPadding(new Insets(0, 10, 0, 10));
+            for (int i = 0; i < count; i++) {
+                imageViews[i] = new ImageView();
+                hBox.getChildren().add(imageViews[i]);
+            }
+            shuffleCards();
+            return hBox;
+        }
+
+        private Node createExpressionPane() {
+            Label label = new Label("Enter an expression:");
+            textFieldExpression = new TextField();
+            Button buttonVerify = new Button("Verify");
+            buttonVerify.setOnAction(event -> verifyExpression());
+            HBox hBox1 = new HBox(5, label, textFieldExpression, buttonVerify);
+            hBox1.setAlignment(Pos.CENTER);
+            labelMessage = new Label();
+            labelMessage.setMinHeight(45);
+            labelMessage.setTextAlignment(TextAlignment.CENTER);
+            HBox hBox2 = new HBox(labelMessage);
+            hBox2.setAlignment(Pos.CENTER);
+            VBox vBox = new VBox(5, hBox1, hBox2);
+            vBox.setPadding(new Insets(10));
+            return vBox;
+        }
+
+        private Node createShufflePane() {
+            ArithmeticExpressionGenerator aeg = new ArithmeticExpressionGenerator();
+            Button buttonSolution = new Button("Find Solution");
+            TextField textField = new TextField();
+            Button buttonShuffle = new Button("Shuffle");
+            buttonSolution.setOnAction(event -> textField.setText(aeg.generateExpression(24, getCardFaceValues())));
+            buttonShuffle.setOnAction(event -> shuffleCards());
+            HBox hBox = new HBox(5, buttonSolution, textField, buttonShuffle);
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(10));
+            return hBox;
+        }
+
+        private List<Integer> getCardFaceValues() {
+            List<Integer> cardValues = cardNumbers.subList(0, 4);
+            List<Integer> modulatedCardValues = new ArrayList<>(4);
+            for (Integer cardValue : cardValues) {
+                modulatedCardValues.add((cardValue - 1) % 13 + 1);
+            }
+            return modulatedCardValues;
+        }
+
+        private boolean operandsMatchCardValues(String expression, ExpressionEvaluator expressionEvaluator) {
+            List<Integer> cardValues = getCardFaceValues();
+            List<Integer> operands = expressionEvaluator.getOperands(expression);
+            Collections.sort(operands);
+            Collections.sort(cardValues);
+            return cardValues.equals(operands);
+        }
+
+        private void populateCardNumbers() {
+            cardNumbers = new ArrayList<>(52);
+            for (int i = 1; i <= 52; i++) {
+                cardNumbers.add(i);
+            }
+        }
+
+        private void shuffleCards() {
+            Collections.shuffle(cardNumbers);
+            for (int i = 0; i < 4; i++) {
+                imageViews[i].setImage(new Image(IMAGE_DIRECTORY + cardNumbers.get(i) + ".png"));
+            }
+        }
+
+        private void verifyExpression() {
+            String expression = textFieldExpression.getText();
+            ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+            if (operandsMatchCardValues(expression, expressionEvaluator))
+                try {
+                    if (expressionEvaluator.evaluate(expression) == 24) {
+                        labelMessage.setText("Correct");
+                    } else {
+
+                        labelMessage.setText("Incorrect result");
+                    }
+                } catch (Exception e) {
+                    labelMessage.setText("Invalid Expression");
+                }
+            else {
+                labelMessage.setText("The numbers in the expression don't\nmatch the numbers in the set");
+            }
         }
     }
 }
