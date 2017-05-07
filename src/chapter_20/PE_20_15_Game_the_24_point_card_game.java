@@ -17,7 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * (Game: the 24-point card game) Improve Programming Exercise 20.13
@@ -29,8 +32,6 @@ import java.util.*;
 public class PE_20_15_Game_the_24_point_card_game extends Application {
     public static void main(String[] args) {
         Application.launch(args);
-        ArithmeticExpressionGenerator aeg = new ArithmeticExpressionGenerator();
-        System.out.println(aeg.generateExpression(24, Arrays.asList(7, 8, 2, 12)));
     }
 
     @Override
@@ -49,7 +50,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
 
 
         public String generateExpression(int goal, List<Integer> operands) {
-            List<List<Integer>> operandPermutations = permuteOperands(operands);
+            List<List<Integer>> operandPermutations = permuteList(operands);
             List<String> finalExpressions = new ArrayList<>();
             for (List<Integer> operandPermutation : operandPermutations) {
                 for (int i = 0; i < Math.pow(operators.length, operators.length); i++) {
@@ -80,7 +81,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
             return chosenExpression.substring(1, chosenExpression.length() - 1);
         }
 
-        public String getOperatorCombinations(int length, int index) {
+        private String getOperatorCombinations(int length, int index) {
             int operatorCount = operators.length;
             StringBuilder stringBuilder = new StringBuilder(length);
             for (int j = 0; j < length; j++) {
@@ -90,26 +91,27 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
             return stringBuilder.toString();
         }
 
-        private <E> List<List<E>> permuteOperands(List<E> operands) {
+        private <E> List<List<E>> permuteList(List<E> operands) {
             List<List<E>> permutations = new ArrayList<>();
-            permuteOperands(permutations, new ArrayList<>(operands.size()), operands);
+            permuteList(permutations, new ArrayList<>(operands.size()), operands);
             return permutations;
         }
 
-        private <E> void permuteOperands(List<List<E>> permutations, List<E> permutation, List<E> operands) {
+        private <E> void permuteList(List<List<E>> permutations, List<E> permutation, List<E> operands) {
             if (operands.isEmpty()) permutations.add(permutation);
             for (E operand : operands) {
                 List<E> permutation2 = new ArrayList<>(permutation);
                 permutation2.add(operand);
                 List<E> operands2 = new LinkedList<>(operands);
                 operands2.remove(operand);
-                permuteOperands(permutations, permutation2, operands2);
+                permuteList(permutations, permutation2, operands2);
             }
         }
 
         private List<String> permuteParenthesis(List<String> expression) {
             List<String> permutations = new LinkedList<>();
             permuteParenthesis(permutations, new LinkedList<>(), expression, new LinkedList<>());
+            StringBuilder stringBuilder = new StringBuilder();
             return permutations;
         }
 
