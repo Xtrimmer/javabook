@@ -36,7 +36,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Pane pane = new GamePane();
+        Pane pane = new GamePane(4);
         Scene scene = new Scene(pane);
 
         primaryStage.setTitle("Exercise20_13");
@@ -237,20 +237,22 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
 
     private class GamePane extends BorderPane {
 
+        private int count;
         private static final String IMAGE_DIRECTORY = "image/card/";
         ImageView[] imageViews;
         List<Integer> cardNumbers;
         private Label labelMessage;
         private TextField textFieldExpression;
 
-        public GamePane() {
+        public GamePane(int cardCount) {
+            this.count = cardCount;
             populateCardNumbers();
             setTop(createShufflePane());
-            setCenter(createCardPane(4));
+            setCenter(createCardPane());
             setBottom(createExpressionPane());
         }
 
-        private Node createCardPane(int count) {
+        private Node createCardPane() {
             imageViews = new ImageView[count];
             HBox hBox = new HBox(5);
             hBox.setAlignment(Pos.CENTER);
@@ -294,7 +296,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         }
 
         private List<Integer> getCardFaceValues() {
-            List<Integer> cardValues = cardNumbers.subList(0, 4);
+            List<Integer> cardValues = cardNumbers.subList(0, count);
             List<Integer> modulatedCardValues = new ArrayList<>(4);
             for (Integer cardValue : cardValues) {
                 modulatedCardValues.add((cardValue - 1) % 13 + 1);
@@ -319,7 +321,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
 
         private void shuffleCards() {
             Collections.shuffle(cardNumbers);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < count; i++) {
                 imageViews[i].setImage(new Image(IMAGE_DIRECTORY + cardNumbers.get(i) + ".png"));
             }
         }
