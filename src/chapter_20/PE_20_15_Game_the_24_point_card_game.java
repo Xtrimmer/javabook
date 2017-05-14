@@ -44,7 +44,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         primaryStage.show();
     }
 
-    private static class ArithmeticExpressionGenerator {
+    private class ArithmeticExpressionGenerator {
         private final ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
         private final char[] operators = {'+', '-', '*', '/'};
 
@@ -152,7 +152,7 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         }
     }
 
-    private static class ExpressionEvaluator {
+    private class ExpressionEvaluator {
 
         public Double evaluate(String expression) {
             LinkedList<Double> operandStack = new LinkedList<>();
@@ -251,9 +251,9 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
     private class GamePane extends BorderPane {
 
         private static final String IMAGE_DIRECTORY = "image/card/";
+        private final int count;
         ImageView[] imageViews;
         List<Integer> cardNumbers;
-        private int count;
         private Label labelMessage;
         private TextField textFieldExpression;
 
