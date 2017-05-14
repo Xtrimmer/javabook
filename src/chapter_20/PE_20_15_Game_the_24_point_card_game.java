@@ -81,6 +81,18 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
             return chosenExpression.substring(1, chosenExpression.length() - 1);
         }
 
+        private String buildSpecialExpression(List<String> expression) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("((");
+            for (int i = 0; i < 3; i++) stringBuilder.append(expression.get(i));
+            stringBuilder.append(")");
+            stringBuilder.append(expression.get(3));
+            stringBuilder.append("(");
+            for (int i = 4; i < 7; i++) stringBuilder.append(expression.get(i));
+            stringBuilder.append("))");
+            return stringBuilder.toString();
+        }
+
         private String getOperatorCombinations(int length, int index) {
             int operatorCount = operators.length;
             StringBuilder stringBuilder = new StringBuilder(length);
@@ -89,12 +101,6 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
                 index /= operatorCount;
             }
             return stringBuilder.toString();
-        }
-
-        private <E> List<List<E>> permuteList(List<E> operands) {
-            List<List<E>> permutations = new ArrayList<>();
-            permuteList(permutations, new ArrayList<>(operands.size()), operands);
-            return permutations;
         }
 
         private <E> void permuteList(List<List<E>> permutations, List<E> permutation, List<E> operands) {
@@ -108,10 +114,17 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
             }
         }
 
+        private <E> List<List<E>> permuteList(List<E> operands) {
+            List<List<E>> permutations = new ArrayList<>();
+            permuteList(permutations, new ArrayList<>(operands.size()), operands);
+            return permutations;
+        }
+
         private List<String> permuteParenthesis(List<String> expression) {
             List<String> permutations = new LinkedList<>();
             permuteParenthesis(permutations, new LinkedList<>(), expression, new LinkedList<>());
-            StringBuilder stringBuilder = new StringBuilder();
+            String specialExpression = buildSpecialExpression(expression);
+            permutations.add(specialExpression);
             return permutations;
         }
 
@@ -237,10 +250,10 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
 
     private class GamePane extends BorderPane {
 
-        private int count;
         private static final String IMAGE_DIRECTORY = "image/card/";
         ImageView[] imageViews;
         List<Integer> cardNumbers;
+        private int count;
         private Label labelMessage;
         private TextField textFieldExpression;
 
