@@ -22,6 +22,15 @@ public class PE_12_08_HexFormatException {
                 + hex + " is " + hexToDecimal(hex.toUpperCase()));
     }
 
+    public static int hexCharToDecimal(char ch) {
+        if (ch >= 'A' && ch <= 'F')
+            return 10 + ch - 'A';
+        else if (Character.isDigit(ch))// ch is '0', '1', ..., or '9'
+            return ch - '0';
+        else
+            throw new HexFormatException(ch + " is not a hex number.");
+    }
+
     public static int hexToDecimal(String hex) {
         int decimalValue = 0;
         for (int i = 0; i < hex.length(); i++) {
@@ -31,21 +40,13 @@ public class PE_12_08_HexFormatException {
         return decimalValue;
     }
 
-    public static int hexCharToDecimal(char ch) {
-        if (ch >= 'A' && ch <= 'F')
-            return 10 + ch - 'A';
-        else if (Character.isDigit(ch))// ch is '0', '1', ..., or '9'
-            return ch - '0';
-        else
-            throw new HexFormatException(ch + " is not a hex number.");
-    }
-}
+    static class HexFormatException extends NumberFormatException {
 
-class HexFormatException extends NumberFormatException {
-    public HexFormatException() {
-    }
+        public HexFormatException() {
+        }
 
-    public HexFormatException(String s) {
-        super(s);
+        public HexFormatException(String s) {
+            super(s);
+        }
     }
 }
