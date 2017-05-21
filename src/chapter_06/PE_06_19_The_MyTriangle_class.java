@@ -24,20 +24,20 @@ public class PE_06_19_The_MyTriangle_class {
         double side2 = scanner.nextDouble();
         double side3 = scanner.nextDouble();
         System.out.println(MyTriangle.isValid(side1, side2, side3) ?
-        MyTriangle.area(side1, side2, side3) : "The input is invalid");
-    }
-}
-
-class MyTriangle {
-
-    //Return true if the sum of any two sides is greater than the third side.
-    public static boolean isValid(double side1, double side2, double side3){
-        return (side1 + side2 > side3) && (side1 + side3 > side2) && (side2 + side3 > side1);
+                MyTriangle.area(side1, side2, side3) : "The input is invalid");
     }
 
-    //Return the area of the triangle.
-    public static double area(double side1, double side2, double side3) {
-        double p = (side1 + side2 + side3) / 2d;
-        return Math.sqrt(p * (p - side1) * (p - side2) * (p - side3));
+    static class MyTriangle {
+
+        //Return the area of the triangle.
+        public static double area(double side1, double side2, double side3) {
+            double p = (side1 + side2 + side3) / 2d;
+            return Math.sqrt(p * (p - side1) * (p - side2) * (p - side3));
+        }
+
+        //Return true if the sum of any two sides is greater than the third side.
+        public static boolean isValid(double side1, double side2, double side3) {
+            return (side1 + side2 > side3) && (side1 + side3 > side2) && (side2 + side3 > side1);
+        }
     }
 }
