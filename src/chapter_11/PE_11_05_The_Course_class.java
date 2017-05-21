@@ -26,33 +26,33 @@ public class PE_11_05_The_Course_class {
         System.out.println("Students: " + Arrays.toString(course.getStudents()));
         System.out.println("Student count: " + course.getNumberOfStudents());
     }
-}
 
-class Course {
-    private String courseName;
-    private ArrayList<String> students = new ArrayList<>();
+    static class Course {
+        private final String courseName;
+        private final ArrayList<String> students = new ArrayList<>();
 
-    public Course(String courseName) {
-        this.courseName = courseName;
-    }
+        public Course(String courseName) {
+            this.courseName = courseName;
+        }
 
-    public void addStudent(String student) {
-        students.add(student);
-    }
+        public void addStudent(String student) {
+            students.add(student);
+        }
 
-    public String[] getStudents() {
-        return students.toArray(new String[students.size()]);
-    }
+        public void dropStudent(String student) {
+            students.remove(student);
+        }
 
-    public int getNumberOfStudents() {
-        return students.size();
-    }
+        public String getCourseName() {
+            return courseName;
+        }
 
-    public String getCourseName() {
-        return courseName;
-    }
+        public int getNumberOfStudents() {
+            return students.size();
+        }
 
-    public void dropStudent(String student) {
-        students.remove(student);
+        public String[] getStudents() {
+            return students.toArray(new String[students.size()]);
+        }
     }
 }
