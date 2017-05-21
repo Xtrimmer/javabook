@@ -16,12 +16,6 @@ public class PE_12_09_BinaryFormatException {
         System.out.println(decimalNumber);
     }
 
-    private static String promptStringValue() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a binary number: ");
-        return scanner.nextLine();
-    }
-
     private static int bin2Dec(String binaryString)
             throws BinaryFormatException {
         int decimalNumber = 0;
@@ -36,13 +30,20 @@ public class PE_12_09_BinaryFormatException {
         }
         return decimalNumber;
     }
-}
 
-class BinaryFormatException extends NumberFormatException {
-    public BinaryFormatException() {
+    private static String promptStringValue() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a binary number: ");
+        return scanner.nextLine();
     }
 
-    public BinaryFormatException(String s) {
-        super(s);
+    static class BinaryFormatException extends NumberFormatException {
+
+        public BinaryFormatException() {
+        }
+
+        public BinaryFormatException(String s) {
+            super(s);
+        }
     }
 }
