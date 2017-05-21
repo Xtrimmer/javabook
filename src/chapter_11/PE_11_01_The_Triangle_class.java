@@ -1,6 +1,6 @@
 package chapter_11;
 
-import utility.Triangle;
+import textbook_listings.GeometricObject;
 
 import java.util.Scanner;
 
@@ -20,10 +20,10 @@ import java.util.Scanner;
  *
  * For the formula to compute the area of a triangle, see Programming Exercise 2.19.
  * The toString() method is implemented as follows:
- * 
+ *
  *      return "Triangle: side1 = " + side1 + " side2 = " + side2 +
  *      " side3 = " + side3;
- * 
+ *
  * Draw the UML diagrams for the classes Triangle and GeometricObject and
  * implement the classes. Write a test program that prompts the user to enter three
  * sides of the triangle, a color, and a Boolean value to indicate whether the triangle
@@ -51,12 +51,6 @@ public class PE_11_01_The_Triangle_class {
         return scanner.nextLine().toUpperCase().charAt(0) == 'T';
     }
 
-    private static String promptStringValue() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a color: ");
-        return scanner.nextLine();
-    }
-
     private static double[] promptDoubleValues(int size) {
         double[] values = new double[size];
         final Scanner SCANNER = new Scanner(System.in);
@@ -65,5 +59,54 @@ public class PE_11_01_The_Triangle_class {
             values[i] = SCANNER.nextDouble();
         }
         return values;
+    }
+
+    private static String promptStringValue() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a color: ");
+        return scanner.nextLine();
+    }
+
+    static class Triangle extends GeometricObject {
+        private final double side1;
+        private final double side2;
+        private final double side3;
+
+        public Triangle() {
+            this(1.0, 1.0, 1.0);
+        }
+
+        public Triangle(double side1, double side2, double side3) {
+            this.side1 = side1;
+            this.side2 = side2;
+            this.side3 = side3;
+        }
+
+        public double getSide1() {
+            return side1;
+        }
+
+        public double getSide2() {
+            return side2;
+        }
+
+        public double getSide3() {
+            return side3;
+        }
+
+        @Override
+        public String toString() {
+            return "Triangle: side1 = " + side1 + " side2 = " + side2 +
+                    " side3 = " + side3;
+        }
+
+        public double getArea() {
+            double s = getPerimeter() / 2.0;
+            return Math.sqrt(s * (s - side1) * (s - side2) * (s - side3));
+        }
+
+        public double getPerimeter() {
+            return side1 + side2 + side3;
+        }
     }
 }
