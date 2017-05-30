@@ -17,7 +17,6 @@ public class PE_21_07_Revise_Listing_21_9_CountOccurrenceOfWords {
     public static void main(String[] args) {
         String text = "Good morning. Have a good class. " +
                 "Have a good visit. Have fun!";
-        List<WordOccurrence> list = new ArrayList<>();
         Map<String, Integer> map = new TreeMap<>();
         String[] words = text.split("[\\s+\\p{P}]");
         for (String word : words) {
@@ -32,6 +31,7 @@ public class PE_21_07_Revise_Listing_21_9_CountOccurrenceOfWords {
                 }
             }
         }
+        List<WordOccurrence> list = new ArrayList<>();
         map.forEach((k, v) -> list.add(new WordOccurrence(k, v)));
         Collections.sort(list);
         list.forEach(wo -> System.out.println(wo.word + '\t' + wo.count));
