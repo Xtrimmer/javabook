@@ -256,13 +256,14 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         List<Integer> cardNumbers;
         private Label labelMessage;
         private TextField textFieldExpression;
+        private TextField textFieldSolution;
 
         public GamePane(int cardCount) {
             this.count = cardCount;
             populateCardNumbers();
             setTop(createShufflePane());
-            setCenter(createCardPane());
             setBottom(createExpressionPane());
+            setCenter(createCardPane());
         }
 
         private Node createCardPane() {
@@ -298,11 +299,11 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         private Node createShufflePane() {
             ArithmeticExpressionGenerator aeg = new ArithmeticExpressionGenerator();
             Button buttonSolution = new Button("Find Solution");
-            TextField textField = new TextField();
+            textFieldSolution = new TextField();
             Button buttonShuffle = new Button("Shuffle");
-            buttonSolution.setOnAction(event -> textField.setText(aeg.generateExpression(24, getCardFaceValues())));
+            buttonSolution.setOnAction(event -> textFieldSolution.setText(aeg.generateExpression(24, getCardFaceValues())));
             buttonShuffle.setOnAction(event -> shuffleCards());
-            HBox hBox = new HBox(5, buttonSolution, textField, buttonShuffle);
+            HBox hBox = new HBox(5, buttonSolution, textFieldSolution, buttonShuffle);
             hBox.setAlignment(Pos.CENTER_RIGHT);
             hBox.setPadding(new Insets(10));
             return hBox;
@@ -333,6 +334,9 @@ public class PE_20_15_Game_the_24_point_card_game extends Application {
         }
 
         private void shuffleCards() {
+            textFieldExpression.clear();
+            textFieldSolution.clear();
+            labelMessage.setText("");
             Collections.shuffle(cardNumbers);
             for (int i = 0; i < count; i++) {
                 imageViews[i].setImage(new Image(IMAGE_DIRECTORY + cardNumbers.get(i) + ".png"));
