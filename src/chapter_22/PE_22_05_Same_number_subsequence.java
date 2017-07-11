@@ -33,20 +33,22 @@ public class PE_22_05_Same_number_subsequence {
         }
         System.out.printf("The longest same number sequence starts at index %d with %d values of %d%n",
                 maxSequenceData.index, maxSequenceData.count, maxSequenceData.number);
-    }
-}
 
-class SequenceData {
-    public int number = 0;
-    public int index = 0;
-    public int count = 0;
 
-    public SequenceData(int number, int index, int count) {
-        this.number = number;
-        this.index = index;
-        this.count = count;
     }
 
-    public SequenceData() {
+    static class SequenceData {
+        public int number = 0;
+        public int index = 0;
+        public int count = 0;
+
+        public SequenceData(int number, int index, int count) {
+            this.number = number;
+            this.index = index;
+            this.count = count;
+        }
+
+        public SequenceData() {
+        }
     }
 }
