@@ -25,7 +25,7 @@ import java.util.NoSuchElementException;
  *   file rather than start over from scratch.
  */
 public class PE_22_08_All_prime_numbers_up_to_10_billion {
-    private static final long SEARCH_LIMIT = 100000000;
+    private static final long SEARCH_LIMIT = 10000000000L;
     private static final File file = new File("resources/data/PrimeNumbers.dat");
 
     public static void main(String[] args) throws FileNotFoundException {
