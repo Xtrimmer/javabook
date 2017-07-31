@@ -109,7 +109,7 @@ public class PE_22_11_Geometry_Grahams_algorithm_for_finding_a_convex_hull {
             int i = 3;
             while (i < points.size()) {
                 MyPoint t1 = convexHull.getFirst();
-                MyPoint t2 = convexHull.get(2);
+                MyPoint t2 = convexHull.get(1);
                 MyPoint p = points.get(i);
                 Line2D line = new Line2D.Double(t2.x, t2.y, t1.x, t1.y);
                 if (line.relativeCCW(p.x, p.y) == LEFT_SIDE_OF_LINE) {
