@@ -24,8 +24,6 @@ import java.util.*;
  *      (1.5, 34.5) (5.5, 9.0) (6.0, 2.4) (2.5, 2.0) (1.0, 2.4)
  */
 public class PE_22_09_Geometry_gift_wrapping_algorithm_for_finding_a_convex_hull {
-    private static final int X = 0;
-    private static final int Y = 1;
 
     public static void main(String[] args) {
         int pointCount = promptUserForInteger("How many points are in the set? ");
@@ -68,6 +66,8 @@ public class PE_22_09_Geometry_gift_wrapping_algorithm_for_finding_a_convex_hull
     }
 
     static class GiftWrappingConvexHull {
+        private static final int X = 0;
+        private static final int Y = 1;
 
         public ArrayList<Point2D> getConvexHull(double[][] s) {
 
