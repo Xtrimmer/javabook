@@ -33,7 +33,7 @@ public class PE_22_13_Geometry_convex_hull_animation extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Pane pane = new ConvexHullPane();
         Scene scene = new Scene(pane, 500, 300);
 
