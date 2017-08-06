@@ -135,7 +135,6 @@ public class PE_22_15_Geometry_non_cross_polygon extends Application {
     class NonCrossPolygonGenerator {
         private static final int X = 0;
         private static final int Y = 1;
-        private static final int LEFT_SIDE_OF_LINE = -1;
 
         public List<MyPoint> getPolygon(double[][] s) {
             MyPoint p0 = getRightmostLowestPoint(s);
