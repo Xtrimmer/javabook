@@ -88,7 +88,6 @@ public class PE_22_07_Closest_pair_of_points {
             }
         }
 
-
         double d3 = distance;
         int r = 0;
         for (Point point : stripL) {
