@@ -44,7 +44,7 @@ public class PE_22_15_Geometry_non_cross_polygon extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Pane pane = new NonCrossPolygonPane();
         Scene scene = new Scene(pane, 500, 300);
 
