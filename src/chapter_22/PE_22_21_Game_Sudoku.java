@@ -30,7 +30,7 @@ public class PE_22_21_Game_Sudoku extends Application {
         Pane pane = new SudokuSolverPane();
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Exercise22_20");
+        primaryStage.setTitle("Exercise22_21");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
