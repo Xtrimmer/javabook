@@ -17,6 +17,7 @@ public class PE_22_20_Game_multiple_Sudoku_solutions {
 
         if (!isValid(grid))
             System.out.println("Invalid input");
+            System.exit(0);
         List<int[][]> solutions = search(grid);
         if (solutions.isEmpty()) {
             System.out.println("No solution");
