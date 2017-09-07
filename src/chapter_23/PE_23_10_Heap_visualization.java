@@ -3,9 +3,17 @@ package chapter_23;
 import javafx.application.Application;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -28,19 +36,62 @@ public class PE_23_10_Heap_visualization extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         HeapPane pane = new HeapPane();
-
-        Heap<Integer> heap = new Heap<>();
-        heap.add(2).add(43).add(56).add(78).add(34).add(15).add(23).add(4).add(1).add(100).add(150).add(98).add(12).add(23).add(34).add(45);
-        pane.setHeap(heap);
-
-        Scene scene = new Scene(pane, 600, 300);
+        Scene scene = new Scene(pane, 800, 400);
 
         primaryStage.setTitle("Exercise23_10");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    class HeapPane extends Pane {
+    class HeapPane extends BorderPane {
+        private final TextField textField = new TextField();
+        private final Button buttonInsert = new Button("Insert");
+        private final Button buttonRemove = new Button("Remove the root");
+        private final SimpleHeapPane simpleHeapPane = new SimpleHeapPane();
+        private final Heap<Integer> heap = new Heap<>();
+
+        public HeapPane() {
+            StackPane stackPane = new StackPane(simpleHeapPane);
+            stackPane.setPadding(new Insets(20));
+            setCenter(stackPane);
+            setBottom(generateControlPane());
+            setButtonActions();
+        }
+
+        private Node generateControlPane() {
+            Label label = new Label("Enter a key:");
+            textField.setPrefColumnCount(2);
+            HBox hBox = new HBox(5, label, textField, buttonInsert, buttonRemove);
+            hBox.setAlignment(Pos.CENTER);
+            hBox.setPadding(new Insets(10));
+            return hBox;
+        }
+
+        private int parseInt(TextField textField, int defaultValue) {
+            try {
+                int number = (int) Double.parseDouble(textField.getText());
+                textField.setText(number + "");
+                return number;
+            } catch (NumberFormatException e) {
+                textField.setText(defaultValue + "");
+                return defaultValue;
+            }
+        }
+
+        private void setButtonActions() {
+            buttonInsert.setOnAction(event -> {
+                Integer integer = parseInt(textField, 0);
+                heap.add(integer);
+                simpleHeapPane.setHeap(heap);
+            });
+            buttonRemove.setOnAction(event -> {
+                heap.remove();
+                simpleHeapPane.setHeap(heap);
+            });
+        }
+    }
+
+    class SimpleHeapPane extends Pane {
         private Heap<Integer> heap;
 
         public void setHeap(Heap<Integer> heap) {
@@ -62,6 +113,23 @@ public class PE_23_10_Heap_visualization extends Application {
             display(circle, row + 1, width * 2, position * 2 + 1, index * 2 + 2);
         }
 
+        private Circle generateCircle(int row, double width, int position) {
+            Circle circle = new Circle();
+            circle.setFill(Color.WHITE);
+            circle.setStroke(Color.BLACK);
+            circle.radiusProperty().bind(min(widthProperty(), heightProperty()).multiply(0.07));
+            circle.centerXProperty().bind(widthProperty().multiply(position / width));
+            circle.centerYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)));
+            return circle;
+        }
+
+        private Label generateLabel(int row, double width, int position, int index) {
+            Label label = new Label(heap.get(index) + "");
+            label.layoutXProperty().bind(widthProperty().multiply(position / width).subtract(label.widthProperty().divide(2)));
+            label.layoutYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)).subtract(label.heightProperty().divide(2)));
+            return label;
+        }
+
         private Line generateLine(Circle parent, Circle child) {
             Line line = new Line();
             DoubleProperty parentRadius = parent.radiusProperty();
@@ -79,23 +147,6 @@ public class PE_23_10_Heap_visualization extends Application {
             line.endYProperty().bind(subtract(y2, multiply(divide(childRadius, distance), subtract(y2, y1))));
 
             return line;
-        }
-
-        private Label generateLabel(int row, double width, int position, int index) {
-            Label label = new Label(heap.get(index) + "");
-            label.layoutXProperty().bind(widthProperty().multiply(position / width).subtract(label.widthProperty().divide(2)));
-            label.layoutYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)).subtract(label.heightProperty().divide(2)));
-            return label;
-        }
-
-        private Circle generateCircle(int row, double width, int position) {
-            Circle circle = new Circle();
-            circle.setFill(Color.WHITE);
-            circle.setStroke(Color.BLACK);
-            circle.radiusProperty().bind(min(widthProperty(), heightProperty()).multiply(0.07));
-            circle.centerXProperty().bind(widthProperty().multiply(position / width));
-            circle.centerYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)));
-            return circle;
         }
     }
 
@@ -119,6 +170,10 @@ public class PE_23_10_Heap_visualization extends Application {
             }
             height = setHeight();
             return this;
+        }
+
+        public E get(int index) {
+            return list.get(index);
         }
 
         public int getHeight() {
@@ -153,10 +208,6 @@ public class PE_23_10_Heap_visualization extends Application {
             }
             height = setHeight();
             return removedObject;
-        }
-
-        public E get(int index) {
-            return list.get(index);
         }
 
         public int size() {
