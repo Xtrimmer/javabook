@@ -1,17 +1,20 @@
 package chapter_23;
 
 import javafx.application.Application;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import static javafx.beans.binding.Bindings.min;
+import static javafx.beans.binding.Bindings.*;
 
 /**
  * (Heap visualization) Write a program that displays a heap graphically, as shown
@@ -27,11 +30,10 @@ public class PE_23_10_Heap_visualization extends Application {
         HeapPane pane = new HeapPane();
 
         Heap<Integer> heap = new Heap<>();
-        heap.add(2).add(43).add(56).add(78).add(34).add(15);//.add(23).add(4);//.add(1);
-        System.out.println(heap.size());
+        heap.add(2).add(43).add(56).add(78).add(34).add(15).add(23).add(4).add(1).add(100).add(150).add(98).add(12).add(23).add(34).add(45);
         pane.setHeap(heap);
 
-        Scene scene = new Scene(pane, 950, 450);
+        Scene scene = new Scene(pane, 600, 300);
 
         primaryStage.setTitle("Exercise23_10");
         primaryStage.setScene(scene);
@@ -43,31 +45,56 @@ public class PE_23_10_Heap_visualization extends Application {
 
         public void setHeap(Heap<Integer> heap) {
             this.heap = heap;
-            display();
-        }
-
-        private void display() {
+            getChildren().clear();
             display(null, 1, 2, 1, 0);
         }
 
         private void display(Circle parent, int row, int width, int position, int index) {
             if (index > heap.size() - 1) return;
-            Circle circle = getCircle(heap.getHeight(), row, width, position);
-            Text text = new Text(index + "");
-            text.xProperty().bind(circle.centerXProperty());
-            text.yProperty().bind(circle.centerYProperty());
-            getChildren().addAll(circle, text);
-            display(circle, row + 1, width * 2, position, index * 2 + 1);
-            display(circle, row + 1, width * 2, position + 2, index * 2 + 2);
+            Circle circle = generateCircle(row, width, position);
+            Label label = generateLabel(row, width, position, index);
+            getChildren().addAll(circle, label);
+            if (parent != null) {
+                Line line = generateLine(parent, circle);
+                getChildren().add(line);
+            }
+            display(circle, row + 1, width * 2, position * 2 - 1, index * 2 + 1);
+            display(circle, row + 1, width * 2, position * 2 + 1, index * 2 + 2);
         }
 
-        private Circle getCircle(double height, int row, double width, int position) {
+        private Line generateLine(Circle parent, Circle child) {
+            Line line = new Line();
+            DoubleProperty parentRadius = parent.radiusProperty();
+            DoubleProperty childRadius = child.radiusProperty();
+            DoubleProperty x1 = parent.centerXProperty();
+            DoubleProperty x2 = child.centerXProperty();
+            DoubleProperty y1 = parent.centerYProperty();
+            DoubleProperty y2 = child.centerYProperty();
+            DoubleBinding distance = createDoubleBinding(() ->
+                    Math.sqrt(Math.pow(x2.doubleValue() - x1.doubleValue(), 2) + Math.pow(y2.doubleValue() - y1.doubleValue(), 2)
+                    ), x2, x1, y2, y1);
+            line.startXProperty().bind(add(x1, multiply(divide(parentRadius, distance), subtract(x2, x1))));
+            line.startYProperty().bind(add(y1, multiply(divide(parentRadius, distance), subtract(y2, y1))));
+            line.endXProperty().bind(subtract(x2, multiply(divide(childRadius, distance), subtract(x2, x1))));
+            line.endYProperty().bind(subtract(y2, multiply(divide(childRadius, distance), subtract(y2, y1))));
+
+            return line;
+        }
+
+        private Label generateLabel(int row, double width, int position, int index) {
+            Label label = new Label(heap.get(index) + "");
+            label.layoutXProperty().bind(widthProperty().multiply(position / width).subtract(label.widthProperty().divide(2)));
+            label.layoutYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)).subtract(label.heightProperty().divide(2)));
+            return label;
+        }
+
+        private Circle generateCircle(int row, double width, int position) {
             Circle circle = new Circle();
             circle.setFill(Color.WHITE);
             circle.setStroke(Color.BLACK);
             circle.radiusProperty().bind(min(widthProperty(), heightProperty()).multiply(0.07));
             circle.centerXProperty().bind(widthProperty().multiply(position / width));
-            circle.centerYProperty().bind(heightProperty().multiply(row / (height + 1)));
+            circle.centerYProperty().bind(heightProperty().multiply(row / (heap.getHeight() + 1.0)));
             return circle;
         }
     }
@@ -126,6 +153,10 @@ public class PE_23_10_Heap_visualization extends Application {
             }
             height = setHeight();
             return removedObject;
+        }
+
+        public E get(int index) {
+            return list.get(index);
         }
 
         public int size() {
