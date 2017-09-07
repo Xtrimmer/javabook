@@ -3,12 +3,15 @@ package chapter_23;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
+
+import static javafx.beans.binding.Bindings.min;
 
 /**
  * (Heap visualization) Write a program that displays a heap graphically, as shown
@@ -24,10 +27,11 @@ public class PE_23_10_Heap_visualization extends Application {
         HeapPane pane = new HeapPane();
 
         Heap<Integer> heap = new Heap<>();
-        heap.add(2).add(43).add(56).add(78).add(34).add(15).add(23).add(4).add(1);
+        heap.add(2).add(43).add(56).add(78).add(34).add(15);//.add(23).add(4);//.add(1);
+        System.out.println(heap.size());
         pane.setHeap(heap);
 
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane, 950, 450);
 
         primaryStage.setTitle("Exercise23_10");
         primaryStage.setScene(scene);
@@ -35,35 +39,43 @@ public class PE_23_10_Heap_visualization extends Application {
     }
 
     class HeapPane extends Pane {
+        private Heap<Integer> heap;
 
         public void setHeap(Heap<Integer> heap) {
-            List<Integer> list = heap.getList();
-            int height = getHeapHeight(list.size());
-            int index = 0;
-            for (int row = 0; row < height; row++) {
-                int width = (int) Math.pow(2, row);
-                for (int col = 0, place = 1; col < width; col++, place += 2) {
-                    Circle circle = getCircle(height, row, width, place);
-                    getChildren().add(circle);
-                }
-            }
+            this.heap = heap;
+            display();
         }
 
-        private Circle getCircle(double height, int row, double width, int place) {
-            Circle circle = new Circle(15);
-            circle.centerXProperty().bind(widthProperty().multiply(place / (width * 2)));
-            circle.centerYProperty().bind(heightProperty().multiply((row + 1) / (height + 1)));
+        private void display() {
+            display(null, 1, 2, 1, 0);
+        }
+
+        private void display(Circle parent, int row, int width, int position, int index) {
+            if (index > heap.size() - 1) return;
+            Circle circle = getCircle(heap.getHeight(), row, width, position);
+            Text text = new Text(index + "");
+            text.xProperty().bind(circle.centerXProperty());
+            text.yProperty().bind(circle.centerYProperty());
+            getChildren().addAll(circle, text);
+            display(circle, row + 1, width * 2, position, index * 2 + 1);
+            display(circle, row + 1, width * 2, position + 2, index * 2 + 2);
+        }
+
+        private Circle getCircle(double height, int row, double width, int position) {
+            Circle circle = new Circle();
+            circle.setFill(Color.WHITE);
+            circle.setStroke(Color.BLACK);
+            circle.radiusProperty().bind(min(widthProperty(), heightProperty()).multiply(0.07));
+            circle.centerXProperty().bind(widthProperty().multiply(position / width));
+            circle.centerYProperty().bind(heightProperty().multiply(row / (height + 1)));
             return circle;
-        }
-
-        private int getHeapHeight(int size) {
-            return (int) Math.ceil(Math.log(size) / Math.log(2));
         }
     }
 
     class Heap<E extends Comparable<E>> {
         private final Comparator<? super E> comparator = Comparator.naturalOrder();
-        private final java.util.ArrayList<E> list = new java.util.ArrayList<>();
+        private final ArrayList<E> list = new java.util.ArrayList<>();
+        private int height = 0;
 
         public Heap<E> add(E newObject) {
             list.add(newObject);
@@ -78,11 +90,12 @@ public class PE_23_10_Heap_visualization extends Application {
                 } else break;
                 currentIndex = parentIndex;
             }
+            height = setHeight();
             return this;
         }
 
-        public ArrayList<E> getList() {
-            return list;
+        public int getHeight() {
+            return height;
         }
 
         public E remove() {
@@ -111,7 +124,16 @@ public class PE_23_10_Heap_visualization extends Application {
                     currentIndex = maxIndex;
                 } else break;
             }
+            height = setHeight();
             return removedObject;
+        }
+
+        public int size() {
+            return list.size();
+        }
+
+        private int setHeight() {
+            return (int) Math.ceil(Math.log(list.size() + 1) / Math.log(2));
         }
     }
 }
