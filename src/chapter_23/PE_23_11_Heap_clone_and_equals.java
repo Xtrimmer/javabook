@@ -74,10 +74,6 @@ public class PE_23_11_Heap_clone_and_equals {
             return clone;
         }
 
-        public int getSize() {
-            return list.size();
-        }
-
         public E remove() {
             if (list.size() == 0) return null;
 
