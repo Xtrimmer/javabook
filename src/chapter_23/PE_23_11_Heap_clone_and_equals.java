@@ -11,10 +11,13 @@ public class PE_23_11_Heap_clone_and_equals {
         Heap<Character> heap = new Heap<>();
         heap.add('A').add('B').add('C');
 
+        System.out.println("x.clone() != x: " + (heap.clone() != heap));
+        System.out.println("x.clone().getClass() == x.getClass(): " + (heap.clone().getClass() == heap.getClass()));
+        System.out.println("x.clone().equals(x): " + (heap.clone().equals(heap)));
+
         Heap<Character> heapClone = (Heap<Character>) heap.clone();
         heapClone.add('D').add('E').add('F');
 
-        System.out.println("Original.equals(Clone): " + heap.equals(heapClone));
         print("Original:", heap);
         print("Clone:", heapClone);
     }
