@@ -60,8 +60,8 @@ public class PE_23_12_Radix_sort {
         return true;
     }
 
-    private static void radixSort(int[] list, int raddixCount) {
-        for (int radix = 1; radix <= raddixCount; radix++) {
+    private static void radixSort(int[] list, int radixCount) {
+        for (int radix = 1; radix <= radixCount; radix++) {
             List<List<Integer>> buckets = ResetBuckets();
             distributeToBuckets(list, radix, buckets);
             combineBuckets(list, buckets);
