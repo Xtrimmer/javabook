@@ -1,7 +1,5 @@
 package chapter_24;
 
-import java.util.Iterator;
-
 /**
  * (Add set operations in MyList) Define the following methods in MyList and
  * implement them in MyAbstractList:
@@ -32,8 +30,8 @@ import java.util.Iterator;
 public class PE_24_01_Add_set_operations_in_MyList {
 
     public static void main(String[] args) {
-        String[] array1 = {"Tom","George","Peter","Jean","Jane"};
-        String[] array2 = {"Tom","George","Michael","Michelle","Daniel"};
+        String[] array1 = {"Tom", "George", "Peter", "Jean", "Jane"};
+        String[] array2 = {"Tom", "George", "Michael", "Michelle", "Daniel"};
 
         MyArrayList<String> list1 = new MyArrayList<>(array1);
         MyArrayList<String> list2 = new MyArrayList<>(array2);
@@ -68,87 +66,87 @@ public class PE_24_01_Add_set_operations_in_MyList {
         /**
          * Add a new element at the end of this list
          */
-        public void add(E e);
+        void add(E e);
 
         /**
          * Add a new element at the specified index in this list
          */
-        public void add(int index, E e);
+        void add(int index, E e);
+
+        /**
+         * Adds the elements in otherList to this list.
+         * Returns true if this list changed as a result of the call
+         */
+        boolean addAll(MyList<E> otherList);
 
         /**
          * Clear the list
          */
-        public void clear();
+        void clear();
 
         /**
          * Return true if this list contains the element
          */
-        public boolean contains(E e);
+        boolean contains(E e);
 
         /**
          * Return the element from this list at the specified index
          */
-        public E get(int index);
+        E get(int index);
 
         /**
          * Return the index of the first matching element in this list.
          * Return -1 if no match.
          */
-        public int indexOf(E e);
+        int indexOf(E e);
 
         /**
          * Return true if this list doesn't contain any elements
          */
-        public boolean isEmpty();
+        boolean isEmpty();
 
         /**
          * Return the index of the last matching element in this list
          * Return -1 if no match.
          */
-        public int lastIndexOf(E e);
+        int lastIndexOf(E e);
 
         /**
          * Remove the first occurrence of the element e from this list.
          * Shift any subsequent elements to the left.
          * Return true if the element is removed.
          */
-        public boolean remove(E e);
+        boolean remove(E e);
 
         /**
          * Remove the element at the specified position in this list.
          * Shift any subsequent elements to the left.
          * Return the element that was removed from the list.
          */
-        public E remove(int index);
-
-        /**
-         * Replace the element at the specified position in this list
-         * with the specified element and return the old element.
-         */
-        public Object set(int index, E e);
-
-        /**
-         * Return the number of elements in this list
-         */
-        public int size();
-
-        /**
-         * Adds the elements in otherList to this list.
-         * Returns true if this list changed as a result of the call
-         */
-        public boolean addAll(MyList<E> otherList);
+        E remove(int index);
 
         /**
          * Removes all the elements in otherList from this list
          * Returns true if this list changed as a result of the call
          */
-        public boolean removeAll(MyList<E> otherList);
+        boolean removeAll(MyList<E> otherList);
 
         /**
          * Retains the elements in this list that are also in otherList
          * Returns true if this list changed as a result of the call
          */
-        public boolean retainAll(MyList<E> otherList);
+        boolean retainAll(MyList<E> otherList);
+
+        /**
+         * Replace the element at the specified position in this list
+         * with the specified element and return the old element.
+         */
+        Object set(int index, E e);
+
+        /**
+         * Return the number of elements in this list
+         */
+        int size();
     }
 
     public static abstract class MyAbstractList<E> implements MyList<E> {
@@ -158,44 +156,6 @@ public class PE_24_01_Add_set_operations_in_MyList {
          * Create a default list
          */
         protected MyAbstractList() {
-        }
-
-        /**
-         * Adds the elements in otherList to this list.
-         * Returns true if this list changed as a result of the call
-         */
-        @Override
-        public boolean addAll(MyList<E> otherList) {
-            for (E e : otherList) {
-                add(e);
-            }
-            return true;
-        }
-
-        /**
-         * Removes all the elements in otherList from this list
-         * Returns true if this list changed as a result of the call
-         */
-        @Override
-        public boolean removeAll(MyList<E> otherList) {
-            for (E e : otherList) {
-                while (contains(e)) {
-                    remove(e);
-                }
-            }
-            return true;
-        }
-
-        /**
-         * Retains the elements in this list that are also in otherList
-         * Returns true if this list changed as a result of the call
-         */
-        @Override
-        public boolean retainAll(MyList<E> otherList) {
-            for (E e : otherList) {
-
-            }
-            return true;
         }
 
         /**
@@ -211,6 +171,55 @@ public class PE_24_01_Add_set_operations_in_MyList {
         public void add(E e) {
             add(size, e);
         }
+
+        /**
+         * Adds the elements in otherList to this list.
+         * Returns true if this list changed as a result of the call
+         */
+        @Override
+        public boolean addAll(MyList<E> otherList) {
+            if (otherList == null) throw new IllegalArgumentException("otherList cannot be null");
+            int sizeBeforeAddition = size();
+            for (E e : otherList) {
+                add(e);
+            }
+            return size > sizeBeforeAddition;
+        }
+
+        /**
+         * Removes all the elements in otherList from this list
+         * Returns true if this list changed as a result of the call
+         */
+        @Override
+        public boolean removeAll(MyList<E> otherList) {
+            if (otherList == null) throw new IllegalArgumentException("otherList cannot be null");
+            int sizeBeforeAddition = size();
+            for (E e : otherList) {
+                while (contains(e)) {
+                    remove(e);
+                }
+            }
+            return size < sizeBeforeAddition;
+        }
+
+        /**
+         * Retains the elements in this list that are also in otherList
+         * Returns true if this list changed as a result of the call
+         */
+        @Override
+        public boolean retainAll(MyList<E> otherList) {
+            if (otherList == null) throw new IllegalArgumentException("otherList cannot be null");
+            int sizeBeforeAddition = size();
+            int length = size() - 1;
+            for (int i = length; i >= 0; i--) {
+                E e = get(i);
+                if (!otherList.contains(e)) {
+                    remove(e);
+                }
+            }
+            return size < sizeBeforeAddition;
+        }
+
 
         @Override
         /** Return true if this list doesn't contain any elements */
@@ -256,6 +265,35 @@ public class PE_24_01_Add_set_operations_in_MyList {
         }
 
         @Override
+        /** Override iterator() defined in Iterable */
+        public java.util.Iterator<E> iterator() {
+            return new ArrayListIterator();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder result = new StringBuilder("[");
+
+            for (int i = 0; i < size; i++) {
+                result.append(data[i]);
+                if (i < size - 1) result.append(", ");
+            }
+
+            return result.toString() + "]";
+        }
+
+        /**
+         * Trims the capacity to current size
+         */
+        public void trimToSize() {
+            if (size != data.length) {
+                E[] newData = (E[]) (new Object[size]);
+                System.arraycopy(data, 0, newData, 0, size);
+                data = newData;
+            } // If size == capacity, no need to trim
+        }
+
+        @Override
         /** Add a new element at the specified index */
         public void add(int index, E e) {
             ensureCapacity();
@@ -271,6 +309,12 @@ public class PE_24_01_Add_set_operations_in_MyList {
             size++;
         }
 
+        private void checkIndex(int index) {
+            if (index < 0 || index >= size)
+                throw new IndexOutOfBoundsException
+                        ("index " + index + " out of bounds");
+        }
+
         /**
          * Create a new larger array, double the current size + 1
          */
@@ -279,6 +323,26 @@ public class PE_24_01_Add_set_operations_in_MyList {
                 E[] newData = (E[]) (new Object[size * 2 + 1]);
                 System.arraycopy(data, 0, newData, 0, size);
                 data = newData;
+            }
+        }
+
+        private class ArrayListIterator
+                implements java.util.Iterator<E> {
+            private int current = 0; // Current index
+
+            @Override
+            public boolean hasNext() {
+                return (current < size);
+            }
+
+            @Override
+            public E next() {
+                return data[current++];
+            }
+
+            @Override
+            public void remove() {
+                MyArrayList.this.remove(current);
             }
         }
 
@@ -305,11 +369,6 @@ public class PE_24_01_Add_set_operations_in_MyList {
             return data[index];
         }
 
-        private void checkIndex(int index) {
-            if (index < 0 || index >= size)
-                throw new IndexOutOfBoundsException
-                        ("index " + index + " out of bounds");
-        }
 
         @Override
         /** Return the index of the first matching element
@@ -362,53 +421,12 @@ public class PE_24_01_Add_set_operations_in_MyList {
             return old;
         }
 
-        @Override
-        public String toString() {
-            StringBuilder result = new StringBuilder("[");
 
-            for (int i = 0; i < size; i++) {
-                result.append(data[i]);
-                if (i < size - 1) result.append(", ");
-            }
 
-            return result.toString() + "]";
-        }
 
-        /**
-         * Trims the capacity to current size
-         */
-        public void trimToSize() {
-            if (size != data.length) {
-                E[] newData = (E[]) (new Object[size]);
-                System.arraycopy(data, 0, newData, 0, size);
-                data = newData;
-            } // If size == capacity, no need to trim
-        }
 
-        @Override
-        /** Override iterator() defined in Iterable */
-        public java.util.Iterator<E> iterator() {
-            return new ArrayListIterator();
-        }
 
-        private class ArrayListIterator
-                implements java.util.Iterator<E> {
-            private int current = 0; // Current index
 
-            @Override
-            public boolean hasNext() {
-                return (current < size);
-            }
 
-            @Override
-            public E next() {
-                return data[current++];
-            }
-
-            @Override
-            public void remove() {
-                MyArrayList.this.remove(current);
-            }
-        }
     }
 }
