@@ -214,7 +214,7 @@ public class PE_24_01_Add_set_operations_in_MyList {
             for (int i = length; i >= 0; i--) {
                 E e = get(i);
                 if (!otherList.contains(e)) {
-                    remove(e);
+                    remove(i);
                 }
             }
             return size < sizeBeforeAddition;
